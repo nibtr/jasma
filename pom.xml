@@ -11,4 +11,14 @@
         <maven.compiler.target>16</maven.compiler.target>
         <exec.mainClass>com.mycompany.cafe_management_app.Cafe_management_app</exec.mainClass>
     </properties>
+    
+    <dependencies>
+    <!-- Hibernate ORM -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.1.7.Final</version>
+        </dependency>
+    </dependencies>
+
 </project>
