@@ -18,7 +18,7 @@ public class LoginController {
     }
 
     private class SignInButtonListener implements ActionListener {
-
+    
         @Override
         public void actionPerformed(ActionEvent e) {
             String username = loginUI.getUsernameField();
@@ -35,7 +35,9 @@ public class LoginController {
             }
         }
     }
-    
-    
 
+    public LoginUI getLoginUI() {
+        return loginUI;
+    }
 }
+
