@@ -6,13 +6,16 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.util.PasswordUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -20,7 +23,6 @@ import org.hibernate.Transaction;
  */
 public class AccountDao implements DaoInterface<Account>{
     
-    @Override
     public Account getById(Long id) {
         Account account = null;
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
@@ -41,6 +43,31 @@ public class AccountDao implements DaoInterface<Account>{
         }  
         
         return account;
+    }
+    
+    public Account getAccountByUsername(String username) {
+        String hql = "FROM Account a WHERE a.username = :username";
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery(hql);
+            query.setParameter("username", username);
+            List<Account> accounts = query.list();
+            tx.commit(); 
+            
+            return accounts.isEmpty() ? null : accounts.get(0);
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            
+            return null;
+        } finally {
+            session.close();
+        } 
     }
 
     @Override
@@ -72,6 +99,9 @@ public class AccountDao implements DaoInterface<Account>{
 
     @Override
     public void save(Account t) {
+        String hashedPassword = PasswordUtil.hash(t.getPassword());
+        t.setPassword(hashedPassword);
+        
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         
