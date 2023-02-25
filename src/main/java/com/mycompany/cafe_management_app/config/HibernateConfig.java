@@ -29,6 +29,7 @@ public class HibernateConfig {
                 configuration.setProperty("hibernate.connection.password", "root");
                 configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
                 configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+                configuration.setProperty("hibernate.current_session_context_class", "thread");
                 
 //                Add new POJOs here
                 configuration.addAnnotatedClass(Account.class);
