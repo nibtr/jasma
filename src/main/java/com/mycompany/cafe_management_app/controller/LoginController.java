@@ -19,12 +19,16 @@ public class LoginController {
                 String password = loginUI.getPasswordField();
 
                 // Check username and password
-                // if (loginService.authenticate(username, password))) {
-                //     JOptionPane.showMessageDialog(loginUI, "Successful!");
-                // } else {
-                //     JOptionPane.showMessageDialog(loginUI, "Failed!");
-                // }
+                if (username.equals("admin") && password.equals("admin")) {
+                    JOptionPane.showMessageDialog(loginUI, "Successful!");
+                } else {
+                    JOptionPane.showMessageDialog(loginUI, "Failed!");
+                }
             }
         });
+    }
+
+    public LoginUI getLoginUI() {
+        return loginUI;
     }
 }

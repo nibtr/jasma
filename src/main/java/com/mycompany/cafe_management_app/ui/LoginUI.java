@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.cafe_management_app.ui;
+import com.mycompany.cafe_management_app.controller.LoginController;
 
 import java.awt.Color;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -75,11 +75,6 @@ public class LoginUI extends javax.swing.JFrame {
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 UsernameFieldFocusLost(evt);
-            }
-        });
-        UsernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsernameFieldActionPerformed(evt);
             }
         });
 
@@ -164,21 +159,17 @@ public class LoginUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_UsernameFieldActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_UsernameFieldActionPerformed
 
     private void SigninButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SigninButtonActionPerformed
         String username = UsernameField.getText();
         String password = PasswordField.getText();
-        if (username.equals("admin") && password.equals("admin")) {
-            JOptionPane.showMessageDialog(null, "Login Successful");
-            this.dispose();
-            // homeUI.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Login Failed");
-        }
-    }// GEN-LAST:event_SigninButtonActionPerformed
+        LoginController controller = new LoginController(new LoginUI());
+        controller.getLoginUI().setUsernameField(username);
+        controller.getLoginUI().setPasswordField(password);
+        controller.getLoginUI().getSigninButton().doClick();
+    }
+
+    // GEN-LAST:event_SigninButtonActionPerformed
 
     private void UsernameFieldFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_UsernameFieldFocusGained
         if (UsernameField.getText().equals("Enter Username")) {
