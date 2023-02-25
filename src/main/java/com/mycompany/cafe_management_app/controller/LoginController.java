@@ -11,20 +11,25 @@ public class LoginController {
 
     public LoginController(LoginUI loginUI) {
         this.loginUI = loginUI;
-
-        loginUI.getSigninButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = loginUI.getUsernameField();
-                String password = loginUI.getPasswordField();
-
-                // Check username and password
-                // if (loginService.authenticate(username, password))) {
-                //     JOptionPane.showMessageDialog(loginUI, "Successful!");
-                // } else {
-                //     JOptionPane.showMessageDialog(loginUI, "Failed!");
-                // }
-            }
-        });
+        this.loginUI.getSigninButton().addActionListener(new SignInButtonListener());
     }
+
+    private static class SignInButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+//            String username = loginUI.getUsernameField();
+//            String password = loginUI.getPasswordField();
+
+            // Check username and password
+            // if (loginService.authenticate(username, password))) {
+            //     JOptionPane.showMessageDialog(loginUI, "Successful!");
+            // } else {
+            //     JOptionPane.showMessageDialog(loginUI, "Failed!");
+            // }
+        }
+    }
+    
+    
+
 }
