@@ -4,6 +4,10 @@
 
 package com.mycompany.cafe_management_app;
 
+import com.mycompany.cafe_management_app.config.HibernateConfig;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 /**
  *
  * @author Hieu
@@ -11,6 +15,8 @@ package com.mycompany.cafe_management_app;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+//        Test JDBC connection
+        SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
+        Session session = sessionFactory.openSession();
     }
 }
