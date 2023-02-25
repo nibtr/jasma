@@ -4,10 +4,17 @@
  */
 package com.mycompany.cafe_management_app.dao;
 
+import java.util.List;
+
+
+
 /**
  *
  * @author Hieu
  */
-public interface DaoInterface {
-    
+public interface DaoInterface<T> {
+    List<T> getAll();
+    void save(T t);
+    void update(T t);
+    void delele(T t);
 }
