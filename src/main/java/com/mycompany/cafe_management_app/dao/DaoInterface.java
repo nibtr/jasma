@@ -4,6 +4,7 @@
  */
 package com.mycompany.cafe_management_app.dao;
 
+import com.mycompany.cafe_management_app.model.Menu;
 import java.util.List;
 
 
@@ -17,4 +18,5 @@ public interface DaoInterface<T> {
     void save(T t);
     void update(T t);
     void delele(T t);
+    Menu findByName(T t);
 }
