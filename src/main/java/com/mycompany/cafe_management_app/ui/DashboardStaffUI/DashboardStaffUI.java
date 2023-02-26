@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.cafe_management_app.ui.DashboardAdminUI;
+package com.mycompany.cafe_management_app.ui.DashboardStaffUI;
 
+import com.mycompany.cafe_management_app.ui.DashboardAdminUI.*;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -13,7 +14,7 @@ import javax.swing.JPanel;
  *
  * @author namho
  */
-public class DashboardAdminUI extends javax.swing.JFrame {
+public class DashboardStaffUI extends javax.swing.JFrame {
 
     /**
      * Creates new form DashboardAdminUI
@@ -31,10 +32,10 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         btn.setBackground(Color.getColor("#333333"));
     }
     
-    public DashboardAdminUI() {
+    public DashboardStaffUI() {
         initComponents();
         cards = (CardLayout)(cardLayout.getLayout());
-        selectBtn(navItemStaff);  
+        selectBtn(navItemOrder);  
     }
     
     public JPanel getListStaff() {
@@ -52,23 +53,22 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        navItemStaff = new javax.swing.JButton();
+        navItemOrder = new javax.swing.JButton();
         navItemMenu = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
-        panelStaff = new javax.swing.JPanel();
-        bgStaffPage = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
-        headerStaffPage = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        panelOrder = new javax.swing.JPanel();
+        bgOrderPage = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
+        headerOrderPage = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        contentStaffPage = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        revenuLabel = new javax.swing.JLabel();
+        contentOrderPage = new javax.swing.JPanel();
         scrollPanelStaff = new javax.swing.JScrollPane();
         bgScrollPanelStaff = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
         bgMenuPage = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
         headerMenuPage = new javax.swing.JPanel();
-        addInventoryBtn = new javax.swing.JButton();
         contentMenuPage = new javax.swing.JPanel();
         scrollPanelMenu = new javax.swing.JScrollPane();
         bgScrollPanelMenu = new javax.swing.JPanel();
@@ -97,28 +97,28 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
 
-        navItemStaff.setBackground(new java.awt.Color(51, 51, 51));
-        navItemStaff.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        navItemStaff.setForeground(new java.awt.Color(255, 255, 255));
-        navItemStaff.setText("Staff");
-        navItemStaff.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        navItemStaff.setBorderPainted(false);
-        navItemStaff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        navItemStaff.setFocusPainted(false);
-        navItemStaff.setMaximumSize(new java.awt.Dimension(39, 35));
-        navItemStaff.setMinimumSize(new java.awt.Dimension(39, 35));
-        navItemStaff.setPreferredSize(new java.awt.Dimension(39, 35));
-        navItemStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+        navItemOrder.setBackground(new java.awt.Color(51, 51, 51));
+        navItemOrder.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        navItemOrder.setForeground(new java.awt.Color(255, 255, 255));
+        navItemOrder.setText("Order");
+        navItemOrder.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        navItemOrder.setBorderPainted(false);
+        navItemOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        navItemOrder.setFocusPainted(false);
+        navItemOrder.setMaximumSize(new java.awt.Dimension(39, 35));
+        navItemOrder.setMinimumSize(new java.awt.Dimension(39, 35));
+        navItemOrder.setPreferredSize(new java.awt.Dimension(39, 35));
+        navItemOrder.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                navItemStaffMouseClicked(evt);
+                navItemOrderMouseClicked(evt);
             }
         });
-        navItemStaff.addActionListener(new java.awt.event.ActionListener() {
+        navItemOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                navItemStaffActionPerformed(evt);
+                navItemOrderActionPerformed(evt);
             }
         });
-        jPanel2.add(navItemStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 190, -1));
+        jPanel2.add(navItemOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 190, -1));
 
         navItemMenu.setBackground(new java.awt.Color(51, 51, 51));
         navItemMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -147,66 +147,64 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         cardLayout.setPreferredSize(new java.awt.Dimension(820, 600));
         cardLayout.setLayout(new java.awt.CardLayout());
 
-        panelStaff.setBackground(new java.awt.Color(255, 255, 255));
-        panelStaff.setLayout(null);
+        panelOrder.setBackground(new java.awt.Color(255, 255, 255));
+        panelOrder.setLayout(null);
 
-        bgStaffPage.setLayout(new javax.swing.BoxLayout(bgStaffPage, javax.swing.BoxLayout.Y_AXIS));
+        bgOrderPage.setLayout(new javax.swing.BoxLayout(bgOrderPage, javax.swing.BoxLayout.Y_AXIS));
 
-        headerStaffPage.setBackground(new java.awt.Color(255, 255, 255));
-        headerStaffPage.setMaximumSize(new java.awt.Dimension(820, 32));
-        headerStaffPage.setMinimumSize(new java.awt.Dimension(820, 32));
-        headerStaffPage.setPreferredSize(new java.awt.Dimension(820, 32));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Name");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel4.setText("Phone Number");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Date of Birth");
+        headerOrderPage.setBackground(new java.awt.Color(255, 255, 255));
+        headerOrderPage.setMaximumSize(new java.awt.Dimension(820, 32));
+        headerOrderPage.setMinimumSize(new java.awt.Dimension(820, 32));
+        headerOrderPage.setPreferredSize(new java.awt.Dimension(820, 32));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("new Staff +");
+        jButton1.setText("new Order +");
         jButton1.setActionCommand("addStaffBtn");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setFocusPainted(false);
 
-        javax.swing.GroupLayout headerStaffPageLayout = new javax.swing.GroupLayout(headerStaffPage);
-        headerStaffPage.setLayout(headerStaffPageLayout);
-        headerStaffPageLayout.setHorizontalGroup(
-            headerStaffPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerStaffPageLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Orders Today !");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setText("Revenu today:");
+
+        revenuLabel.setForeground(new java.awt.Color(0, 153, 102));
+        revenuLabel.setText("300 000");
+
+        javax.swing.GroupLayout headerOrderPageLayout = new javax.swing.GroupLayout(headerOrderPage);
+        headerOrderPage.setLayout(headerOrderPageLayout);
+        headerOrderPageLayout.setHorizontalGroup(
+            headerOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerOrderPageLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(153, 153, 153)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(revenuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addGap(17, 17, 17))
         );
-        headerStaffPageLayout.setVerticalGroup(
-            headerStaffPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerStaffPageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerStaffPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        headerOrderPageLayout.setVerticalGroup(
+            headerOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerOrderPageLayout.createSequentialGroup()
+                .addGroup(headerOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel3)
+                    .addComponent(revenuLabel)
                     .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        bgStaffPage.add(headerStaffPage);
+        bgOrderPage.add(headerOrderPage);
 
-        contentStaffPage.setBackground(new java.awt.Color(255, 255, 255));
+        contentOrderPage.setBackground(new java.awt.Color(255, 255, 255));
 
         scrollPanelStaff.setBackground(new java.awt.Color(255, 255, 255));
         scrollPanelStaff.setForeground(new java.awt.Color(255, 255, 255));
@@ -216,23 +214,23 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         bgScrollPanelStaff.setLayout(new javax.swing.BoxLayout(bgScrollPanelStaff, javax.swing.BoxLayout.Y_AXIS));
         scrollPanelStaff.setViewportView(bgScrollPanelStaff);
 
-        javax.swing.GroupLayout contentStaffPageLayout = new javax.swing.GroupLayout(contentStaffPage);
-        contentStaffPage.setLayout(contentStaffPageLayout);
-        contentStaffPageLayout.setHorizontalGroup(
-            contentStaffPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout contentOrderPageLayout = new javax.swing.GroupLayout(contentOrderPage);
+        contentOrderPage.setLayout(contentOrderPageLayout);
+        contentOrderPageLayout.setHorizontalGroup(
+            contentOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrollPanelStaff)
         );
-        contentStaffPageLayout.setVerticalGroup(
-            contentStaffPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        contentOrderPageLayout.setVerticalGroup(
+            contentOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrollPanelStaff, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        bgStaffPage.add(contentStaffPage);
+        bgOrderPage.add(contentOrderPage);
 
-        panelStaff.add(bgStaffPage);
-        bgStaffPage.setBounds(0, 0, 820, 600);
+        panelOrder.add(bgOrderPage);
+        bgOrderPage.setBounds(0, 0, 820, 600);
 
-        cardLayout.add(panelStaff, "cardStaff");
+        cardLayout.add(panelOrder, "cardStaff");
 
         panelMenu.setBackground(new java.awt.Color(255, 255, 255));
         panelMenu.setLayout(null);
@@ -244,30 +242,16 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         headerMenuPage.setOpaque(false);
         headerMenuPage.setPreferredSize(new java.awt.Dimension(820, 32));
 
-        addInventoryBtn.setBackground(new java.awt.Color(255, 255, 255));
-        addInventoryBtn.setForeground(new java.awt.Color(51, 51, 51));
-        addInventoryBtn.setText("new Inventory +");
-        addInventoryBtn.setActionCommand("addInventoryBtn");
-        addInventoryBtn.setBorder(null);
-
         javax.swing.GroupLayout headerMenuPageLayout = new javax.swing.GroupLayout(headerMenuPage);
         headerMenuPage.setLayout(headerMenuPageLayout);
         headerMenuPageLayout.setHorizontalGroup(
             headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerMenuPageLayout.createSequentialGroup()
-                .addContainerGap(707, Short.MAX_VALUE)
-                .addComponent(addInventoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+            .addGap(0, 820, Short.MAX_VALUE)
         );
         headerMenuPageLayout.setVerticalGroup(
             headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerMenuPageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addInventoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 32, Short.MAX_VALUE)
         );
-
-        addInventoryBtn.getAccessibleContext().setAccessibleName("addInventoryBtn");
 
         bgMenuPage.add(headerMenuPage);
 
@@ -318,10 +302,10 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void navItemStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navItemStaffActionPerformed
+    private void navItemOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navItemOrderActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_navItemStaffActionPerformed
+    }//GEN-LAST:event_navItemOrderActionPerformed
 
     private void navItemMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navItemMenuActionPerformed
         // TODO add your handling code here:
@@ -332,16 +316,16 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         // TODO add your handling code here:
          cards.show(cardLayout, "cardMenu");
          selectBtn(navItemMenu);
-         unselectBtn(navItemStaff);
+         unselectBtn(navItemOrder);
     }//GEN-LAST:event_navItemMenuMouseClicked
 
-    private void navItemStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navItemStaffMouseClicked
+    private void navItemOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navItemOrderMouseClicked
         // TODO add your handling code here:
         cards.show(cardLayout, "cardStaff");
-        navItemStaff.setBackground(Color.red);
-        selectBtn(navItemStaff);
+        navItemOrder.setBackground(Color.red);
+        selectBtn(navItemOrder);
         unselectBtn(navItemMenu );
-    }//GEN-LAST:event_navItemStaffMouseClicked
+    }//GEN-LAST:event_navItemOrderMouseClicked
     
     /**
      * @param args the command line arguments
@@ -360,46 +344,48 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DashboardAdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DashboardStaffUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DashboardAdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DashboardStaffUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DashboardAdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DashboardStaffUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DashboardAdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DashboardStaffUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DashboardAdminUI().setVisible(true);
+                new DashboardStaffUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addInventoryBtn;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgMenuPage;
+    private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgOrderPage;
     private javax.swing.JPanel bgScrollPanelMenu;
     private javax.swing.JPanel bgScrollPanelStaff;
-    private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgStaffPage;
     private javax.swing.JPanel cardLayout;
     private javax.swing.JPanel contentMenuPage;
-    private javax.swing.JPanel contentStaffPage;
+    private javax.swing.JPanel contentOrderPage;
     private javax.swing.JPanel headerMenuPage;
-    private javax.swing.JPanel headerStaffPage;
+    private javax.swing.JPanel headerOrderPage;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton navItemMenu;
-    private javax.swing.JButton navItemStaff;
+    private javax.swing.JButton navItemOrder;
     private javax.swing.JPanel panelMenu;
-    private javax.swing.JPanel panelStaff;
+    private javax.swing.JPanel panelOrder;
+    private javax.swing.JLabel revenuLabel;
     private javax.swing.JScrollPane scrollPanelMenu;
     private javax.swing.JScrollPane scrollPanelStaff;
     // End of variables declaration//GEN-END:variables
