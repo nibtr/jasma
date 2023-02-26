@@ -4,66 +4,48 @@
  */
 package com.mycompany.cafe_management_app.util;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
-import java.util.Base64;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
  * @author Hieu
  */
 public class PasswordUtil {
-    private static final int SALT_LENGTH = 16; // in bytes
-    private static final int ITERATIONS = 10000;
-    private static final int KEY_LENGTH = 256; // in bits
+    private static final int LOG_ROUNDS = 12;
     
     public static String hash(String password) {
         try {
-            // Generate a random salt
-            SecureRandom random = new SecureRandom();
-            byte[] salt = new byte[SALT_LENGTH];
-            random.nextBytes(salt);
+            String salt = BCrypt.gensalt(LOG_ROUNDS);
+            String hashedPassword = BCrypt.hashpw(password, salt);
+            String storedPassword = salt + ":" + hashedPassword;
             
-//            Hash the password with the salt
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS, KEY_LENGTH);
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            byte[] hash = factory.generateSecret(spec).getEncoded();
+            return storedPassword;
             
-//            Concatenate the salt to the hashed password
-            String saltAndHash = Base64.getEncoder().encodeToString(salt) + ":" + Base64.getEncoder().encodeToString(hash);
-            
-            return saltAndHash;
-        } catch (NoSuchAlgorithmException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return null;
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(PasswordUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
     
-    public static boolean comparePassword(String inputPassword, String storedSaltAndHash) {
+    public static boolean comparePassword(String inputPassword, String storedPassword) {
         try {
 //            Split the salt and hash into seperate strings
-            String[] parts = storedSaltAndHash.split(":");
-            byte[] storedSalt = Base64.getDecoder().decode(parts[0]);
-            byte[] storedHash = Base64.getDecoder().decode(parts[1]);
+            String[] parts = storedPassword.split(":");
+            String storedSalt = parts[0];
+            String storedHashedPassword = parts[1];
             
 //            Hash the input password with the stored salt
-            KeySpec storedSpec = new PBEKeySpec(inputPassword.toCharArray(), storedSalt, ITERATIONS, KEY_LENGTH);
-            SecretKeyFactory storedFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            byte[] inputHash = storedFactory.generateSecret(storedSpec).getEncoded();
+            String inputHashedPassword = BCrypt.hashpw(inputPassword, storedSalt);
             
             // Compare the stored hash with the input hash
-            return MessageDigest.isEqual(storedHash, inputHash);
+            return BCrypt.checkpw(inputHashedPassword, storedHashedPassword);
 
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

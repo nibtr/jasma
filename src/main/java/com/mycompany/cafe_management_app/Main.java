@@ -4,16 +4,19 @@
 
 package com.mycompany.cafe_management_app;
 
-import com.mycompany.cafe_management_app.controller.DashboardAdminController;
-import com.mycompany.cafe_management_app.controller.DashboardStaffController;
+import com.mycompany.cafe_management_app.dao.AccountDao;
+import com.mycompany.cafe_management_app.model.Account;
+
 /**
  *
  * @author Hieu
  */
 public class Main {
 
-  public static void main(String[] args) {
-//    new DashboardAdminController();
-    new DashboardStaffController();
-  }
+    public static void main(String[] args) {
+        Account account = new Account("staff1", "staff1", "staff");
+        AccountDao accountDao = new AccountDao();
+        accountDao.save(account);
+//        accountDao.delele(accountDao.getAccountByUsername("admin"));
+    }
 }
