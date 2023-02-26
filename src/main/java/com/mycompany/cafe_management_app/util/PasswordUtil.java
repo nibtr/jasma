@@ -17,9 +17,8 @@ public class PasswordUtil {
         try {
             String salt = BCrypt.gensalt(LOG_ROUNDS);
             String hashedPassword = BCrypt.hashpw(password, salt);
-            String storedPassword = salt + ":" + hashedPassword;
             
-            return storedPassword;
+            return hashedPassword;
             
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -32,16 +31,7 @@ public class PasswordUtil {
     
     public static boolean comparePassword(String inputPassword, String storedPassword) {
         try {
-//            Split the salt and hash into seperate strings
-            String[] parts = storedPassword.split(":");
-            String storedSalt = parts[0];
-            String storedHashedPassword = parts[1];
-            
-//            Hash the input password with the stored salt
-            String inputHashedPassword = BCrypt.hashpw(inputPassword, storedSalt);
-            
-            // Compare the stored hash with the input hash
-            return BCrypt.checkpw(inputHashedPassword, storedHashedPassword);
+            return BCrypt.checkpw(inputPassword, storedPassword);
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

@@ -15,9 +15,7 @@ import java.util.List;
  */
 public interface DaoInterface<T> {
     List<T> getAll();
-//    T getById(Long id);
     void save(T t);
     void update(T t);
     void delele(T t);
-    Menu findByName(T t);
 }
