@@ -27,6 +27,7 @@ public class Menu {
 
 
     public Menu() {
+//        required by Hibernate
     }
 
     public Menu(String name) {

@@ -4,9 +4,10 @@
 
 package com.mycompany.cafe_management_app;
 
-import com.mycompany.cafe_management_app.dao.AccountDao;
 import com.mycompany.cafe_management_app.model.Account;
-import com.mycompany.cafe_management_app.service.LoginService;
+import com.mycompany.cafe_management_app.model.Staff;
+import com.mycompany.cafe_management_app.service.AdminService;
+import java.time.LocalDate;
 
 /**
  *
@@ -15,12 +16,19 @@ import com.mycompany.cafe_management_app.service.LoginService;
 public class Main {
 
     public static void main(String[] args) {
+        Staff staff = new Staff(
+                "Hieu",
+                LocalDate.of(2002, 6, 1),
+                "0777058016",
+                "admin"
+        );
         Account account = new Account("admin", "admin", "admin");
-        AccountDao accountDao = new AccountDao();
-//        accountDao.save(account);
-//        accountDao.delele(accountDao.getAccountByUsername("admin"));
+        staff.setAccount(account);
+        
+        AdminService adminService = new AdminService();
+//        adminService.saveStaff(staff);
+        
+        System.out.println(adminService.getAllStaff().get(0).getAccount().getUsername());
 
-        LoginService loginService = new LoginService();
-        System.out.println(loginService.authenticate("admin", "admin"));
     }
 }
