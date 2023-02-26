@@ -105,9 +105,7 @@ public class MenuDao implements DaoInterface<Menu> {
         }
     }
 
-
-    @Override
-    public Menu findByName(Menu t) {
+    public Menu findByName(String name) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         Menu menu = null;

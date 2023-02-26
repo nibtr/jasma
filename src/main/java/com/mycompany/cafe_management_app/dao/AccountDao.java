@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.model.Menu;
 import com.mycompany.cafe_management_app.util.PasswordUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
