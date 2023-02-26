@@ -7,7 +7,6 @@ package com.mycompany.cafe_management_app;
 import com.mycompany.cafe_management_app.dao.AccountDao;
 import com.mycompany.cafe_management_app.model.Account;
 
-
 /**
  *
  * @author Hieu
