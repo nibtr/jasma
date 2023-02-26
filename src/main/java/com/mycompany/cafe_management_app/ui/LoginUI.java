@@ -5,7 +5,6 @@
 package com.mycompany.cafe_management_app.ui;
 import com.mycompany.cafe_management_app.controller.LoginController;
 
-import java.awt.Color;
 
 /**
  *
@@ -43,6 +42,7 @@ public class LoginUI extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(1000, 600));
         jPanel3.setVerifyInputWhenFocusTarget(false);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/cafe_management_app/asset/image/laca.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -52,32 +52,6 @@ public class LoginUI extends javax.swing.JFrame {
 
         jLabel3.setText("Password:");
 
-        passwordField.setForeground(new java.awt.Color(153, 153, 153));
-        passwordField.setText("Enter Password");
-        passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                passwordFieldFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                passwordFieldFocusLost(evt);
-            }
-        });
-        passwordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordFieldActionPerformed(evt);
-            }
-        });
-
-        userNameField.setForeground(new java.awt.Color(153, 153, 153));
-        userNameField.setText("Enter Username");
-        userNameField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                userNameFieldFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                userNameFieldFocusLost(evt);
-            }
-        });
 
         signinButton.setText("Sign in");
         signinButton.addActionListener(new java.awt.event.ActionListener() {
@@ -154,43 +128,16 @@ public class LoginUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SigninButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SigninButtonActionPerformed
-        String username = UsernameField.getText();
-        String password = PasswordField.getText();
-        LoginController controller = new LoginController(new LoginUI());
-        controller.getLoginUI().setUsernameField(username);
-        controller.getLoginUI().setPasswordField(password);
-        controller.getLoginUI().getSigninButton().doClick();
+    private void signinButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_signinButtonActionPerformed
+        String username = userNameField.getText();
+        String password = passwordField.getText();
+        LoginController controller = new LoginController(new LoginUI(), null);
+        controller.getLoginUI().setuserNameField(username);
+        controller.getLoginUI().setpasswordField(password);
+        controller.getLoginUI().getsigninButton().doClick();
     }
 
-    // GEN-LAST:event_SigninButtonActionPerformed
-    private void UsernameFieldFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_UsernameFieldFocusGained
-        if (UsernameField.getText().equals("Enter Username")) {
-            UsernameField.setText("");
-            UsernameField.setForeground(new Color(153, 153, 153));
-        }
-    }// GEN-LAST:event_UsernameFieldFocusGained
-
-    private void UsernameFieldFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_UsernameFieldFocusLost
-        if (UsernameField.getText().equals("")) {
-            UsernameField.setText("Enter Username");
-            UsernameField.setForeground(new Color(153, 153, 153));
-        }
-    }// GEN-LAST:event_UsernameFieldFocusLost
-
-    private void PasswordFieldFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_PasswordFieldFocusGained
-        if (PasswordField.getText().equals("Enter Password")) {
-            PasswordField.setText("");
-            PasswordField.setForeground(new Color(153, 153, 153));
-        }
-    }// GEN-LAST:event_PasswordFieldFocusGained
-
-    private void PasswordFieldFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_PasswordFieldFocusLost
-        if (PasswordField.getText().equals("")) {
-            PasswordField.setText("Enter Password");
-            PasswordField.setForeground(new Color(153, 153, 153));
-        }
-    }// GEN-LAST:event_PasswordFieldFocusLost
+    // GEN-LAST:event_signinButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,24 +189,24 @@ public class LoginUI extends javax.swing.JFrame {
     private javax.swing.JTextField userNameField;
     // End of variables declaration//GEN-END:variables
 
-    public String getUsernameField() {
-        return UsernameField.getText();
+    public String getuserNameField() {
+        return userNameField.getText();
     }
 
-    public String getPasswordField() {
-        return PasswordField.getText();
+    public String getpasswordField() {
+        return passwordField.getText();
     }
 
-    public void setUsernameField(String username) {
-        UsernameField.setText(username);
+    public void setuserNameField(String username) {
+        userNameField.setText(username);
     }
 
-    public void setPasswordField(String password) {
-        PasswordField.setText(password);
+    public void setpasswordField(String password) {
+        passwordField.setText(password);
     }
 
-    public javax.swing.JButton getSigninButton() {
-        return SigninButton;
+    public javax.swing.JButton getsigninButton() {
+        return signinButton;
     }
 
 }

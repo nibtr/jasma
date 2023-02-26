@@ -14,15 +14,15 @@ public class LoginController {
     public LoginController(LoginUI loginUI, LoginService loginService) {
         this.loginUI = loginUI;
         this.loginService = loginService;
-        this.loginUI.getSigninButton().addActionListener(new SignInButtonListener());
+        this.loginUI.getsigninButton().addActionListener(new SignInButtonListener());
     }
 
     private class SignInButtonListener implements ActionListener {
     
         @Override
         public void actionPerformed(ActionEvent e) {
-            String username = loginUI.getUsernameField();
-            String password = loginUI.getPasswordField();
+            String username = loginUI.getuserNameField();
+            String password = loginUI.getpasswordField();
 
 //             Check username and password
             Integer res = loginService.authenticate(username, password);
