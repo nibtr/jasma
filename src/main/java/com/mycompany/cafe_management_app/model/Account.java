@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.UniqueConstraint;
 
 /**
  *
@@ -19,7 +18,8 @@ import jakarta.persistence.UniqueConstraint;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private Long id;
     
     @Column(unique = true, nullable = false)
@@ -31,7 +31,7 @@ public class Account {
     private String role;
 
     public Account() {
-        
+//        required by Hibernate
     }
 
     public Account(String username, String password, String role) {

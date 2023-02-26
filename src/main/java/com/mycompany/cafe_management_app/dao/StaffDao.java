@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.util.PasswordUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -20,43 +21,20 @@ import org.hibernate.query.Query;
  *
  * @author Hieu
  */
-public class AccountDao implements DaoInterface<Account>{
-    
-    public Account getById(Long id) {
-        Account account = null;
-        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
-        
-        try {
-            tx = session.beginTransaction();
-            account = session.get(Account.class, id);
-            tx.commit();
-        } catch(HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-           
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }  
-        
-        return account;
-    }
-    
-    public Account getByUsername(String username) {
-        String hql = "FROM Account a WHERE a.username = :username";
+public class StaffDao implements DaoInterface<Staff>{
+    public List<Staff> getByName(String name) {
+        String hql = "FROM Staff a WHERE a.name = :name";
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         
         try {
             tx = session.beginTransaction();
             Query query = session.createQuery(hql);
-            query.setParameter("username", username);
-            List<Account> accounts = query.list();
+            query.setParameter("name", name);
+            List<Staff> staffs = query.list();
             tx.commit(); 
             
-            return accounts.isEmpty() ? null : accounts.get(0);
+            return staffs.isEmpty() ? null : staffs;
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -68,20 +46,22 @@ public class AccountDao implements DaoInterface<Account>{
             session.close();
         } 
     }
+    
 
     @Override
-    public List<Account> getAll() {
-        List<Account> accountList = new ArrayList<>();
+    public List<Staff> getAll() {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
   
         try {
             tx = session.beginTransaction();   
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Account> criteria = builder.createQuery(Account.class);
-            criteria.select(criteria.from(Account.class));
-            accountList = session.createQuery(criteria).getResultList();
+            CriteriaQuery<Staff> criteria = builder.createQuery(Staff.class);
+            criteria.select(criteria.from(Staff.class));
+            List<Staff> accountList = session.createQuery(criteria).getResultList();
             tx.commit();
+            
+            return accountList.isEmpty() ? null : accountList;
 
         } catch(HibernateException e) {
             if (tx != null) {
@@ -89,17 +69,19 @@ public class AccountDao implements DaoInterface<Account>{
             }
             
             e.printStackTrace();
+            
+            return null;
         } finally {
             session.close();
         }  
-
-        return accountList;
     }
 
     @Override
-    public void save(Account t) {
-        String hashedPassword = PasswordUtil.hash(t.getPassword());
-        t.setPassword(hashedPassword);
+    public void save(Staff t) {
+        Account account = t.getAccount();
+        String hashedPassword = PasswordUtil.hash(account.getPassword());
+        account.setPassword(hashedPassword);
+        t.setAccount(account);
         
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
@@ -120,12 +102,27 @@ public class AccountDao implements DaoInterface<Account>{
     }
 
     @Override
-    public void update(Account t) {
-//        No update functionality for account
+    public void update(Staff t) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        
+        try {
+            tx = session.beginTransaction();
+            session.save(t);
+            tx.commit();
+        } catch(HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+           
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }  
     }
 
     @Override
-    public void delele(Account t) {
+    public void delele(Staff t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         
@@ -143,4 +140,5 @@ public class AccountDao implements DaoInterface<Account>{
             session.close();
         }  
     }
+    
 }

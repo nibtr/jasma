@@ -1,0 +1,111 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.cafe_management_app.model;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import java.time.LocalDate;
+
+/**
+ *
+ * @author Hieu
+ */
+@Entity(name = "Staff")
+public class Staff {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "staff_id")
+    private Long id;
+    
+    @Column(nullable = false)
+    private String name;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
+    
+    @Column
+    private String position;
+    
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_account_id")
+    private Account account;
+    
+    public Staff(){
+//        required by Hibernate
+    }
+    
+    public Staff(String name, LocalDate dob, String phoneNumber, String position) {
+        this.name = name;
+        this.dateOfBirth = dob;
+        this.phoneNumber = phoneNumber;
+        this.position = position;
+    }
+    
+    public Staff(String name, LocalDate dob, String phoneNumber) {
+        this.name = name;
+        this.dateOfBirth = dob;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    
+    public void setAccount(Account t) {
+        this.account = t;
+    }
+    
+    public Account getAccount() {
+        return account;
+    }
+}

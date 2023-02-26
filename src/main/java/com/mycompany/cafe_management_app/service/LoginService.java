@@ -23,7 +23,7 @@ public class LoginService {
 //        -1: no exist or wrong credentials
 //         0: admin
 //         1: staff
-        Account account = accountDao.getAccountByUsername(username);
+        Account account = accountDao.getByUsername(username);
         if (account == null) {
             return -1;
         }
