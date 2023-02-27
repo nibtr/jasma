@@ -12,9 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.time.LocalDate;
+
 
 /**
  *
@@ -30,7 +29,6 @@ public class Staff {
     @Column(nullable = false)
     private String name;
     
-    @Temporal(TemporalType.DATE)
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
     
@@ -40,15 +38,20 @@ public class Staff {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
     
+    @Column(name = "hourly_rate")
+    private Double hourlyRate;
+    
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_account_id")
     private Account account;
     
     public Staff(){
 //        required by Hibernate
+        this.hourlyRate = 2.5;
     }
     
     public Staff(String name, LocalDate dob, String phoneNumber, String position) {
+        this();
         this.name = name;
         this.dateOfBirth = dob;
         this.phoneNumber = phoneNumber;
@@ -56,6 +59,7 @@ public class Staff {
     }
     
     public Staff(String name, LocalDate dob, String phoneNumber) {
+        this();
         this.name = name;
         this.dateOfBirth = dob;
         this.phoneNumber = phoneNumber;
@@ -101,6 +105,14 @@ public class Staff {
         this.phoneNumber = phoneNumber;
     }
     
+    public Double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(Double hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
+    
     public void setAccount(Account t) {
         this.account = t;
     }
@@ -108,4 +120,5 @@ public class Staff {
     public Account getAccount() {
         return account;
     }
+
 }

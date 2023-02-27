@@ -4,12 +4,15 @@
 
 package com.mycompany.cafe_management_app;
 
+import com.mycompany.cafe_management_app.dao.AccountDao;
+import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.service.AdminService;
 import com.mycompany.cafe_management_app.service.LoginService;
+import com.mycompany.cafe_management_app.service.StaffService;
 import com.mycompany.cafe_management_app.util.UserSession;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -18,19 +21,26 @@ import java.time.LocalDate;
 public class Main {
 
     public static void main(String[] args) {
-        Staff staff = new Staff(
-                "Hieu",
-                LocalDate.of(2002, 6, 1),
-                "0777058016",
-                "admin"
-        );
-        Account account = new Account("admin", "admin", "admin");
-        staff.setAccount(account);
+//        Staff staff = new Staff(
+//                "Test Staff4",
+//                LocalDate.of(2002, 6, 1),
+//                "0123456789",
+//                "staff"
+//        );
+//        Account account = new Account("test_staff4", "1234", "staff");
+//        staff.setAccount(account);
+//        
+//        AdminService adminService = new AdminService();
+////        adminService.saveStaff(staff);
+//        
+        LoginService loginService = new LoginService();
+        loginService.authenticate("test_staff4", "1234");
+//        
+        StaffService staffService = new StaffService();
+//        staffService.checkIn();
         
-        AdminService adminService = new AdminService();
-//        adminService.saveStaff(staff);
-        
-        System.out.println(adminService.getAllStaff().get(0).getAccount().getUsername());
+//        staffService.checkOut();
+        System.out.println(new TimekeepingDao().getLatestOf(UserSession.getInstance().getUserID()).getTotalTime());
 
-    }
+     }
 }

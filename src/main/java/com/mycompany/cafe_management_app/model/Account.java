@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 /**
  *
@@ -29,6 +30,9 @@ public class Account {
     private String password;
     
     private String role;
+    
+    @OneToOne(mappedBy = "account")
+    private Staff staff;
 
     public Account() {
 //        required by Hibernate
@@ -70,5 +74,13 @@ public class Account {
 
     public void setRole(String role) {
         this.role = role;
+    }
+    
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 }
