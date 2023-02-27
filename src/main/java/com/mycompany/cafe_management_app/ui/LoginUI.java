@@ -4,8 +4,6 @@
  */
 package com.mycompany.cafe_management_app.ui;
 import com.mycompany.cafe_management_app.controller.LoginController;
-import com.mycompany.cafe_management_app.service.LoginService;
-
 
 /**
  *
@@ -138,7 +136,7 @@ public class LoginUI extends javax.swing.JFrame {
     private void signinButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_signinButtonActionPerformed
         String username = userNameField.getText();
         String password = new String (passwordField.getPassword());
-        LoginController controller = new LoginController(new LoginUI(), new LoginService());
+        LoginController controller = new LoginController();
         controller.getLoginUI().setuserNameField(username);
         controller.getLoginUI().setpasswordField(password);
     }

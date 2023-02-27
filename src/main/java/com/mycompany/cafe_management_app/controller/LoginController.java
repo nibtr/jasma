@@ -12,17 +12,15 @@ public class LoginController {
 
     private LoginUI loginUI;
     private LoginService loginService;
-    
+    private int role;
 
-    public LoginController(LoginUI loginUI, LoginService loginService) {
-        this.loginUI = loginUI;
-        this.loginService = loginService;
+    public LoginController() {
+        this.loginUI = new LoginUI();
+        this.loginService = new LoginService();
         this.loginUI.getsigninButton().addActionListener(new SignInButtonListener());
     }
 
     private class SignInButtonListener implements ActionListener {
-
-        private int role;
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -56,7 +54,14 @@ public class LoginController {
             return role;
         }
     }
+    
+    public void setLoginUI(LoginUI loginUI) {
+        this.loginUI = loginUI;
+    }
 
+    public void setLoginService(LoginService loginService) {
+        this.loginService = loginService;
+    }
     public LoginUI getLoginUI() {
         return loginUI;
     }
