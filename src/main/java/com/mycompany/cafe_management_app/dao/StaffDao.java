@@ -47,7 +47,6 @@ public class StaffDao implements DaoInterface<Staff>{
         } 
     }
     
-
     @Override
     public List<Staff> getAll() {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
@@ -75,6 +74,32 @@ public class StaffDao implements DaoInterface<Staff>{
             session.close();
         }  
     }
+    
+    public Staff getByID(Long id) {
+        Staff staff = null;
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        
+        try {
+            tx = session.beginTransaction();
+            staff = session.get(Staff.class, id);
+            tx.commit();
+        } catch(HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+           
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }  
+        
+        return staff;
+    }
+    
+//    public Staff getByAccountID(Long id) {
+//        
+//    }
 
     @Override
     public void save(Staff t) {

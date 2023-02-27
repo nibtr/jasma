@@ -7,6 +7,7 @@ package com.mycompany.cafe_management_app.config;
 import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Menu;
 import com.mycompany.cafe_management_app.model.Staff;
+import com.mycompany.cafe_management_app.model.Timekeeping;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -37,6 +38,7 @@ public class HibernateConfig {
                 configuration.addAnnotatedClass(Account.class);
                 configuration.addAnnotatedClass(Staff.class);
                 configuration.addAnnotatedClass(Menu.class);
+                configuration.addAnnotatedClass(Timekeeping.class);
                 
 //                Build the service factory
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
