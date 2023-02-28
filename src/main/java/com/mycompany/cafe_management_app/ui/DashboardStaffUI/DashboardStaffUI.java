@@ -183,7 +183,6 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         headerOrderPage.setMinimumSize(new java.awt.Dimension(820, 32));
         headerOrderPage.setPreferredSize(new java.awt.Dimension(820, 32));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(51, 51, 51));
         jButton1.setText("new Order +");
         jButton1.setActionCommand("addStaffBtn");
@@ -323,16 +322,16 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         bgPage1Layout.setHorizontalGroup(
             bgPage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgPage1Layout.createSequentialGroup()
-                .addGap(332, 332, 332)
+                .addGap(326, 326, 326)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
         bgPage1Layout.setVerticalGroup(
             bgPage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgPage1Layout.createSequentialGroup()
-                .addGap(262, 262, 262)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addContainerGap(544, Short.MAX_VALUE))
         );
 
         panelCheckIn.add(bgPage1);
