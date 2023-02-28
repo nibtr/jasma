@@ -74,7 +74,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
 
         try {
             tx = session.beginTransaction();
-            session.update(t);
+            session.merge(t);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -93,7 +93,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
 
         try {
             tx = session.beginTransaction();
-            session.delete(t);
+            session.remove(t);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
