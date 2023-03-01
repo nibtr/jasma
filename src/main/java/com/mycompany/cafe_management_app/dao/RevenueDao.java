@@ -105,15 +105,15 @@ public class RevenueDao implements DaoInterface<Revenue>{
         }
     }
 
-    public Revenue getLatestOf(Long monthID) {
+    public Revenue getLatest() {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         Revenue latest = null;
 
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Revenue t WHERE revenue.id = :monthID ORDER BY time DESC");
-            query.setParameter("monthID", monthID);
+            Query query = session.createQuery("SELECT * FROM Revenue t WHERE revenue.id = :monthID ORDER BY time DESC");
+            
             query.setMaxResults(1);
             latest = (Revenue) query.uniqueResult();
             tx.commit();

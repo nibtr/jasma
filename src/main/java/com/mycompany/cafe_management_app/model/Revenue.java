@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Entity(name = "Revenue")
 public class Revenue {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "revenue_id")
     private Long id;
 
@@ -31,8 +32,8 @@ public class Revenue {
     @Column(name = "outcome_cash_in_month")
     private Double outcome;
 
-    @Column(name = "present_time", columnDefinition = "DATETIME")
-    private LocalDateTime time;
+    @Column(name = "time", columnDefinition = "DATETIME")
+    private LocalDate time;
     
     
 
@@ -77,11 +78,11 @@ public class Revenue {
         this.outcome = outcome;
     }
     
-    public LocalDateTime getCheckinTime() {
+    public LocalDate getCheckinTime() {
         return time;
     }
 
-    public void setCheckinTime(LocalDateTime Time) {
+    public void setCheckinTime(LocalDate Time) {
         this.time = Time;
     }
 }
