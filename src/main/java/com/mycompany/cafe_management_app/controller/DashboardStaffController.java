@@ -37,13 +37,12 @@ public class DashboardStaffController {
     }
 
     public void checkOut() {
-        // staffService.checkOut();
+        staffService.checkOut();
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formatDateTime = localDateTime.format(formatter);
         JOptionPane.showMessageDialog(dashboardStaffUI, "     CHECK OUT SUCCESSFUL!\n" + "        " + formatDateTime);
         System.exit(0);
-
     }
 
     private class CheckInOutButtonListener implements ActionListener {
