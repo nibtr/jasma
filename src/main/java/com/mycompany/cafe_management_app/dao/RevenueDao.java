@@ -112,7 +112,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
 
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("SELECT * FROM Revenue ");
+            Query query = session.createQuery("SELECT * FROM Revenue ORDER BY time DESC");
             
             query.setMaxResults(1);
             latest = (Revenue) query.uniqueResult();
