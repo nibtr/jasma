@@ -5,7 +5,8 @@
 package com.mycompany.cafe_management_app.config;
 
 import com.mycompany.cafe_management_app.model.Account;
-import com.mycompany.cafe_management_app.model.Menu;
+import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
 import org.hibernate.SessionFactory;
@@ -37,8 +38,9 @@ public class HibernateConfig {
 //                Add new POJOs (Model) here
                 configuration.addAnnotatedClass(Account.class);
                 configuration.addAnnotatedClass(Staff.class);
-                configuration.addAnnotatedClass(Menu.class);
+                configuration.addAnnotatedClass(Dish.class);
                 configuration.addAnnotatedClass(Timekeeping.class);
+                configuration.addAnnotatedClass(DishDetail.class);
                 
 //                Build the service factory
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
