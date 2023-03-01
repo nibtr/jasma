@@ -5,9 +5,7 @@
 package com.mycompany.cafe_management_app.service;
 
 import com.mycompany.cafe_management_app.dao.AccountDao;
-import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.model.Account;
-import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.util.PasswordUtil;
 import com.mycompany.cafe_management_app.util.UserSession;
 
@@ -16,12 +14,10 @@ import com.mycompany.cafe_management_app.util.UserSession;
  * @author Hieu
  */
 public class LoginService {
-    private AccountDao accountDao;
-    private StaffDao staffDao;
+    private final AccountDao accountDao;
     
     public LoginService() {
         accountDao = new AccountDao();
-        staffDao = new StaffDao();
     }
     
     public Integer authenticate(String username, String inputPassword) {
@@ -44,8 +40,7 @@ public class LoginService {
 //        If credentials match
 //        Save the current staff's id to use in the app
 
-//        Staff currentStaff = staffDao.get
-        UserSession.getInstance().setUserID(account.getStaff().getId());
+        UserSession.getInstance().setStaff(account.getStaff());
         if (account.getRole().equals("admin")) {
             return 0;
         }
