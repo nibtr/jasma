@@ -10,7 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 /**
  *
@@ -23,13 +23,13 @@ public class Revenue {
     @Column(name = "revenue_id")
     private Long id;
 
-    @Column(name = "total_cash_in_month")
+    @Column(name = "total")
     private Double total;
 
-    @Column(name = "income_cash_in_month")
+    @Column(name = "income")
     private Double income;
 
-    @Column(name = "outcome_cash_in_month")
+    @Column(name = "outcome")
     private Double outcome;
 
     @Column(name = "time", columnDefinition = "DATETIME")

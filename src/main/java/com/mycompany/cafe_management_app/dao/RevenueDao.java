@@ -74,7 +74,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
 
         try {
             tx = session.beginTransaction();
-            session.merge(t);
+            session.save(t);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -112,7 +112,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
 
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("SELECT * FROM Revenue t WHERE revenue.id = :monthID ORDER BY time DESC");
+            Query query = session.createQuery("SELECT * FROM Revenue ");
             
             query.setMaxResults(1);
             latest = (Revenue) query.uniqueResult();
