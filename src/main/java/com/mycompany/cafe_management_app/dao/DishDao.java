@@ -54,7 +54,7 @@ public class DishDao implements DaoInterface<Dish> {
 
         try {
             tx = session.beginTransaction();
-            session.save(t);
+            session.persist(t);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

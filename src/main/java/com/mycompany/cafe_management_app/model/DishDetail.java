@@ -23,10 +23,7 @@ public class DishDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dish_detail_id")
     private Long id;
-    
-    @Column(name = "name")
-    private String name;
-    
+ 
     @Column(name = "size")
     private String size;
     
@@ -41,9 +38,8 @@ public class DishDetail {
         
     }
 
-    public DishDetail(String name, String size, Double price) {
+    public DishDetail(String size, Double price) {
         this.id = id;
-        this.name = name;
         this.size = size;
         this.price = price;
     }
@@ -54,14 +50,6 @@ public class DishDetail {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSize() {
