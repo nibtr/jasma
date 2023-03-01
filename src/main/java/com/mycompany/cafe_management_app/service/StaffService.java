@@ -46,7 +46,7 @@ public class StaffService {
         Duration duration = Duration.between(t.getCheckinTime(), currentTime);
         double hours = duration.toMillis() / (double) (1000 * 60 * 60);
         DecimalFormat df = new DecimalFormat("#.##");
-        Double formattedHours = Double.parseDouble(df.format(hours));
+        Double formattedHours = Double.parseDouble (df.format(hours));
         t.setTotalTime(formattedHours);
         
 //        Calculate payment
