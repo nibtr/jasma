@@ -4,15 +4,19 @@
  */
 package com.mycompany.cafe_management_app.util;
 
+import com.mycompany.cafe_management_app.model.Staff;
+
 /**
  *
  * @author Hieu
  */
 public class UserSession {
     private static UserSession instance;
-    private Long userID;
+    private Staff currentStaff;
     
-    private UserSession() {}
+    private UserSession() {
+        
+    }
     
     public static UserSession getInstance() {
         if (instance == null) {
@@ -22,15 +26,15 @@ public class UserSession {
         return instance;
     }
     
-    public void setUserID(Long id) {
-        userID = id;
+    public void setStaff(Staff t) {
+        currentStaff = t;
     }
     
-    public Long getUserID() {
-        return userID;
+    public Staff getStaff() {
+        return currentStaff;
     }
     
     public void clear() {
-        userID = null;
+        currentStaff = null;
     }
 }

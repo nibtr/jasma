@@ -16,7 +16,11 @@ import com.mycompany.cafe_management_app.service.StaffService;
 import com.mycompany.cafe_management_app.util.UserSession;
 import com.mycompany.cafe_management_app.ui.LoginUI;
 import com.mycompany.cafe_management_app.controller.LoginController;
-import java.time.LocalDateTime;
+import com.mycompany.cafe_management_app.dao.DishDao;
+import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
+import java.util.List;
+
 
 /**
  *
@@ -26,8 +30,9 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-//        LoginController loginController = new LoginController();
-//        loginController.getLoginUI().setVisible(true);
+        LoginController loginController = new LoginController();
+        loginController.getLoginUI().setVisible(true);
           new DashboardAdminController();
+
      }
 }

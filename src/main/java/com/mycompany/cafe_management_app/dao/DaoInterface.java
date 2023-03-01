@@ -4,7 +4,7 @@
  */
 package com.mycompany.cafe_management_app.dao;
 
-import com.mycompany.cafe_management_app.model.Menu;
+import com.mycompany.cafe_management_app.model.Dish;
 import java.util.List;
 
 

@@ -5,7 +5,7 @@
 package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
-import com.mycompany.cafe_management_app.model.Menu;
+import com.mycompany.cafe_management_app.model.Dish;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -19,19 +19,19 @@ import org.hibernate.Transaction;
  *
  * @author Legion
  */
-public class MenuDao implements DaoInterface<Menu> {
+public class DishDao implements DaoInterface<Dish> {
 
     @Override
-    public List<Menu> getAll() {
+    public List<Dish> getAll() {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<Menu> menus = null;
+        List<Dish> menus = null;
 
         try {
             tx = session.beginTransaction();
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Menu> criteria = builder.createQuery(Menu.class);
-            Root<Menu> root = criteria.from(Menu.class);
+            CriteriaQuery<Dish> criteria = builder.createQuery(Dish.class);
+            Root<Dish> root = criteria.from(Dish.class);
             criteria.select(root);
             menus = session.createQuery(criteria).getResultList();
             tx.commit();
@@ -48,13 +48,13 @@ public class MenuDao implements DaoInterface<Menu> {
     }
 
     @Override
-    public void save(Menu t) {
+    public void save(Dish t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
         try {
             tx = session.beginTransaction();
-            session.save(t);
+            session.persist(t);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -68,7 +68,7 @@ public class MenuDao implements DaoInterface<Menu> {
     }
 
     @Override
-    public void update(Menu t) {
+    public void update(Dish t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
@@ -87,7 +87,7 @@ public class MenuDao implements DaoInterface<Menu> {
     }
 
     @Override
-    public void delele(Menu t) {
+    public void delele(Dish t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
@@ -105,16 +105,16 @@ public class MenuDao implements DaoInterface<Menu> {
         }
     }
 
-    public Menu findByName(String name) {
+    public Dish findByName(String name) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        Menu menu = null;
+        Dish menu = null;
 
         try {
             tx = session.beginTransaction();
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Menu> criteria = builder.createQuery(Menu.class);
-            Root<Menu> root = criteria.from(Menu.class);
+            CriteriaQuery<Dish> criteria = builder.createQuery(Dish.class);
+            Root<Dish> root = criteria.from(Dish.class);
             criteria.select(root).where(builder.equal(root.get("name"), name));
             menu = session.createQuery(criteria).getSingleResult();
             tx.commit();
