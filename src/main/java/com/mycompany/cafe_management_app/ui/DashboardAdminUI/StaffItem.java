@@ -13,8 +13,12 @@ public class StaffItem extends javax.swing.JPanel {
     /**
      * Creates new form StaffItem
      */
-    public StaffItem(String name, String DoB, String phoneNumber) {
+    public StaffItem(String name, String DoB, String phoneNumber, String position) {
        initComponents();
+       nameLabel.setText(name);
+       dobLabel.setText(DoB);
+       phoneLabel.setText(phoneNumber);
+       positionLabel.setText(position);
     }
 
     /**
@@ -29,6 +33,7 @@ public class StaffItem extends javax.swing.JPanel {
         nameLabel = new javax.swing.JLabel();
         dobLabel = new javax.swing.JLabel();
         phoneLabel = new javax.swing.JLabel();
+        positionLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(800, 32));
@@ -37,19 +42,24 @@ public class StaffItem extends javax.swing.JPanel {
         setLayout(null);
 
         nameLabel.setForeground(new java.awt.Color(51, 51, 51));
-        nameLabel.setText("dsdasdsdasd");
+        nameLabel.setText(".");
         add(nameLabel);
-        nameLabel.setBounds(40, 10, 100, 16);
+        nameLabel.setBounds(10, 10, 100, 16);
 
         dobLabel.setForeground(new java.awt.Color(51, 51, 51));
-        dobLabel.setText("dsdadsdasdasd");
+        dobLabel.setText(".");
         add(dobLabel);
-        dobLabel.setBounds(260, 10, 80, 16);
+        dobLabel.setBounds(150, 10, 100, 16);
 
         phoneLabel.setForeground(new java.awt.Color(51, 51, 51));
-        phoneLabel.setText("dasdadsdasdasd");
+        phoneLabel.setText(".");
         add(phoneLabel);
-        phoneLabel.setBounds(420, 10, 80, 16);
+        phoneLabel.setBounds(320, 10, 80, 16);
+
+        positionLabel.setForeground(new java.awt.Color(51, 51, 51));
+        positionLabel.setText(".");
+        add(positionLabel);
+        positionLabel.setBounds(470, 10, 80, 16);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -57,5 +67,6 @@ public class StaffItem extends javax.swing.JPanel {
     private javax.swing.JLabel dobLabel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneLabel;
+    private javax.swing.JLabel positionLabel;
     // End of variables declaration//GEN-END:variables
 }

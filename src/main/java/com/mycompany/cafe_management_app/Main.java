@@ -5,6 +5,7 @@
 package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
+import com.mycompany.cafe_management_app.controller.DashboardAdminController;
 import com.mycompany.cafe_management_app.dao.AccountDao;
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Account;
@@ -25,9 +26,8 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-        
-        LoginController loginController = new LoginController();
-        loginController.getLoginUI().setVisible(true);
-
+//        LoginController loginController = new LoginController();
+//        loginController.getLoginUI().setVisible(true);
+          new DashboardAdminController();
      }
 }

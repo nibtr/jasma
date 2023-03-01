@@ -2,8 +2,6 @@ package com.mycompany.cafe_management_app.controller;
 
 import com.mycompany.cafe_management_app.service.LoginService;
 import com.mycompany.cafe_management_app.ui.LoginUI;
-import com.mycompany.cafe_management_app.ui.DashboardAdminUI.DashboardAdminUI;
-import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DashboardStaffUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -37,13 +35,11 @@ public class LoginController {
 
             if (role == 0) {
                 JOptionPane.showMessageDialog(loginUI, "ADMIN LOGGED IN!");
-                DashboardAdminUI adminUI = new DashboardAdminUI();
-                adminUI.setVisible(true);
+                new DashboardAdminController();
                 loginUI.dispose();
             } else if (role == 1) {
                 JOptionPane.showMessageDialog(loginUI, "STAFF LOGGED IN");
-                DashboardStaffUI staffUI = new DashboardStaffUI();
-                staffUI.setVisible(true);
+                new DashboardStaffController();
                 loginUI.dispose();
             } else {
                 JOptionPane.showMessageDialog(loginUI, "Account not found!");

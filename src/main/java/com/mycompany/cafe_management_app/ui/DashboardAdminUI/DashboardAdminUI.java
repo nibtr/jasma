@@ -3,11 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.cafe_management_app.ui.DashboardAdminUI;
-
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -18,7 +20,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     /**
      * Creates new form DashboardAdminUI
      */
-    CardLayout cards;
+    private CardLayout cards;
     
      
     private void selectBtn(JButton btn) {
@@ -37,9 +39,13 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         selectBtn(navItemStaff);  
     }
     
-    public JPanel getListStaff() {
+    public JButton getAddStaffBtn() {
+        return addStaff;
+    }
+    public JPanel getContainerListStaff() {
         return bgScrollPanelStaff;
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +67,8 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        addStaff = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         contentStaffPage = new javax.swing.JPanel();
         scrollPanelStaff = new javax.swing.JScrollPane();
         bgScrollPanelStaff = new javax.swing.JPanel();
@@ -169,27 +176,34 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Date of Birth");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("new Staff +");
-        jButton1.setActionCommand("addStaffBtn");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
+        addStaff.setBackground(new java.awt.Color(255, 255, 255));
+        addStaff.setForeground(new java.awt.Color(51, 51, 51));
+        addStaff.setText("new Staff +");
+        addStaff.setActionCommand("addStaffBtn");
+        addStaff.setBorder(null);
+        addStaff.setBorderPainted(false);
+        addStaff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addStaff.setFocusPainted(false);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel5.setText("Position");
 
         javax.swing.GroupLayout headerStaffPageLayout = new javax.swing.GroupLayout(headerStaffPage);
         headerStaffPage.setLayout(headerStaffPageLayout);
         headerStaffPageLayout.setHorizontalGroup(
             headerStaffPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerStaffPageLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138)
+                .addGap(84, 84, 84)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addGap(66, 66, 66)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addComponent(addStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
         headerStaffPageLayout.setVerticalGroup(
@@ -200,13 +214,17 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(jButton1))
+                    .addComponent(addStaff)
+                    .addComponent(jLabel5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         bgStaffPage.add(headerStaffPage);
 
         contentStaffPage.setBackground(new java.awt.Color(255, 255, 255));
+        contentStaffPage.setMaximumSize(new java.awt.Dimension(820, 568));
+        contentStaffPage.setMinimumSize(new java.awt.Dimension(820, 568));
+        contentStaffPage.setPreferredSize(new java.awt.Dimension(820, 568));
 
         scrollPanelStaff.setBackground(new java.awt.Color(255, 255, 255));
         scrollPanelStaff.setForeground(new java.awt.Color(255, 255, 255));
@@ -380,6 +398,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addInventoryBtn;
+    private javax.swing.JButton addStaff;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgMenuPage;
     private javax.swing.JPanel bgScrollPanelMenu;
     private javax.swing.JPanel bgScrollPanelStaff;
@@ -389,11 +408,11 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     private javax.swing.JPanel contentStaffPage;
     private javax.swing.JPanel headerMenuPage;
     private javax.swing.JPanel headerStaffPage;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton navItemMenu;
