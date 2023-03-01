@@ -4,14 +4,12 @@
  */
 package com.mycompany.cafe_management_app.service;
 
-import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
 import com.mycompany.cafe_management_app.util.UserSession;
 import java.text.DecimalFormat;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,40 +18,36 @@ import java.util.List;
  * @author Hieu
  */
 public class StaffService {
-    private TimekeepingDao timekeepingDao;
-    private StaffDao staffDao;
-    private Staff currentStaff;
+    private final TimekeepingDao timekeepingDao;
+    private final Staff currentStaff;
     
     public StaffService() {
         timekeepingDao = new TimekeepingDao();
-        staffDao = new StaffDao();
-        currentStaff = staffDao.getByID(UserSession.getInstance().getUserID());
+        currentStaff = UserSession.getInstance().getStaff();
     }
     
-    public void checkIn() {
-        Timekeeping t = new Timekeeping();
+    public void checkIn(LocalDateTime time) {
+        Timekeeping t = new Timekeeping(time);
         t.setStaff(currentStaff);
         timekeepingDao.save(t);
     }
     
-    public void checkOut() {
+    public void checkOut(LocalDateTime currentTime) {
         Long currentStaffID = currentStaff.getId();
-        Timekeeping t = timekeepingDao.getLatestOf(currentStaffID);
+        Timekeeping t = timekeepingDao.getLatestOf(currentStaffID);      
         
-        LocalDateTime currentTime = LocalDateTime.now();
+//        Set checkout time
+        t.setCheckoutTime(currentTime);
         
-//        Calculate total time
+//        Calculate total work time
+        DecimalFormat df = new DecimalFormat("#.##");
         Duration duration = Duration.between(t.getCheckinTime(), currentTime);
         double hours = duration.toMillis() / (double) (1000 * 60 * 60);
-        DecimalFormat df = new DecimalFormat("#.##");
-        Double formattedHours = Double.parseDouble (df.format(hours));
+        Double formattedHours = Double.parseDouble(df.format(hours));
         t.setTotalTime(formattedHours);
         
 //        Calculate payment
         t.setTotalPayment(currentStaff.getHourlyRate() * formattedHours);
-        
-//        Set checkout time
-        t.setCheckoutTime(currentTime);
         
         timekeepingDao.update(t); 
     }

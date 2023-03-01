@@ -1,5 +1,6 @@
 package com.mycompany.cafe_management_app.controller;
 
+import com.mycompany.cafe_management_app.model.Timekeeping;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DashboardStaffUI;
 import com.mycompany.cafe_management_app.service.StaffService;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class DashboardStaffController {
     private DashboardStaffUI dashboardStaffUI;
-    private StaffService staffService;
+    private final StaffService staffService;
 
     public DashboardStaffController() {
         initController();
@@ -29,19 +30,22 @@ public class DashboardStaffController {
     }
 
     public void checkIn() {
-        staffService.checkIn();
-        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now();
+        staffService.checkIn(currentTime);
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String formatDateTime = localDateTime.format(formatter);
+        String formatDateTime = currentTime.format(formatter);
         JOptionPane.showMessageDialog(dashboardStaffUI, "     CHECK IN SUCCESSFUL!\n" + "        " + formatDateTime);
     }
 
     public void checkOut() {
-        staffService.checkOut();
-        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now();
+        staffService.checkOut(currentTime);
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String formatDateTime = localDateTime.format(formatter);
+        String formatDateTime = currentTime.format(formatter);
         JOptionPane.showMessageDialog(dashboardStaffUI, "     CHECK OUT SUCCESSFUL!\n" + "        " + formatDateTime);
+        
         System.exit(0);
     }
 

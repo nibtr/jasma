@@ -5,7 +5,6 @@
 package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
-import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
 import java.util.List;
 import org.hibernate.HibernateException;
