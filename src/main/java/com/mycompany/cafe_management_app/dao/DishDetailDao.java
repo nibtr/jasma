@@ -5,10 +5,7 @@
 package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
-import com.mycompany.cafe_management_app.model.Dish;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import com.mycompany.cafe_management_app.model.DishDetail;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -17,90 +14,66 @@ import org.hibernate.query.Query;
 
 /**
  *
- * @author Legion
+ * @author Hieu
  */
-public class DishDao implements DaoInterface<Dish> {
+public class DishDetailDao implements DaoInterface<DishDetail>{
 
     @Override
-    public List<Dish> getAll() {
-        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
-        List<Dish> menus = null;
-
-        try {
-            tx = session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Dish> criteria = builder.createQuery(Dish.class);
-            Root<Dish> root = criteria.from(Dish.class);
-            criteria.select(root);
-            menus = session.createQuery(criteria).getResultList();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return menus;
+    public List<DishDetail> getAll() {
+//        Not necessary
+        return null;
     }
     
-    public Dish getByName(String name) {
+    public List<DishDetail> getByDishID(Long dishID) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        Dish dish = null;
+        List<DishDetail> list = null;
 
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Dish t WHERE t.name = :name");
-            query.setParameter("name", name);
-            dish = (Dish) query.uniqueResult();
-//            Initialize the detail list of the dish
-            dish.getDetails().size();
-            
+            Query query = session.createQuery("FROM DishDetail t where dish.id = :dishID ORDER BY price ASC" );
+            query.setParameter("dishID", dishID);
+            list = query.getResultList();      
             tx.commit();
+            
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
-
-            return null;
         } finally {
             session.close();
         }
-        return dish;
+        
+        return list;
     }
     
-    public Dish getByID(Long id) {
+    public List<DishDetail> getByDishName(String dishName) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        Dish dish = null;
+        List<DishDetail> list = null;
 
         try {
             tx = session.beginTransaction();
-            dish = session.get(Dish.class, id);
-//            Initialize the detail list of the dish
-            dish.getDetails().size();
-            
+            Query query = session.createQuery("FROM DishDetail t where dish.name = :dishName ORDER BY price ASC" );
+            query.setParameter("dishName", dishName);
+            list = query.getResultList();      
             tx.commit();
+            
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
-
-            return null;
         } finally {
             session.close();
         }
-        return dish;
+        
+        return list;
     }
 
     @Override
-    public void save(Dish t) {
+    public void save(DishDetail t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
@@ -119,7 +92,7 @@ public class DishDao implements DaoInterface<Dish> {
     }
 
     @Override
-    public void update(Dish t) {
+    public void update(DishDetail t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
@@ -138,7 +111,7 @@ public class DishDao implements DaoInterface<Dish> {
     }
 
     @Override
-    public void delele(Dish t) {
+    public void delele(DishDetail t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
@@ -155,5 +128,5 @@ public class DishDao implements DaoInterface<Dish> {
             session.close();
         }
     }
-
+    
 }

@@ -4,7 +4,11 @@
  */
 package com.mycompany.cafe_management_app.service;
 
+import com.mycompany.cafe_management_app.dao.DishDao;
+import com.mycompany.cafe_management_app.dao.DishDetailDao;
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
+import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
 import com.mycompany.cafe_management_app.util.UserSession;
@@ -19,10 +23,14 @@ import java.util.List;
  */
 public class StaffService {
     private final TimekeepingDao timekeepingDao;
+    private final DishDao dishDao;
+    private final DishDetailDao dishDetailDao;
     private final Staff currentStaff;
     
     public StaffService() {
         timekeepingDao = new TimekeepingDao();
+        dishDao = new DishDao();
+        dishDetailDao = new DishDetailDao();
         currentStaff = UserSession.getInstance().getStaff();
     }
     
@@ -55,4 +63,13 @@ public class StaffService {
     public List<Timekeeping> getAllTimekeeping() {
         return timekeepingDao.getListOf(currentStaff.getId());
     }
+    
+    public List<Dish> getAllDish() {
+        return dishDao.getAll();
+    }
+    
+    public List<DishDetail> getDetailsOf(Dish dish) {
+        return dishDetailDao.getByDishID(dish.getId());
+    }
+ 
 }
