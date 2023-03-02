@@ -32,16 +32,6 @@ public class Main {
         HibernateConfig.getSessionFactory();
 //        LoginController loginController = new LoginController();
 //        loginController.getLoginUI().setVisible(true);
-//          new DashboardAdminController();
-
-//        DishDao dishDao = new DishDao();
-//        dishDao.delele(dishDao.getByName("cafe den"));
-
-          DishDetailDao d = new DishDetailDao();
-          List<DishDetail> list = d.getByDishID((long) 2);
-          for (DishDetail a : list) {
-              System.out.println(a.getPrice());
-          }
-
+          new DashboardAdminController();
      }
 }

@@ -4,6 +4,7 @@
  */
 package com.mycompany.cafe_management_app.ui.DashboardAdminUI;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -17,6 +18,7 @@ public class Notification extends javax.swing.JFrame {
      */
     public Notification() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
    
    
