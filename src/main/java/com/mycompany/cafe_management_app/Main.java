@@ -13,10 +13,10 @@ import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.service.AdminService;
 import com.mycompany.cafe_management_app.service.LoginService;
 import com.mycompany.cafe_management_app.service.StaffService;
-import com.mycompany.cafe_management_app.util.UserSession;
 import com.mycompany.cafe_management_app.ui.LoginUI;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.DishDao;
+import com.mycompany.cafe_management_app.dao.DishDetailDao;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import java.util.List;
@@ -30,9 +30,18 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-        LoginController loginController = new LoginController();
-        loginController.getLoginUI().setVisible(true);
-          new DashboardAdminController();
+//        LoginController loginController = new LoginController();
+//        loginController.getLoginUI().setVisible(true);
+//          new DashboardAdminController();
+
+//        DishDao dishDao = new DishDao();
+//        dishDao.delele(dishDao.getByName("cafe den"));
+
+          DishDetailDao d = new DishDetailDao();
+          List<DishDetail> list = d.getByDishID((long) 2);
+          for (DishDetail a : list) {
+              System.out.println(a.getPrice());
+          }
 
      }
 }
