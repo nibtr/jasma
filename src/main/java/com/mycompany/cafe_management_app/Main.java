@@ -30,8 +30,8 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-        LoginController loginController = new LoginController();
-        loginController.getLoginUI().setVisible(true);
+//        LoginController loginController = new LoginController();
+//        loginController.getLoginUI().setVisible(true);
           new DashboardAdminController();
 
      }

@@ -120,5 +120,12 @@ public class Staff {
     public Account getAccount() {
         return account;
     }
+    
+    public void setAll(String name, LocalDate dob, String phoneNumber, String position) {
+        this.name = name;
+        this.dateOfBirth = dob;
+        this.phoneNumber = phoneNumber;
+        this.position = position;
+    }
 
 }
