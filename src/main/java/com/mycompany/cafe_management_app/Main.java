@@ -38,8 +38,8 @@ public class Main {
             LoginController loginController = new LoginController();
             loginController.getLoginUI().setVisible(true);
 	}
-    }
-    
+
+}  
     private static void initAdmin() {
         StaffDao staffDao = new StaffDao();
         if (staffDao.getAll().isEmpty()) {

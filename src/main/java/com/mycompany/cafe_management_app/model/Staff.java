@@ -48,9 +48,13 @@ public class Staff {
     @JoinColumn(name = "fk_account_id")
     private Account account;
     
+    @OneToMany(mappedBy = "staff" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Salary> salaries = new ArrayList<>();
+    
     @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Timekeeping> listTimekeeping = new ArrayList<>();
-    
+
+   
     public Staff(){
 //        required by Hibernate
         this.hourlyRate = 2.5;
@@ -147,4 +151,13 @@ public class Staff {
         this.position = position;
     }
 
+    public void addSalary(Salary salary){
+        salaries.add(salary);
+        salary.setSalary(this);
+    }
+
+    public void setSalaries(List<Salary> salaries) {
+        this.salaries = salaries;
+    }
+    
 }

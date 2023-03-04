@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app.service;
 
 import com.mycompany.cafe_management_app.dao.BillDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
+import com.mycompany.cafe_management_app.dao.SalaryDao;
 import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.Dish;
@@ -20,11 +21,13 @@ public class AdminService {
     private final StaffDao staffDao;
     private final DishDao dishDao;
     private final BillDao billDao;
+    private final SalaryDao salaryDao;
     
     public AdminService() {
         staffDao = new StaffDao();
         dishDao = new DishDao();
         billDao = new BillDao();
+        salaryDao = new SalaryDao();
     }
     
     public List<Staff> getAllStaff() {
@@ -37,6 +40,8 @@ public class AdminService {
     
     public void saveStaff(Staff t) {
         staffDao.save(t);
+        
+        
     }
     
     public void updateStaff(Staff t) {

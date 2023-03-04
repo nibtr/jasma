@@ -9,6 +9,7 @@ import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
+import com.mycompany.cafe_management_app.model.Salary;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
 import com.mycompany.cafe_management_app.model.Revenue;
@@ -46,6 +47,8 @@ public class HibernateConfig {
                 configuration.addAnnotatedClass(Timekeeping.class);
                 configuration.addAnnotatedClass(DishDetail.class);
                 configuration.addAnnotatedClass(Bill.class);
+                configuration.addAnnotatedClass(Salary.class);
+
                 configuration.addAnnotatedClass(BillDetail.class);
                 configuration.addAnnotatedClass(Revenue.class);
 
