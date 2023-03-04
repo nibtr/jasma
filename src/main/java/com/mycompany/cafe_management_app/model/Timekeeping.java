@@ -42,6 +42,10 @@ public class Timekeeping {
     @Column(name = "payment")
     private Double payment;
 
+    public Timekeeping() {
+    }
+
+
     public Timekeeping(LocalDateTime checkinTime) {
         this.checkinTime = checkinTime;
     }
