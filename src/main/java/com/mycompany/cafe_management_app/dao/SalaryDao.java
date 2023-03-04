@@ -65,9 +65,9 @@ public class SalaryDao implements DaoInterface<Salary> {
             session.close();
         }
     }
-
+    
     @Override
-    public void delele(Salary t) {
+    public void delete(Salary t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
@@ -115,5 +115,7 @@ public class SalaryDao implements DaoInterface<Salary> {
         return list;
 
     }
+
+    
 
 }
