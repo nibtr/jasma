@@ -49,7 +49,7 @@ public class AdminService {
     }
     
     public void deleteStaff(Staff t) {
-        staffDao.delele(t);
+        staffDao.delete(t);
     }
     
     public List<Dish> getAllDish() {
@@ -73,7 +73,7 @@ public class AdminService {
     }
     
     public void deleteDish(Dish t) {
-        dishDao.delele(t);
+        dishDao.delete(t);
     }
     
     public List<Bill> getAllBills() {

@@ -12,6 +12,7 @@ import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Salary;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
+import com.mycompany.cafe_management_app.model.Revenue;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -49,6 +50,8 @@ public class HibernateConfig {
                 configuration.addAnnotatedClass(Salary.class);
 
                 configuration.addAnnotatedClass(BillDetail.class);
+                configuration.addAnnotatedClass(Revenue.class);
+
 
 //                Build the service factory
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

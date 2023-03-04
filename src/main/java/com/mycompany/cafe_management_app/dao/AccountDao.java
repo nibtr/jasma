@@ -150,7 +150,7 @@ public class AccountDao implements DaoInterface<Account>{
     }
 
     @Override
-    public void delele(Account t) {
+    public void delete(Account t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         

@@ -4,6 +4,7 @@
  */
 package com.mycompany.cafe_management_app.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,7 +33,7 @@ public class Timekeeping {
     @Column(name = "checkout_time", columnDefinition = "DATETIME")
     private LocalDateTime checkoutTime;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_staff_id")
     private Staff staff;
     
