@@ -72,6 +72,14 @@ public class StaffService {
         return dishDao.getAll();
     }
     
+    public Dish getDishByID(Long id) {
+        return dishDao.getByID(id);
+    }
+    
+    public Dish getDishByName(String name) {
+        return dishDao.getByName(name);
+    }
+    
     public List<DishDetail> getDetailsOf(Dish dish) {
         return dishDetailDao.getByDishID(dish.getId());
     }

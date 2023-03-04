@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.BillDetail;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -19,7 +20,8 @@ public class BillDetailDao implements DaoInterface<BillDetail>{
 
     @Override
     public List<BillDetail> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//        Not necessary
+        return new ArrayList<>();
     }
 
     @Override
@@ -45,12 +47,11 @@ public class BillDetailDao implements DaoInterface<BillDetail>{
 
     @Override
     public void update(BillDetail t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
     public void delele(BillDetail t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

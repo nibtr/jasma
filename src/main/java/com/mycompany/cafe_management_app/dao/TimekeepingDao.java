@@ -7,6 +7,7 @@ package com.mycompany.cafe_management_app.dao;
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Timekeeping;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -28,7 +29,7 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
     public List<Timekeeping> getListOf(Long staffID) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<Timekeeping> list = null;
+        List<Timekeeping> list = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();

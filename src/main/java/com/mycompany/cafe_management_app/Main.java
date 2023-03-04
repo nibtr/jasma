@@ -23,6 +23,9 @@ import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
+import it.sauronsoftware.junique.AlreadyLockedException;
+import it.sauronsoftware.junique.JUnique;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,29 +38,20 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-       
-        Dish dish1 = new Dish("cafe den");    
-        dish1.addDetail(new DishDetail("M", 35000.0));
-        dish1.addDetail(new DishDetail("S", 40000.0));
-        dish1.addDetail(new DishDetail("L", 45000.0));
+        ErrorUtil.getInstance();
         
-        DishDao dishDao = new DishDao();
-//        dishDao.save(dish1);
-        
-        Bill bill = new Bill(LocalDateTime.now());
+        String appID = "my_app_id";
+        boolean alreadyRunning;
+	try {
+            JUnique.acquireLock(appID);
+            alreadyRunning = false;
+	} catch (AlreadyLockedException e) {
+            alreadyRunning = true;
+	}
+	if (!alreadyRunning) {
+            LoginController loginController = new LoginController();
+            loginController.getLoginUI().setVisible(true);
+	}
 
-        DishDetailDao ddDao = new DishDetailDao();
-        
-        BillDetail bdt1 = new BillDetail(ddDao.getByDishName("cafe den").get(0), (long) 2);
-        BillDetail bdt2 = new BillDetail(ddDao.getByDishName("cafe den").get(1), (long) 2);
-//        BillDetailDao bdtDao = new BillDetailDao();
-//        bdtDao.save(bdt1);
-//        bdtDao.save(bdt2);
-
-        bill.addBillDetail(bdt1);
-        bill.addBillDetail(bdt2);
-        
-        StaffService stSerivce = new StaffService();
-        stSerivce.createBill(bill, 200000.0);
      }
 }

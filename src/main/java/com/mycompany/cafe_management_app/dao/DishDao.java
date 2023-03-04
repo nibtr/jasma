@@ -10,6 +10,7 @@ import com.mycompany.cafe_management_app.util.ErrorUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -26,7 +27,7 @@ public class DishDao implements DaoInterface<Dish> {
     public List<Dish> getAll() {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<Dish> menus = null;
+        List<Dish> dishes = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();
@@ -34,7 +35,7 @@ public class DishDao implements DaoInterface<Dish> {
             CriteriaQuery<Dish> criteria = builder.createQuery(Dish.class);
             Root<Dish> root = criteria.from(Dish.class);
             criteria.select(root);
-            menus = session.createQuery(criteria).getResultList();
+            dishes = session.createQuery(criteria).getResultList();
             tx.commit();
             
             ErrorUtil.getInstance().setErrorCode(0);
@@ -51,7 +52,7 @@ public class DishDao implements DaoInterface<Dish> {
             session.close();
         }
 
-        return menus;
+        return dishes;
     }
     
     public Dish getByName(String name) {

@@ -7,6 +7,7 @@ package com.mycompany.cafe_management_app.dao;
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -22,13 +23,13 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
     @Override
     public List<DishDetail> getAll() {
 //        Not necessary
-        return null;
+        return new ArrayList<>();
     }
     
     public List<DishDetail> getByDishID(Long dishID) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<DishDetail> list = null;
+        List<DishDetail> list = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();
@@ -58,7 +59,7 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
     public List<DishDetail> getByDishName(String dishName) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<DishDetail> list = null;
+        List<DishDetail> list = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();
