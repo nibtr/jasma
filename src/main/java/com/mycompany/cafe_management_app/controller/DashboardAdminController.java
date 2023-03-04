@@ -8,24 +8,21 @@ import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.service.AdminService;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.DashboardAdminUI;
+import com.mycompany.cafe_management_app.ui.DashboardAdminUI.DishForm;
 import com.mycompany.cafe_management_app.util.callback.DeleteEvent;
 import com.mycompany.cafe_management_app.util.callback.EditEvent;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.NewStaffForm;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.StaffItem;
+import com.mycompany.cafe_management_app.ui.MenuItem;
+import com.mycompany.cafe_management_app.ui.DetailsDish;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -35,14 +32,45 @@ public class DashboardAdminController {
     private DashboardAdminUI dashboardAdminUI;
     private AdminService adminService;
     private JButton addStaffBtn;
+    private JButton addDishBtn;
     private JButton saveStaffBtn;
     private NewStaffForm newStaffForm;
-    private JPanel wrapListStaff;
+    private JPanel wrapListStaff;    
+    private JPanel wrapListDish;
+
     
     public DashboardAdminController() {
         initController();
     }
+    
+    private void initController() {
+        dashboardAdminUI = new DashboardAdminUI();
+        adminService = new AdminService();
        
+        // Staff -----------------------------------------------------------
+
+        //show list staff 
+        wrapListStaff = dashboardAdminUI.getContainerListStaff();
+//        renderListStaff(); issu of database
+        // click new staff btn
+        addStaffBtn = dashboardAdminUI.getAddStaffBtn();
+        addStaffBtn.addActionListener(new addStaffEvent());
+        
+        // click save in form 
+        newStaffForm = new NewStaffForm();
+        saveStaffBtn = newStaffForm.getSaveButton();
+        saveStaffBtn.addActionListener(new saveStaff());
+        
+        // Menu -----------------------------------------------------------
+        wrapListDish = dashboardAdminUI.getListDishContainer();
+        renderListMenu();
+        addDishBtn = dashboardAdminUI.getAddDishBtn();
+        addDishBtn.addActionListener(new addDishListener());        
+        
+        dashboardAdminUI.setVisible(true);
+    }
+       
+//    Staff method ----------------------------------------------------------------------------------------------------------
     private void renderListStaff() {
         List<Staff> listStaff = adminService.getAllStaff();
         for (int i = 0; i < listStaff.size(); i++) {
@@ -51,7 +79,7 @@ public class DashboardAdminController {
             String dob = tmpStaff.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd.MM yyyy"));
             String phone = tmpStaff.getPhoneNumber();
             String pos = tmpStaff.getPosition();
-            EditEvent editEvent = new EditEvent(new EditFunction() );
+            EditEvent editEvent = new EditEvent(new EditFunction());
             DeleteEvent deleteEvent = new DeleteEvent(new DeleteFunc());
             StaffItem tmp = new StaffItem(tmpStaff, name, dob, phone, pos, editEvent, deleteEvent);
             wrapListStaff.add(tmp);
@@ -59,16 +87,12 @@ public class DashboardAdminController {
     }
     
     private void re_renderListUI() {
-        System.out.println("1");
             wrapListStaff.removeAll();
-            System.out.println("2");
             renderListStaff();
-            System.out.println("3");
-            wrapListStaff.revalidate();
-            System.out.println("4");
+            dashboardAdminUI.revalidate();
     }
-    
-        private boolean validation(String username,String pass, String name, String phone,
+  
+    private boolean validation(String username,String pass, String name, String phone,
          String pos, String day, String month, String year) {
 
      if (username.compareTo("") == 0 | pass.compareTo("") == 0 | name.compareTo("") == 0
@@ -102,7 +126,7 @@ public class DashboardAdminController {
      return true;
  }
 
-        void addStaff() {
+    void addStaff() {
         String username =  newStaffForm.getUserNameField().getText();
         String pass =  newStaffForm.getPasswordField().getText();
         String name =  newStaffForm.getNameField().getText();
@@ -121,7 +145,7 @@ public class DashboardAdminController {
             } 
      }
         
-        void updateStaff(NewStaffForm form, Staff editedStaff) {
+    void updateStaff(NewStaffForm form, Staff editedStaff) {
         String username =  form.getUserNameField().getText();
         String pass =  form.getPasswordField().getText();
         String name =  form.getNameField().getText();
@@ -139,33 +163,7 @@ public class DashboardAdminController {
                 form.dispose();
             } 
         }
-    
-    private void initController() {
-        dashboardAdminUI = new DashboardAdminUI();
-        adminService = new AdminService();
         
-        //show list staff 
-        wrapListStaff = dashboardAdminUI.getContainerListStaff();
-        renderListStaff();
-        // click new staff btn
-        addStaffBtn = dashboardAdminUI.getAddStaffBtn();
-        addStaffBtn.addActionListener(new addStaffEvent());
-        
-        // click save in form 
-        newStaffForm = new NewStaffForm();
-        saveStaffBtn = newStaffForm.getSaveButton();
-        saveStaffBtn.addActionListener(new saveStaff());
-        
-        dashboardAdminUI.setVisible(true);
-    }
-    
-    private class addStaffEvent implements ActionListener {        
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            newStaffForm.setVisible(true);
-        }
-    }
-    
     private class saveStaff implements  ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -188,4 +186,42 @@ public class DashboardAdminController {
             re_renderListUI();
         }
     }
+    
+    private class addStaffEvent implements ActionListener {        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            newStaffForm.setVisible(true);
+        }
+    }
+   
+    
+    //    Menu method ----------------------------------------------------------------------------------------------------------
+    private void renderListMenu() {
+        ArrayList<String> listDish = new ArrayList<String>();
+        listDish.add("Espresso");
+        listDish.add("Latte");
+        for (String dish : listDish) {
+            wrapListDish.add(new MenuItem(dish, new DetailsDishFunction(), new EditDishFunction(), Boolean.FALSE));
+        }
+    }
+    
+   public class DetailsDishFunction {
+       public void showDetails() {
+           new DetailsDish().setVisible(true);
+       }
+   }
+   
+     public class EditDishFunction {
+       public void execute() {
+           new DishForm().setVisible(true);
+       }
+   }
+   
+   private class addDishListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new DishForm().setVisible(true);
+        }
+   }
 }
