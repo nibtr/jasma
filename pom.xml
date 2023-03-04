@@ -38,6 +38,23 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE160</version>
         </dependency>
+        
+    <!--JUnique-->
+        <dependency>
+            <groupId>it.sauronsoftware</groupId>
+            <artifactId>junique</artifactId>
+            <version>1.0.4</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
+    
+    
+    <repositories>
+        <repository>
+            <id>poolborges-github-thirdparty</id>
+            <name>poolborges-github</name>
+            <url>https://github.com/poolborges/maven/raw/master/thirdparty/</url>
+        </repository>
+    </repositories>
 
 </project>
