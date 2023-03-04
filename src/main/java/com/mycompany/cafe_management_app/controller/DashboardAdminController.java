@@ -8,6 +8,8 @@ import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.service.AdminService;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.DashboardAdminUI;
+import com.mycompany.cafe_management_app.util.callback.DeleteEvent;
+import com.mycompany.cafe_management_app.util.callback.EditEvent;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.NewStaffForm;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.StaffItem;
 import java.awt.event.ActionEvent;
@@ -49,9 +51,21 @@ public class DashboardAdminController {
             String dob = tmpStaff.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd.MM yyyy"));
             String phone = tmpStaff.getPhoneNumber();
             String pos = tmpStaff.getPosition();
-            StaffItem tmp = new StaffItem(name, dob, phone, pos);
+            EditEvent editEvent = new EditEvent(new EditFunction() );
+            DeleteEvent deleteEvent = new DeleteEvent(new DeleteFunc());
+            StaffItem tmp = new StaffItem(tmpStaff, name, dob, phone, pos, editEvent, deleteEvent);
             wrapListStaff.add(tmp);
         }
+    }
+    
+    private void re_renderListUI() {
+        System.out.println("1");
+            wrapListStaff.removeAll();
+            System.out.println("2");
+            renderListStaff();
+            System.out.println("3");
+            wrapListStaff.revalidate();
+            System.out.println("4");
     }
     
         private boolean validation(String username,String pass, String name, String phone,
@@ -105,7 +119,26 @@ public class DashboardAdminController {
                 new NotificationController("Add staff successfully !");
                 newStaffForm.dispose();
             } 
-    }
+     }
+        
+        void updateStaff(NewStaffForm form, Staff editedStaff) {
+        String username =  form.getUserNameField().getText();
+        String pass =  form.getPasswordField().getText();
+        String name =  form.getNameField().getText();
+        String phone =  form.getPhoneField().getText();
+        String pos =  form.getPosField().getText();
+        String day =  form.getDayField().getText();
+        String month =  form.getMonthField().getText();
+        String year =  form.getYearField().getText();
+            if (validation(username, pass, name, phone, pos, day, month, year)) {
+                LocalDate dob = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month ), Integer.parseInt(day));
+                editedStaff.setAll(name, dob, phone, pos);
+//                System.out.println(editedStaff.getId());
+                adminService.updateStaff(editedStaff);
+                new NotificationController("Update staff successfully !");
+                form.dispose();
+            } 
+        }
     
     private void initController() {
         dashboardAdminUI = new DashboardAdminUI();
@@ -137,10 +170,22 @@ public class DashboardAdminController {
         @Override
         public void actionPerformed(ActionEvent e) {
             addStaff();
-            wrapListStaff.removeAll();
-            renderListStaff();
-            wrapListStaff.revalidate();
+           re_renderListUI();
         }
         
+    }
+    
+    public class EditFunction {
+        public void execute(NewStaffForm form, Staff editedStaff) {
+            updateStaff(form, editedStaff);
+            re_renderListUI();
+        }
+    }
+    
+    public class DeleteFunc {
+        public void execute(Staff staff) {
+            adminService.deleteStaff(staff);
+            re_renderListUI();
+        }
     }
 }

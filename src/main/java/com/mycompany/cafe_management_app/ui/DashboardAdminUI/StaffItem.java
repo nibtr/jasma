@@ -4,6 +4,10 @@
  */
 package com.mycompany.cafe_management_app.ui.DashboardAdminUI;
 
+import com.mycompany.cafe_management_app.model.Staff;
+import com.mycompany.cafe_management_app.util.callback.EditEvent;
+import com.mycompany.cafe_management_app.util.callback.DeleteEvent;
+
 /**
  *
  * @author namho
@@ -13,12 +17,19 @@ public class StaffItem extends javax.swing.JPanel {
     /**
      * Creates new form StaffItem
      */
-    public StaffItem(String name, String DoB, String phoneNumber, String position) {
+    private EditEvent editEvent;
+    private DeleteEvent deleteEvent;
+    private Staff staff;
+
+    public StaffItem(Staff staff, String name, String DoB, String phoneNumber, String position, EditEvent editEvent, DeleteEvent deleteEvent) {
        initComponents();
        nameLabel.setText(name);
        dobLabel.setText(DoB);
        phoneLabel.setText(phoneNumber);
        positionLabel.setText(position);
+       this.staff = staff;
+       this.deleteEvent = deleteEvent;
+       this.editEvent = editEvent;
     }
 
     /**
@@ -34,6 +45,8 @@ public class StaffItem extends javax.swing.JPanel {
         dobLabel = new javax.swing.JLabel();
         phoneLabel = new javax.swing.JLabel();
         positionLabel = new javax.swing.JLabel();
+        editBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(800, 32));
@@ -60,11 +73,60 @@ public class StaffItem extends javax.swing.JPanel {
         positionLabel.setText(".");
         add(positionLabel);
         positionLabel.setBounds(470, 10, 80, 16);
+
+        editBtn.setBackground(new java.awt.Color(255, 255, 255));
+        editBtn.setForeground(new java.awt.Color(51, 51, 51));
+        editBtn.setText("Edit");
+        editBtn.setBorder(null);
+        editBtn.setBorderPainted(false);
+        editBtn.setFocusable(false);
+        editBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editBtnMouseClicked(evt);
+            }
+        });
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
+        add(editBtn);
+        editBtn.setBounds(560, 10, 70, 20);
+
+        deleteBtn.setBackground(new java.awt.Color(255, 255, 255));
+        deleteBtn.setForeground(new java.awt.Color(255, 51, 51));
+        deleteBtn.setText("Delete");
+        deleteBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        deleteBtn.setBorderPainted(false);
+        deleteBtn.setFocusable(false);
+        deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteBtnMouseClicked(evt);
+            }
+        });
+        add(deleteBtn);
+        deleteBtn.setBounds(690, 10, 60, 20);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void editBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editBtnMouseClicked
+        // TODO add your handling code here:
+        this.editEvent.edit(staff);
+    }//GEN-LAST:event_editBtnMouseClicked
+
+    private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
+        // TODO add your handling code here:
+        this.deleteEvent.delete(staff);
+    }//GEN-LAST:event_deleteBtnMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel dobLabel;
+    private javax.swing.JButton editBtn;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JLabel positionLabel;

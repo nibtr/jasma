@@ -133,7 +133,7 @@ public class StaffDao implements DaoInterface<Staff>{
         
         try {
             tx = session.beginTransaction();
-            session.save(t);
+            session.update(t);
             tx.commit();
         } catch(HibernateException e) {
             if (tx != null) {

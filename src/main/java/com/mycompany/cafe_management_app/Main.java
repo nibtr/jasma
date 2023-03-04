@@ -35,7 +35,7 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-        
+       
         Dish dish1 = new Dish("cafe den");    
         dish1.addDetail(new DishDetail("M", 35000.0));
         dish1.addDetail(new DishDetail("S", 40000.0));

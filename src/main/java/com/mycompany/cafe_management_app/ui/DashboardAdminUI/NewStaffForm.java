@@ -5,6 +5,7 @@
 package com.mycompany.cafe_management_app.ui.DashboardAdminUI;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 /**
@@ -18,7 +19,22 @@ public class NewStaffForm extends javax.swing.JFrame {
      */
     public NewStaffForm() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
+    
+    public NewStaffForm(String name, String phone, String pos, String day, String month, String year) {
+        initComponents();
+        usernameInput.setText("can not change this field !");
+        passInput.setText("can not change this field !");
+        nameInput.setText(name);
+        phoneInput.setText(phone);
+        posInput.setText(pos);
+        this.day.setText(day);
+        this.month.setText(month);
+        this.year.setText(year);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    
     public JTextField getUserNameField() {
         return usernameInput;
     }
@@ -45,9 +61,6 @@ public class NewStaffForm extends javax.swing.JFrame {
     }
     public JButton getSaveButton() {
         return saveBtn;
-    }
-    public JButton getCancelButton() {
-        return cancelBtn;
     }
     
     /**
@@ -86,7 +99,7 @@ public class NewStaffForm extends javax.swing.JFrame {
         year = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("New Staff");
+        setTitle("Form");
         setMinimumSize(new java.awt.Dimension(400, 270));
         setResizable(false);
 
@@ -127,7 +140,13 @@ public class NewStaffForm extends javax.swing.JFrame {
         usernameInput.setBackground(new java.awt.Color(255, 255, 255));
         usernameInput.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         usernameInput.setForeground(new java.awt.Color(51, 51, 51));
+        usernameInput.setText("dsadasdadasd");
         usernameInput.setBorder(null);
+        usernameInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameInputActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout wrapInputFieldLayout = new javax.swing.GroupLayout(wrapInputField);
         wrapInputField.setLayout(wrapInputFieldLayout);
@@ -408,11 +427,16 @@ public class NewStaffForm extends javax.swing.JFrame {
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void monthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_monthActionPerformed
+
+    private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameInputActionPerformed
 
     /**
      * @param args the command line arguments
