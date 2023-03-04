@@ -34,14 +34,11 @@ public class Revenue {
 
     @Column(name = "time", columnDefinition = "DATETIME")
     private LocalDate time;
-    
-    
-
+     
     public Revenue() {
     }
 
     public Revenue(Double income, Double outcome) {
-
         this.income = income;
         this.outcome = outcome;
     }

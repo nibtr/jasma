@@ -95,11 +95,10 @@ public class Bill {
         return billDetails;
     }
 
-    public void setBillDetails(List<BillDetail> billDetails) {
-        this.billDetails = billDetails;
-    }
+//    public void setBillDetails(List<BillDetail> billDetails) {
+//        this.billDetails = billDetails;
+//    }
 
-    
     public void addBillDetail(BillDetail b) {
         billDetails.add(b);
         b.setBill(this);

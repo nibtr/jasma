@@ -104,7 +104,7 @@ public class BillDao implements DaoInterface<Bill>{
     }
 
     @Override
-    public void delele(Bill t) {
+    public void delete(Bill t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         

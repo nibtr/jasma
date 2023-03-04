@@ -74,7 +74,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
 
         try {
             tx = session.beginTransaction();
-            session.save(t);
+            session.update(t);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -87,7 +87,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
     }
 
     @Override
-    public void delele(Revenue t) {
+    public void delete(Revenue t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 

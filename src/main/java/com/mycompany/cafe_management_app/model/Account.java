@@ -4,6 +4,7 @@
  */
 package com.mycompany.cafe_management_app.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Account {
     
     private String role;
     
-    @OneToOne(mappedBy = "account")
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
     private Staff staff;
 
     public Account() {
