@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
 import com.mycompany.cafe_management_app.util.PasswordUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -31,11 +32,18 @@ public class AccountDao implements DaoInterface<Account>{
             tx = session.beginTransaction();
             account = session.get(Account.class, id);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+//            ErrorUtil.getInstance().setMessage("");
+
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-           
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+
             e.printStackTrace();
         } finally {
             session.close();
@@ -56,11 +64,17 @@ public class AccountDao implements DaoInterface<Account>{
             List<Account> accounts = query.list();
             tx.commit(); 
             
+            ErrorUtil.getInstance().setErrorCode(0);
+//            ErrorUtil.getInstance().setMessage("");
+            
             return accounts.isEmpty() ? null : accounts.get(0);
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
             
             return null;
@@ -82,11 +96,16 @@ public class AccountDao implements DaoInterface<Account>{
             criteria.select(criteria.from(Account.class));
             accountList = session.createQuery(criteria).getResultList();
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
 
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             
             e.printStackTrace();
         } finally {
@@ -108,11 +127,17 @@ public class AccountDao implements DaoInterface<Account>{
             tx = session.beginTransaction();
             session.persist(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Account saved successfully");
+
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -133,10 +158,17 @@ public class AccountDao implements DaoInterface<Account>{
             tx = session.beginTransaction();
             session.delete(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Delete successfully");
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
            
             e.printStackTrace();
         } finally {

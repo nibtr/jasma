@@ -7,6 +7,7 @@ package com.mycompany.cafe_management_app.dao;
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Staff;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
 import com.mycompany.cafe_management_app.util.PasswordUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -26,53 +27,62 @@ public class StaffDao implements DaoInterface<Staff>{
         String hql = "FROM Staff a WHERE a.name = :name";
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
+        List<Staff> staffs = new ArrayList<>();
         
         try {
             tx = session.beginTransaction();
             Query query = session.createQuery(hql);
             query.setParameter("name", name);
-            List<Staff> staffs = query.list();
+            staffs = query.list();
             tx.commit(); 
             
-            return staffs.isEmpty() ? null : staffs;
+            ErrorUtil.getInstance().setErrorCode(0);
+            
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
             
-            return null;
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            e.printStackTrace();
+
         } finally {
             session.close();
         } 
+        
+        return staffs;
     }
     
     @Override
     public List<Staff> getAll() {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-  
+        List<Staff> staffs = new ArrayList<>();
+        
         try {
             tx = session.beginTransaction();   
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Staff> criteria = builder.createQuery(Staff.class);
             criteria.select(criteria.from(Staff.class));
-            List<Staff> accountList = session.createQuery(criteria).getResultList();
+            staffs = session.createQuery(criteria).getResultList();
             tx.commit();
             
-            return accountList.isEmpty() ? null : accountList;
-
+            ErrorUtil.getInstance().setErrorCode(0);
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
             
-            return null;
         } finally {
             session.close();
         }  
+        
+        return staffs;
     }
     
     public Staff getByID(Long id) {
@@ -84,11 +94,16 @@ public class StaffDao implements DaoInterface<Staff>{
             tx = session.beginTransaction();
             staff = session.get(Staff.class, id);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -115,11 +130,17 @@ public class StaffDao implements DaoInterface<Staff>{
             tx = session.beginTransaction();
             session.persist(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Saved successfully");
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -135,10 +156,17 @@ public class StaffDao implements DaoInterface<Staff>{
             tx = session.beginTransaction();
             session.update(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Updated successfully");
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
            
             e.printStackTrace();
         } finally {
@@ -155,11 +183,17 @@ public class StaffDao implements DaoInterface<Staff>{
             tx = session.beginTransaction();
             session.delete(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Deleted successfully");
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            
             e.printStackTrace();
         } finally {
             session.close();

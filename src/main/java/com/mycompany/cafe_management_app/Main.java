@@ -16,11 +16,19 @@ import com.mycompany.cafe_management_app.service.LoginService;
 import com.mycompany.cafe_management_app.service.StaffService;
 import com.mycompany.cafe_management_app.ui.LoginUI;
 import com.mycompany.cafe_management_app.controller.LoginController;
+import com.mycompany.cafe_management_app.dao.BillDao;
+import com.mycompany.cafe_management_app.dao.BillDetailDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
 import com.mycompany.cafe_management_app.dao.DishDetailDao;
-import com.mycompany.cafe_management_app.dao.StaffDao;
+import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
+import it.sauronsoftware.junique.AlreadyLockedException;
+import it.sauronsoftware.junique.JUnique;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,24 +41,20 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-        // StaffDao staffDao = new StaffDao();
-        // if (staffDao.getAll() == null) {
-        //     Staff staff = new Staff("Hieu", LocalDate.of(2002, 6, 1), "0123456789");
-        //     Account acc = new Account("admin", "admin", "admin");
-        //     staff.setAccount(acc);
-        //     staffDao.save(staff);
-        // }
+        ErrorUtil.getInstance();
+        
+        String appID = "my_app_id";
+        boolean alreadyRunning;
+	try {
+            JUnique.acquireLock(appID);
+            alreadyRunning = false;
+	} catch (AlreadyLockedException e) {
+            alreadyRunning = true;
+	}
+	if (!alreadyRunning) {
+            LoginController loginController = new LoginController();
+            loginController.getLoginUI().setVisible(true);
+	}
 
-        // Staff staff = new Staff("Trung", LocalDate.of(2002, 6, 1), "0123456789", "staff");
-        // Account acc = new Account("staff", "staff", "staff");
-        // staff.setAccount(acc);
-        // staffDao.save(staff);
-
-        LoginController loginController = new LoginController();
-        loginController.getLoginUI().setVisible(true);
-       
-
-        // DashboardStaffController staffController = new DashboardStaffController();
-        // staffController.getDashboardStaffUI().setVisible(true);
-    }
+     }
 }

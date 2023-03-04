@@ -4,9 +4,11 @@
  */
 package com.mycompany.cafe_management_app.service;
 
+import com.mycompany.cafe_management_app.dao.BillDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
 import com.mycompany.cafe_management_app.dao.DishDetailDao;
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
+import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
@@ -25,12 +27,14 @@ public class StaffService {
     private final TimekeepingDao timekeepingDao;
     private final DishDao dishDao;
     private final DishDetailDao dishDetailDao;
+    private final BillDao billDao;
     private final Staff currentStaff;
     
     public StaffService() {
         timekeepingDao = new TimekeepingDao();
         dishDao = new DishDao();
         dishDetailDao = new DishDetailDao();
+        billDao = new BillDao();
         currentStaff = UserSession.getInstance().getStaff();
     }
     
@@ -68,8 +72,22 @@ public class StaffService {
         return dishDao.getAll();
     }
     
+    public Dish getDishByID(Long id) {
+        return dishDao.getByID(id);
+    }
+    
+    public Dish getDishByName(String name) {
+        return dishDao.getByName(name);
+    }
+    
     public List<DishDetail> getDetailsOf(Dish dish) {
         return dishDetailDao.getByDishID(dish.getId());
+    }
+    
+    public void createBill(Bill t, Double receivedAmount) {
+        t.setReceivedAmount(receivedAmount);
+        t.setReturnedAmount(receivedAmount - t.getTotalPrice());
+        billDao.save(t);
     }
  
 }

@@ -6,6 +6,8 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.DishDetail;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -21,13 +23,13 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
     @Override
     public List<DishDetail> getAll() {
 //        Not necessary
-        return null;
+        return new ArrayList<>();
     }
     
     public List<DishDetail> getByDishID(Long dishID) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<DishDetail> list = null;
+        List<DishDetail> list = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();
@@ -36,10 +38,16 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             list = query.getResultList();      
             tx.commit();
             
+            ErrorUtil.getInstance().setErrorCode(0);
+            
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            
             e.printStackTrace();
         } finally {
             session.close();
@@ -51,7 +59,7 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
     public List<DishDetail> getByDishName(String dishName) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<DishDetail> list = null;
+        List<DishDetail> list = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();
@@ -60,10 +68,15 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             list = query.getResultList();      
             tx.commit();
             
+            ErrorUtil.getInstance().setErrorCode(0);
+            
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -81,10 +94,16 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             tx = session.beginTransaction();
             session.persist(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Saved successfully");
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -100,10 +119,16 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             tx = session.beginTransaction();
             session.update(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Updated successfully");
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -119,10 +144,16 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             tx = session.beginTransaction();
             session.delete(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Deleted successfully");
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();

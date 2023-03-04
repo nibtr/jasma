@@ -5,6 +5,8 @@
 package com.mycompany.cafe_management_app.config;
 
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
@@ -41,7 +43,9 @@ public class HibernateConfig {
                 configuration.addAnnotatedClass(Dish.class);
                 configuration.addAnnotatedClass(Timekeeping.class);
                 configuration.addAnnotatedClass(DishDetail.class);
-                
+                configuration.addAnnotatedClass(Bill.class);
+                configuration.addAnnotatedClass(BillDetail.class);
+
 //                Build the service factory
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties())

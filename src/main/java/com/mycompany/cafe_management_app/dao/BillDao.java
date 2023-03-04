@@ -7,6 +7,7 @@ package com.mycompany.cafe_management_app.dao;
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
@@ -34,12 +35,16 @@ public class BillDao implements DaoInterface<Bill>{
             criteria.select(criteria.from(Bill.class));
             billList = session.createQuery(criteria).getResultList();
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
 
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -58,11 +63,15 @@ public class BillDao implements DaoInterface<Bill>{
             session.persist(t);
             tx.commit();
             
+            ErrorUtil.getInstance().setErrorCode(0);
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -76,14 +85,18 @@ public class BillDao implements DaoInterface<Bill>{
         
         try {
             tx = session.beginTransaction();
-            session.save(t);
+            session.update(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
             
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -100,11 +113,15 @@ public class BillDao implements DaoInterface<Bill>{
             session.delete(t);
             tx.commit();
             
+            ErrorUtil.getInstance().setErrorCode(0);
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
