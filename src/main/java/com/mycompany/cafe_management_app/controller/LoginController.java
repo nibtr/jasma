@@ -50,7 +50,7 @@ public class LoginController {
             return role;
         }
     }
-    
+
     public void setLoginUI(LoginUI loginUI) {
         this.loginUI = loginUI;
     }
@@ -58,6 +58,7 @@ public class LoginController {
     public void setLoginService(LoginService loginService) {
         this.loginService = loginService;
     }
+
     public LoginUI getLoginUI() {
         return loginUI;
     }
