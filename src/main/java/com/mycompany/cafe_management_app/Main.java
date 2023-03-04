@@ -15,10 +15,15 @@ import com.mycompany.cafe_management_app.service.LoginService;
 import com.mycompany.cafe_management_app.service.StaffService;
 import com.mycompany.cafe_management_app.ui.LoginUI;
 import com.mycompany.cafe_management_app.controller.LoginController;
+import com.mycompany.cafe_management_app.dao.BillDao;
+import com.mycompany.cafe_management_app.dao.BillDetailDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
 import com.mycompany.cafe_management_app.dao.DishDetailDao;
+import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -30,18 +35,29 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-//        LoginController loginController = new LoginController();
-//        loginController.getLoginUI().setVisible(true);
-//          new DashboardAdminController();
+        
+        Dish dish1 = new Dish("cafe den");    
+        dish1.addDetail(new DishDetail("M", 35000.0));
+        dish1.addDetail(new DishDetail("S", 40000.0));
+        dish1.addDetail(new DishDetail("L", 45000.0));
+        
+        DishDao dishDao = new DishDao();
+//        dishDao.save(dish1);
+        
+        Bill bill = new Bill(LocalDateTime.now());
 
-//        DishDao dishDao = new DishDao();
-//        dishDao.delele(dishDao.getByName("cafe den"));
+        DishDetailDao ddDao = new DishDetailDao();
+        
+        BillDetail bdt1 = new BillDetail(ddDao.getByDishName("cafe den").get(0), (long) 2);
+        BillDetail bdt2 = new BillDetail(ddDao.getByDishName("cafe den").get(1), (long) 2);
+//        BillDetailDao bdtDao = new BillDetailDao();
+//        bdtDao.save(bdt1);
+//        bdtDao.save(bdt2);
 
-          DishDetailDao d = new DishDetailDao();
-          List<DishDetail> list = d.getByDishID((long) 2);
-          for (DishDetail a : list) {
-              System.out.println(a.getPrice());
-          }
-
+        bill.addBillDetail(bdt1);
+        bill.addBillDetail(bdt2);
+        
+        StaffService stSerivce = new StaffService();
+        stSerivce.createBill(bill, 200000.0);
      }
 }

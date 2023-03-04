@@ -4,6 +4,7 @@
  */
 package com.mycompany.cafe_management_app.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -34,6 +38,9 @@ public class DishDetail {
     @JoinColumn(name = "fk_dish_id")
     private Dish dish;
     
+//    @OneToMany(mappedBy = "dishDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<BillDetail> billDetails = new ArrayList<>();
+
     public DishDetail() {
         
     }
@@ -75,5 +82,18 @@ public class DishDetail {
     public void setDish(Dish dish) {
         this.dish = dish;
     }
+
+//    public List<BillDetail> getBillDetails() {
+//        return billDetails;
+//    }
+//
+//    public void setBillDetails(List<BillDetail> billDetails) {
+//        this.billDetails = billDetails;
+//    }
+//    
+//    public void addBillDetail(BillDetail b) {
+//        billDetails.add(b);
+//        b.setDishDetail(this);
+//    }
 
 }

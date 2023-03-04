@@ -4,12 +4,16 @@
  */
 package com.mycompany.cafe_management_app.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,13 +32,23 @@ public class Bill {
     @Column(name = "total_price")
     private Double totalPrice;
     
+    @Column(name = "received_amount")
+    private Double receivedAmount;
+    
+    @Column(name = "returned_amount")
+    private Double returnedAmount;
+    
+    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BillDetail> billDetails = new ArrayList<>();
+    
+  
     public Bill() {
 //        required by Hibernate
     }
 
-    public Bill(LocalDateTime timeCreated, Double totalPrice) {
+    public Bill(LocalDateTime timeCreated) {
+        this.totalPrice = 0.0;
         this.timeCreated = timeCreated;
-        this.totalPrice = totalPrice;
     }
 
     public Long getId() {
@@ -59,6 +73,37 @@ public class Bill {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Double getReceivedAmount() {
+        return receivedAmount;
+    }
+
+    public void setReceivedAmount(Double receivedAmount) {
+        this.receivedAmount = receivedAmount;
+    }
+
+    public Double getReturnedAmount() {
+        return returnedAmount;
+    }
+
+    public void setReturnedAmount(Double returnedAmount) {
+        this.returnedAmount = returnedAmount;
+    }
+    
+    public List<BillDetail> getBillDetails() {
+        return billDetails;
+    }
+
+    public void setBillDetails(List<BillDetail> billDetails) {
+        this.billDetails = billDetails;
+    }
+
+    
+    public void addBillDetail(BillDetail b) {
+        billDetails.add(b);
+        b.setBill(this);
+        this.totalPrice += b.getPrice();
     }
 
 }

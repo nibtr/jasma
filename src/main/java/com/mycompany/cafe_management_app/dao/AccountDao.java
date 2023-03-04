@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
 import com.mycompany.cafe_management_app.util.PasswordUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -31,11 +32,16 @@ public class AccountDao implements DaoInterface<Account>{
             tx = session.beginTransaction();
             account = session.get(Account.class, id);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+//            ErrorUtil.getInstance().setMessage("");
+
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-           
+            
+            ErrorUtil.getInstance().setErrorCode(1);
             e.printStackTrace();
         } finally {
             session.close();
@@ -108,11 +114,17 @@ public class AccountDao implements DaoInterface<Account>{
             tx = session.beginTransaction();
             session.persist(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Account saved successfully");
+
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
