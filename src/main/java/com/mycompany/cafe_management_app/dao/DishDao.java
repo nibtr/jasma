@@ -6,14 +6,16 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Dish;
-import jakarta.persistence.Query;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -25,7 +27,7 @@ public class DishDao implements DaoInterface<Dish> {
     public List<Dish> getAll() {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<Dish> menus = null;
+        List<Dish> dishes = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();
@@ -33,18 +35,85 @@ public class DishDao implements DaoInterface<Dish> {
             CriteriaQuery<Dish> criteria = builder.createQuery(Dish.class);
             Root<Dish> root = criteria.from(Dish.class);
             criteria.select(root);
-            menus = session.createQuery(criteria).getResultList();
+            dishes = session.createQuery(criteria).getResultList();
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
         }
 
-        return menus;
+        return dishes;
+    }
+    
+    public Dish getByName(String name) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        Dish dish = null;
+
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM Dish t WHERE t.name = :name");
+            query.setParameter("name", name);
+            dish = (Dish) query.uniqueResult();
+//            Initialize the detail list of the dish
+            dish.getDetails().size();         
+            tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            e.printStackTrace();
+
+            return null;
+        } finally {
+            session.close();
+        }
+        return dish;
+    }
+    
+    public Dish getByID(Long id) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        Dish dish = null;
+
+        try {
+            tx = session.beginTransaction();
+            dish = session.get(Dish.class, id);
+//            Initialize the detail list of the dish
+            dish.getDetails().size();
+            tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            e.printStackTrace();
+
+            return null;
+        } finally {
+            session.close();
+        }
+        return dish;
     }
 
     @Override
@@ -56,15 +125,21 @@ public class DishDao implements DaoInterface<Dish> {
             tx = session.beginTransaction();
             session.persist(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Saved successfully");
+            
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
         }
-
     }
 
     @Override
@@ -76,10 +151,16 @@ public class DishDao implements DaoInterface<Dish> {
             tx = session.beginTransaction();
             session.update(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Updated successfullly");
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -95,40 +176,20 @@ public class DishDao implements DaoInterface<Dish> {
             tx = session.beginTransaction();
             session.delete(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Deleted successfully");
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
         }
-    }
-
-    public Dish findByName(String name) {
-        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
-        Dish menu = null;
-
-        try {
-            tx = session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Dish> criteria = builder.createQuery(Dish.class);
-            Root<Dish> root = criteria.from(Dish.class);
-            criteria.select(root).where(builder.equal(root.get("name"), name));
-            menu = session.createQuery(criteria).getSingleResult();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-
-            return null;
-        } finally {
-            session.close();
-        }
-        return menu;
     }
 
 }

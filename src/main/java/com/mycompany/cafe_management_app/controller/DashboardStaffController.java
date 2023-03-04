@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -25,27 +27,31 @@ public class DashboardStaffController {
     public DashboardStaffController() {
         initController();
         staffService = new StaffService();
-        this.dashboardStaffUI = new DashboardStaffUI();
         this.dashboardStaffUI.getCheckInOutButton().addActionListener(new CheckInOutButtonListener());
+
     }
 
     public void checkIn() {
         LocalDateTime currentTime = LocalDateTime.now();
         staffService.checkIn(currentTime);
-        
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formatDateTime = currentTime.format(formatter);
         JOptionPane.showMessageDialog(dashboardStaffUI, "     CHECK IN SUCCESSFUL!\n" + "        " + formatDateTime);
     }
 
     public void checkOut() {
+        JFrame jframe = new JFrame("EXIT");
+        if (JOptionPane.showConfirmDialog(jframe, "Confirm if you want to exit", "Time Keeping",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+        }
+
         LocalDateTime currentTime = LocalDateTime.now();
         staffService.checkOut(currentTime);
-        
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formatDateTime = currentTime.format(formatter);
         JOptionPane.showMessageDialog(dashboardStaffUI, "     CHECK OUT SUCCESSFUL!\n" + "        " + formatDateTime);
-        
         System.exit(0);
     }
 
@@ -56,6 +62,8 @@ public class DashboardStaffController {
         public void actionPerformed(ActionEvent e) {
             if (checkedIn) {
                 checkIn();
+                checkedIn = false;
+
             } else {
                 checkOut();
             }
@@ -68,6 +76,6 @@ public class DashboardStaffController {
 
     private void initController() {
         dashboardStaffUI = new DashboardStaffUI();
-        // dashboardStaffUI.setVisible(true);
+        dashboardStaffUI.setVisible(true);
     }
 }

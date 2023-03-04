@@ -5,12 +5,8 @@
 package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
-import com.mycompany.cafe_management_app.model.Account;
-import com.mycompany.cafe_management_app.model.Staff;
+import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
-import com.mycompany.cafe_management_app.util.PasswordUtil;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -22,19 +18,55 @@ import org.hibernate.query.Query;
  *
  * @author Hieu
  */
-public class StaffDao implements DaoInterface<Staff>{
-    public List<Staff> getByName(String name) {
-        String hql = "FROM Staff a WHERE a.name = :name";
+public class DishDetailDao implements DaoInterface<DishDetail>{
+
+    @Override
+    public List<DishDetail> getAll() {
+//        Not necessary
+        return new ArrayList<>();
+    }
+    
+    public List<DishDetail> getByDishID(Long dishID) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<Staff> staffs = new ArrayList<>();
-        
+        List<DishDetail> list = new ArrayList<>();
+
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery(hql);
-            query.setParameter("name", name);
-            staffs = query.list();
-            tx.commit(); 
+            Query query = session.createQuery("FROM DishDetail t where dish.id = :dishID ORDER BY price ASC" );
+            query.setParameter("dishID", dishID);
+            list = query.getResultList();      
+            tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        
+        return list;
+    }
+    
+    public List<DishDetail> getByDishName(String dishName) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        List<DishDetail> list = new ArrayList<>();
+
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM DishDetail t where dish.name = :dishName ORDER BY price ASC" );
+            query.setParameter("dishName", dishName);
+            list = query.getResultList();      
+            tx.commit();
             
             ErrorUtil.getInstance().setErrorCode(0);
             
@@ -46,86 +78,18 @@ public class StaffDao implements DaoInterface<Staff>{
             ErrorUtil.getInstance().setErrorCode(1);
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
-
         } finally {
             session.close();
-        } 
+        }
         
-        return staffs;
+        return list;
     }
-    
-    @Override
-    public List<Staff> getAll() {
-        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
-        List<Staff> staffs = new ArrayList<>();
-        
-        try {
-            tx = session.beginTransaction();   
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Staff> criteria = builder.createQuery(Staff.class);
-            criteria.select(criteria.from(Staff.class));
-            staffs = session.createQuery(criteria).getResultList();
-            tx.commit();
-            
-            ErrorUtil.getInstance().setErrorCode(0);
-        } catch(HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            
-            ErrorUtil.getInstance().setErrorCode(1);
-            ErrorUtil.getInstance().setMessage("Something went wrong");
-            e.printStackTrace();
-            
-        } finally {
-            session.close();
-        }  
-        
-        return staffs;
-    }
-    
-    public Staff getByID(Long id) {
-        Staff staff = null;
-        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
-        
-        try {
-            tx = session.beginTransaction();
-            staff = session.get(Staff.class, id);
-            tx.commit();
-            
-            ErrorUtil.getInstance().setErrorCode(0);
-            
-        } catch(HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-           
-            ErrorUtil.getInstance().setErrorCode(1);
-            ErrorUtil.getInstance().setMessage("Something went wrong");
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }  
-        
-        return staff;
-    }
-    
-//    public Staff getByAccountID(Long id) {
-//        
-//    }
 
     @Override
-    public void save(Staff t) {
-        Account account = t.getAccount();
-        String hashedPassword = PasswordUtil.hash(account.getPassword());
-        account.setPassword(hashedPassword);
-        t.setAccount(account);
-        
+    public void save(DishDetail t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        
+
         try {
             tx = session.beginTransaction();
             session.persist(t);
@@ -133,25 +97,24 @@ public class StaffDao implements DaoInterface<Staff>{
             
             ErrorUtil.getInstance().setErrorCode(0);
             ErrorUtil.getInstance().setMessage("Saved successfully");
-            
-        } catch(HibernateException e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-           
+            
             ErrorUtil.getInstance().setErrorCode(1);
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
-        }  
+        }
     }
 
     @Override
-    public void update(Staff t) {
+    public void update(DishDetail t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        
+
         try {
             tx = session.beginTransaction();
             session.update(t);
@@ -159,26 +122,24 @@ public class StaffDao implements DaoInterface<Staff>{
             
             ErrorUtil.getInstance().setErrorCode(0);
             ErrorUtil.getInstance().setMessage("Updated successfully");
-            
-        } catch(HibernateException e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             
             ErrorUtil.getInstance().setErrorCode(1);
             ErrorUtil.getInstance().setMessage("Something went wrong");
-           
             e.printStackTrace();
         } finally {
             session.close();
-        }  
+        }
     }
 
     @Override
-    public void delele(Staff t) {
+    public void delele(DishDetail t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        
+
         try {
             tx = session.beginTransaction();
             session.delete(t);
@@ -186,18 +147,17 @@ public class StaffDao implements DaoInterface<Staff>{
             
             ErrorUtil.getInstance().setErrorCode(0);
             ErrorUtil.getInstance().setMessage("Deleted successfully");
-        } catch(HibernateException e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-           
+            
             ErrorUtil.getInstance().setErrorCode(1);
             ErrorUtil.getInstance().setMessage("Something went wrong");
-            
             e.printStackTrace();
         } finally {
             session.close();
-        }  
+        }
     }
     
 }

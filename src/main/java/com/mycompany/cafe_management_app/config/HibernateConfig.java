@@ -5,6 +5,8 @@
 package com.mycompany.cafe_management_app.config;
 
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
@@ -30,7 +32,7 @@ public class HibernateConfig {
                 configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
                 configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/cafe_management");
                 configuration.setProperty("hibernate.connection.username", "root");
-                configuration.setProperty("hibernate.connection.password", "root");
+                configuration.setProperty("hibernate.connection.password", "hello321");
                 configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
                 configuration.setProperty("hibernate.hbm2ddl.auto", "update");
                 configuration.setProperty("hibernate.current_session_context_class", "thread");
@@ -41,7 +43,9 @@ public class HibernateConfig {
                 configuration.addAnnotatedClass(Dish.class);
                 configuration.addAnnotatedClass(Timekeeping.class);
                 configuration.addAnnotatedClass(DishDetail.class);
-                
+                configuration.addAnnotatedClass(Bill.class);
+                configuration.addAnnotatedClass(BillDetail.class);
+
 //                Build the service factory
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties())

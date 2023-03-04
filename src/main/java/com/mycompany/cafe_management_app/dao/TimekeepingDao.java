@@ -6,6 +6,8 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Timekeeping;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -27,7 +29,7 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
     public List<Timekeeping> getListOf(Long staffID) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        List<Timekeeping> list = null;
+        List<Timekeeping> list = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();
@@ -35,12 +37,16 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
             query.setParameter("staffID", staffID);
             list = query.getResultList();
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
          
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-           
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
 
         } finally {
@@ -62,12 +68,16 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
             query.setMaxResults(1);
             latest = (Timekeeping) query.uniqueResult();
             tx.commit();
-         
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+       
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
 
         } finally {
@@ -86,10 +96,17 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
             tx = session.beginTransaction();
             session.persist(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Saved successfully");
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
            
             e.printStackTrace();
         } finally {
@@ -106,11 +123,16 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
             tx = session.beginTransaction();
             session.update(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Updated successfully");
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
