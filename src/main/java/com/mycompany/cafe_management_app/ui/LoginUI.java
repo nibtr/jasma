@@ -5,6 +5,7 @@
 package com.mycompany.cafe_management_app.ui;
 
 import com.mycompany.cafe_management_app.controller.LoginController;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -20,6 +21,7 @@ public class LoginUI extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
@@ -44,7 +46,7 @@ public class LoginUI extends javax.swing.JFrame {
         jPanel3.setVerifyInputWhenFocusTarget(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(
-                getClass().getResource("/com/mycompany/cafe_management_app/asset/image/laca.jpg"))); // NOI18N
+                "C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\laca.jpg")); // NOI18N
         jLabel1.setText("jLabel1");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -60,9 +62,10 @@ public class LoginUI extends javax.swing.JFrame {
                 signinButtonActionPerformed(evt);
             }
         });
-        passwordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                signinButton.doClick();
+
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
             }
         });
 
@@ -140,17 +143,23 @@ public class LoginUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_passwordFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            signinButton.doClick();
+        }
+
+    }// GEN-LAST:event_passwordFieldKeyPressed
+
     private void signinButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_signinButtonActionPerformed
         String username = userNameField.getText();
         String password = new String(passwordField.getPassword());
         LoginController controller = new LoginController();
         controller.getLoginUI().setuserNameField(username);
         controller.getLoginUI().setpasswordField(password);
-       
+
     }
 
     // GEN-LAST:event_signinButtonActionPerformed
-
     /**
      * @param args the command line arguments
      */

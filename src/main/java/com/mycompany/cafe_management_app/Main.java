@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.controller.DashboardAdminController;
+import com.mycompany.cafe_management_app.controller.DashboardStaffController;
 import com.mycompany.cafe_management_app.dao.AccountDao;
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Account;
@@ -17,10 +18,12 @@ import com.mycompany.cafe_management_app.ui.LoginUI;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.DishDao;
 import com.mycompany.cafe_management_app.dao.DishDetailDao;
+import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
-import java.util.List;
 
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -30,8 +33,24 @@ public class Main {
 
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
-//        LoginController loginController = new LoginController();
-//        loginController.getLoginUI().setVisible(true);
-          new DashboardAdminController();
-     }
+        // StaffDao staffDao = new StaffDao();
+        // if (staffDao.getAll() == null) {
+        //     Staff staff = new Staff("Hieu", LocalDate.of(2002, 6, 1), "0123456789");
+        //     Account acc = new Account("admin", "admin", "admin");
+        //     staff.setAccount(acc);
+        //     staffDao.save(staff);
+        // }
+
+        // Staff staff = new Staff("Trung", LocalDate.of(2002, 6, 1), "0123456789", "staff");
+        // Account acc = new Account("staff", "staff", "staff");
+        // staff.setAccount(acc);
+        // staffDao.save(staff);
+
+        LoginController loginController = new LoginController();
+        loginController.getLoginUI().setVisible(true);
+       
+
+        // DashboardStaffController staffController = new DashboardStaffController();
+        // staffController.getDashboardStaffUI().setVisible(true);
+    }
 }
