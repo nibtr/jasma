@@ -11,8 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -44,6 +47,10 @@ public class Staff {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_account_id")
     private Account account;
+    
+    @OneToMany(mappedBy = "Staff" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Salary> salaries = new ArrayList<>();
+    
     
     public Staff(){
 //        required by Hibernate
@@ -128,4 +135,13 @@ public class Staff {
         this.position = position;
     }
 
+    public void addSalary(Salary salary){
+        salaries.add(salary);
+        salary.setSalary(this);
+    }
+
+    public void setSalaries(List<Salary> salaries) {
+        this.salaries = salaries;
+    }
+    
 }
