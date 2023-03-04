@@ -42,6 +42,8 @@ public class AccountDao implements DaoInterface<Account>{
             }
             
             ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+
             e.printStackTrace();
         } finally {
             session.close();
@@ -62,11 +64,17 @@ public class AccountDao implements DaoInterface<Account>{
             List<Account> accounts = query.list();
             tx.commit(); 
             
+            ErrorUtil.getInstance().setErrorCode(0);
+//            ErrorUtil.getInstance().setMessage("");
+            
             return accounts.isEmpty() ? null : accounts.get(0);
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
             
             return null;
@@ -88,11 +96,16 @@ public class AccountDao implements DaoInterface<Account>{
             criteria.select(criteria.from(Account.class));
             accountList = session.createQuery(criteria).getResultList();
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
 
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             
             e.printStackTrace();
         } finally {
@@ -145,10 +158,17 @@ public class AccountDao implements DaoInterface<Account>{
             tx = session.beginTransaction();
             session.delete(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Delete successfully");
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
            
             e.printStackTrace();
         } finally {

@@ -7,6 +7,7 @@ package com.mycompany.cafe_management_app.dao;
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Staff;
+import com.mycompany.cafe_management_app.util.ErrorUtil;
 import com.mycompany.cafe_management_app.util.PasswordUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -34,11 +35,16 @@ public class StaffDao implements DaoInterface<Staff>{
             List<Staff> staffs = query.list();
             tx.commit(); 
             
+            ErrorUtil.getInstance().setErrorCode(0);
+            
             return staffs.isEmpty() ? null : staffs;
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
             
             return null;
@@ -60,6 +66,8 @@ public class StaffDao implements DaoInterface<Staff>{
             List<Staff> accountList = session.createQuery(criteria).getResultList();
             tx.commit();
             
+            ErrorUtil.getInstance().setErrorCode(0);
+   
             return accountList.isEmpty() ? null : accountList;
 
         } catch(HibernateException e) {
@@ -67,6 +75,8 @@ public class StaffDao implements DaoInterface<Staff>{
                 tx.rollback();
             }
             
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
             
             return null;
@@ -84,11 +94,16 @@ public class StaffDao implements DaoInterface<Staff>{
             tx = session.beginTransaction();
             staff = session.get(Staff.class, id);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -115,11 +130,17 @@ public class StaffDao implements DaoInterface<Staff>{
             tx = session.beginTransaction();
             session.persist(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Saved successfully");
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
             session.close();
@@ -133,12 +154,19 @@ public class StaffDao implements DaoInterface<Staff>{
         
         try {
             tx = session.beginTransaction();
-            session.save(t);
+            session.update(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Updated successfully");
+            
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
            
             e.printStackTrace();
         } finally {
@@ -155,11 +183,17 @@ public class StaffDao implements DaoInterface<Staff>{
             tx = session.beginTransaction();
             session.delete(t);
             tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            ErrorUtil.getInstance().setMessage("Deleted successfully");
         } catch(HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            
             e.printStackTrace();
         } finally {
             session.close();
