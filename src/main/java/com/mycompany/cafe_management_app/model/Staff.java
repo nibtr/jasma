@@ -48,7 +48,7 @@ public class Staff {
     @JoinColumn(name = "fk_account_id")
     private Account account;
     
-    @OneToMany(mappedBy = "Staff" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "staff" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Salary> salaries = new ArrayList<>();
     
     

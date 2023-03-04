@@ -24,8 +24,7 @@ public class LoginUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
-
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
@@ -45,9 +44,8 @@ public class LoginUI extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(1000, 600));
         jPanel3.setVerifyInputWhenFocusTarget(false);
-        jLabel1.setIcon(new javax.swing.ImageIcon(
-                "C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\laca.jpg")); // NOI18N
 
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Legion\\Documents\\NetBeansProjects\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\laca.jpg")); // NOI18N
         jLabel1.setText("jLabel1");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -69,7 +67,6 @@ public class LoginUI extends javax.swing.JFrame {
                 passwordFieldKeyPressed(evt);
             }
         });
-
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -24,6 +24,7 @@ import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
+import com.mycompany.cafe_management_app.model.Salary;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
@@ -42,6 +43,10 @@ public class Main {
     public static void main(String[] args) {
         HibernateConfig.getSessionFactory();
         ErrorUtil.getInstance();
+        
+
+
+
         
         String appID = "my_app_id";
         boolean alreadyRunning;

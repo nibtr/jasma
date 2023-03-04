@@ -73,7 +73,7 @@ public class Salary {
     }
 
     public void setSalary(Staff staff) {
-//        this.amount = ;
+        this.staff = staff;
     }
     
 }
