@@ -6,9 +6,11 @@ package com.mycompany.cafe_management_app.service;
 
 import com.mycompany.cafe_management_app.dao.BillDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
+import com.mycompany.cafe_management_app.dao.DishDetailDao;
 import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 import java.util.List;
 
@@ -20,11 +22,13 @@ public class AdminService {
     private final StaffDao staffDao;
     private final DishDao dishDao;
     private final BillDao billDao;
+    private final DishDetailDao dishDetailDao;
     
     public AdminService() {
         staffDao = new StaffDao();
         dishDao = new DishDao();
         billDao = new BillDao();
+        dishDetailDao = new DishDetailDao();
     }
     
     public List<Staff> getAllStaff() {
@@ -44,11 +48,15 @@ public class AdminService {
     }
     
     public void deleteStaff(Staff t) {
-        staffDao.delele(t);
+        staffDao.delete(t);
     }
     
     public List<Dish> getAllDish() {
         return dishDao.getAll();
+    }
+    
+    public List<DishDetail> getDetailsOf(Long id) {
+        return dishDetailDao.getByDishID(id);
     }
     
     public Dish getDishByName(String name) {
@@ -68,7 +76,7 @@ public class AdminService {
     }
     
     public void deleteDish(Dish t) {
-        dishDao.delele(t);
+        dishDao.delete(t);
     }
     
     public List<Bill> getAllBills() {

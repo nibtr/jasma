@@ -55,6 +55,10 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         return addDishBtn;
     }
     
+    public JPanel getBillContainer() {
+        return bgScrollPanelBill;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,6 +103,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         contentBillPage = new javax.swing.JPanel();
         scrollPanelBill = new javax.swing.JScrollPane();
         bgScrollPanelBill = new javax.swing.JPanel();
@@ -423,33 +428,37 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel7.setText("Time");
+        jLabel7.setText("Received amount");
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Client name");
+        jLabel8.setText("Time");
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Total price");
+        jLabel9.setText("Return amount");
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("Total price");
 
         javax.swing.GroupLayout headerBillPageLayout = new javax.swing.GroupLayout(headerBillPage);
         headerBillPage.setLayout(headerBillPageLayout);
         headerBillPageLayout.setHorizontalGroup(
             headerBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerBillPageLayout.createSequentialGroup()
-                .addGap(188, 188, 188)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(406, Short.MAX_VALUE))
-            .addGroup(headerBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(headerBillPageLayout.createSequentialGroup()
-                    .addGap(39, 39, 39)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(692, Short.MAX_VALUE)))
+                .addGap(63, 63, 63)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         headerBillPageLayout.setVerticalGroup(
             headerBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -457,13 +466,10 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(headerBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(headerBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(headerBillPageLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         bgMenuPage1.add(headerBillPage);
@@ -628,6 +634,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     private javax.swing.JPanel headerMenuPage;
     private javax.swing.JPanel headerStaffPage;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -52,8 +52,9 @@ public class Main {
             alreadyRunning = true;
 	}
 	if (!alreadyRunning) {
-            LoginController loginController = new LoginController();
-            loginController.getLoginUI().setVisible(true);
+//            LoginController loginController = new LoginController();
+//            loginController.getLoginUI().setVisible(true);
+                    new DashboardAdminController();
 	}
 
      }

@@ -175,7 +175,7 @@ public class StaffDao implements DaoInterface<Staff>{
     }
 
     @Override
-    public void delele(Staff t) {
+    public void delete(Staff t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         

@@ -51,7 +51,7 @@ public class BillDetailDao implements DaoInterface<BillDetail>{
     }
 
     @Override
-    public void delele(BillDetail t) {
+    public void delete(BillDetail t) {
     }
     
 }

@@ -168,7 +168,7 @@ public class DishDao implements DaoInterface<Dish> {
     }
 
     @Override
-    public void delele(Dish t) {
+    public void delete(Dish t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 

@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.mycompany.cafe_management_app.ui;
+import com.mycompany.cafe_management_app.controller.DashboardAdminController.DeleteDishFunction;
 import com.mycompany.cafe_management_app.controller.DashboardAdminController.DetailsDishFunction;
 import com.mycompany.cafe_management_app.controller.DashboardAdminController.EditDishFunction;
+import com.mycompany.cafe_management_app.model.Dish;
 import javax.swing.JButton;
 /**
  *
@@ -17,11 +19,16 @@ public class MenuItem extends javax.swing.JPanel {
      */
     private DetailsDishFunction detailsDishFunction;
     private EditDishFunction editDishFunction;
-    public MenuItem(String nameDish, DetailsDishFunction detailsDishFunction ,EditDishFunction editDishFunction ,boolean viewOnly) {
+    private DeleteDishFunction deleteDishFunction;
+    private Dish dish;
+    public MenuItem(Dish dish, DetailsDishFunction detailsDishFunction ,
+            EditDishFunction editDishFunction , DeleteDishFunction deleteDishFunction,boolean viewOnly) {
         initComponents();
-        this.nameDish.setText(nameDish);
+        this.dish = dish;
+        this.nameDish.setText(dish.getName());
         this.detailsDishFunction = detailsDishFunction;
         this.editDishFunction = editDishFunction;
+        this.deleteDishFunction = deleteDishFunction;
         editBtn.setVisible(!viewOnly);
         deleteBtn.setVisible(!viewOnly);
     }
@@ -128,16 +135,17 @@ public class MenuItem extends javax.swing.JPanel {
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         // TODO add your handling code here:
-        editDishFunction.execute();
+        editDishFunction.execute(dish, dish.getId());
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
+        deleteDishFunction.delete(dish);
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void detailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsBtnActionPerformed
         // TODO add your handling code here:
-        detailsDishFunction.showDetails();
+        detailsDishFunction.showDetails(dish.getId());
     }//GEN-LAST:event_detailsBtnActionPerformed
 
 

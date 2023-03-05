@@ -39,12 +39,12 @@ public class DetailsDish extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        sizePriceContainer = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
+        a = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        sizePriceContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(150, 180));
         setMinimumSize(new java.awt.Dimension(150, 180));
-        setPreferredSize(new java.awt.Dimension(150, 180));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -94,23 +94,31 @@ public class DetailsDish extends javax.swing.JFrame {
         jPanel3.setMaximumSize(new java.awt.Dimension(150, 150));
         jPanel3.setMinimumSize(new java.awt.Dimension(150, 150));
 
-        sizePriceContainer.setMaximumSize(new java.awt.Dimension(150, 150));
-        sizePriceContainer.setMinimumSize(new java.awt.Dimension(150, 150));
-        sizePriceContainer.setPreferredSize(new java.awt.Dimension(150, 150));
-        sizePriceContainer.setLayout(new javax.swing.BoxLayout(sizePriceContainer, javax.swing.BoxLayout.LINE_AXIS));
+        a.setMaximumSize(new java.awt.Dimension(150, 150));
+        a.setMinimumSize(new java.awt.Dimension(150, 150));
+        a.setPreferredSize(new java.awt.Dimension(150, 150));
+        a.setLayout(new javax.swing.BoxLayout(a, javax.swing.BoxLayout.LINE_AXIS));
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        sizePriceContainer.setBackground(new java.awt.Color(255, 255, 255));
+        sizePriceContainer.setLayout(new javax.swing.BoxLayout(sizePriceContainer, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane1.setViewportView(sizePriceContainer);
+
+        a.add(jScrollPane1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(sizePriceContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(sizePriceContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -168,11 +176,13 @@ public class DetailsDish extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage a;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage sizePriceContainer;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel sizePriceContainer;
     // End of variables declaration//GEN-END:variables
 }

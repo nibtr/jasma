@@ -4,7 +4,12 @@
  */
 package com.mycompany.cafe_management_app.ui.DashboardAdminUI;
 
+import com.mycompany.cafe_management_app.model.DishDetail;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
 /**
  *
@@ -15,9 +20,44 @@ public class DishForm extends javax.swing.JFrame {
     /**
      * Creates new form DishForm
      */
+    private List<SizePriceInputItem> listInputField;
+    
     public DishForm() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        listInputField = new ArrayList<>();
+    }
+    
+    public DishForm( String name, List<DishDetail> list) {
+        initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        listInputField = new ArrayList<>();
+        dishNameInput.setText(name);
+        for(DishDetail item: list ) {
+            String size = item.getSize();
+            String price = item.getPrice().toString();
+            SizePriceInputItem tmp = new SizePriceInputItem();
+            tmp.getSizeInput().setText(size);
+            tmp.getPriceInput().setText(price);
+            listInputField.add(tmp);
+        }
+        
+        for(SizePriceInputItem item: listInputField) {
+            SizePriceContainer.add(item);
+        }
+        revalidate();
+    }
+    
+    public JTextField getNameInput() {
+        return dishNameInput;
+    }
+    
+    public List<SizePriceInputItem> getListSizePriceInput() {
+        return listInputField;
+    }
+    
+    public JButton getSaveBtn() {
+        return saveBtn;
     }
 
     /**
@@ -48,9 +88,7 @@ public class DishForm extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(300, 360));
         setMinimumSize(new java.awt.Dimension(300, 360));
-        setPreferredSize(new java.awt.Dimension(300, 360));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -169,6 +207,11 @@ public class DishForm extends javax.swing.JFrame {
         saveBtn.setForeground(new java.awt.Color(51, 51, 51));
         saveBtn.setText("Save");
         saveBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
 
         cancelBtn.setBackground(new java.awt.Color(255, 255, 255));
         cancelBtn.setForeground(new java.awt.Color(51, 51, 51));
@@ -225,6 +268,7 @@ public class DishForm extends javax.swing.JFrame {
     private void addInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInputFieldActionPerformed
         // TODO add your handling code here:
         SizePriceInputItem field = new SizePriceInputItem();
+        listInputField.add(field);
         SizePriceContainer.add(field);
         revalidate();
     }//GEN-LAST:event_addInputFieldActionPerformed
@@ -233,6 +277,10 @@ public class DishForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveBtnActionPerformed
 
     /**
      * @param args the command line arguments
