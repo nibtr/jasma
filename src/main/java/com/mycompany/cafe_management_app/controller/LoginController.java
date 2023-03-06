@@ -34,15 +34,15 @@ public class LoginController {
             role = loginService.authenticate(username, password);
 
             if (role == 0) {
-                JOptionPane.showMessageDialog(loginUI, "ADMIN LOGGED IN!");
+                JOptionPane.showMessageDialog(loginUI, "LOGGED IN SUCCESSFULLY!");
                 new DashboardAdminController();
                 loginUI.dispose();
             } else if (role == 1) {
-                JOptionPane.showMessageDialog(loginUI, "STAFF LOGGED IN");
+                JOptionPane.showMessageDialog(loginUI, "LOGGED IN SUCCESSFULLY!");
                 new DashboardStaffController();
                 loginUI.dispose();
             } else {
-                JOptionPane.showMessageDialog(loginUI, "Account not found!");
+                JOptionPane.showMessageDialog(loginUI, "CREDENTIALS DON'T MATCH!");
             }
         }
 

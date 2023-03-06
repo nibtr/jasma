@@ -89,5 +89,9 @@ public class StaffService {
         t.setReturnedAmount(receivedAmount - t.getTotalPrice());
         billDao.save(t);
     }
+
+    public List<Bill> getAllBill() {
+        return billDao.getAll();
+    }
  
 }

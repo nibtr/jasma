@@ -136,7 +136,7 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
     }
 
     @Override
-    public void delele(DishDetail t) {
+    public void delete(DishDetail t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 

@@ -147,6 +147,7 @@ public class DashboardAdminController {
         //show list staff 
         wrapListStaff = dashboardAdminUI.getContainerListStaff();
         renderListStaff();
+        
         // click new staff btn
         addStaffBtn = dashboardAdminUI.getAddStaffBtn();
         addStaffBtn.addActionListener(new addStaffEvent());

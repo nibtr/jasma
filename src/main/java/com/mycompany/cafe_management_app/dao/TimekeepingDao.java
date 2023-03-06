@@ -140,7 +140,7 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
     }
 
     @Override
-    public void delele(Timekeeping t) {
+    public void delete(Timekeeping t) {
 //        Not necessary
     }
     

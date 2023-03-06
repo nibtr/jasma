@@ -33,46 +33,72 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
-import java.time.LocalDate;
-import java.util.List;
-
 /**
  *
  * @author Hieu
  */
 public class Main {
 
-    public static void main(String[] args) {    
+    public static void main(String[] args) {
         String appID = "my_app_id";
         boolean alreadyRunning;
-	try {
+        try {
             JUnique.acquireLock(appID);
             alreadyRunning = false;
-	} catch (AlreadyLockedException e) {
+        } catch (AlreadyLockedException e) {
             alreadyRunning = true;
-	}
-	if (!alreadyRunning) {
+        }
+        if (!alreadyRunning) {
             HibernateConfig.getSessionFactory();
             ErrorUtil.getInstance();
-            
+
             initAdmin();
 
-            LoginController loginController = new LoginController();
-            loginController.getLoginUI().setVisible(true);
-	}
+            // Create Bill
+            // BillDao billDao = new BillDao();
+            // Bill bill1 = new Bill(LocalDateTime.of(2023, 3, 4, 10, 30));
+            // Bill bill2 = new Bill(LocalDateTime.of(2023, 3, 4, 11, 30));
+            // Bill bill3 = new Bill(LocalDateTime.of(2023, 3, 4, 12, 30));
+            // Bill bill4 = new Bill(LocalDateTime.of(2023, 3, 4, 13, 30));
+            // Bill bill5 = new Bill(LocalDateTime.of(2023, 3, 4, 14, 30));
+            // Bill bill6 = new Bill(LocalDateTime.of(2023, 3, 4, 15, 30));
+            // Bill bill7 = new Bill(LocalDateTime.of(2023, 3, 4, 16, 30));
+            // Bill bill8 = new Bill(LocalDateTime.of(2023, 3, 4, 17, 30));
+            // Bill bill9 = new Bill(LocalDateTime.of(2023, 3, 4, 18, 30));
+            // Bill bill10 = new Bill(LocalDateTime.of(2023, 3, 4, 19, 30));
+
+            // billDao.save(bill1);
+            // billDao.save(bill2);
+            // billDao.save(bill3);
+            // billDao.save(bill4);
+            // billDao.save(bill5);
+            // billDao.save(bill6);
+            // billDao.save(bill7);
+            // billDao.save(bill8);
+            // billDao.save(bill9);
+            // billDao.save(bill10);
+
+             LoginController loginController = new LoginController();
+             loginController.getLoginUI().setVisible(true);
+
+//            DashboardStaffController dashboardStaffController = new DashboardStaffController();
+//            dashboardStaffController.getDashboardStaffUI().setVisible(true);
+        }
     }
-    
+
     private static void initAdmin() {
         StaffDao staffDao = new StaffDao();
+
         if (staffDao.getAll().isEmpty()) {
             Staff s = new Staff(
-                    "Hieu", 
-                    LocalDate.of(2002, 6, 1), 
-                    "012345679", 
+                    "Hieu",
+                    LocalDate.of(2002, 6, 1),
+                    "012345679",
                     "admin");
             Account a = new Account("admin", "admin", "admin");
             s.setAccount(a);
             staffDao.save(s);
+
         }
     }
 }
