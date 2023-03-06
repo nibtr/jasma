@@ -7,6 +7,7 @@ package com.mycompany.cafe_management_app.service;
 import com.mycompany.cafe_management_app.dao.BillDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
 import com.mycompany.cafe_management_app.dao.DishDetailDao;
+import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.Dish;
@@ -28,6 +29,7 @@ public class StaffService {
     private final DishDao dishDao;
     private final DishDetailDao dishDetailDao;
     private final BillDao billDao;
+    private final StaffDao staffDao;
     private final Staff currentStaff;
     
     public StaffService() {
@@ -35,6 +37,7 @@ public class StaffService {
         dishDao = new DishDao();
         dishDetailDao = new DishDetailDao();
         billDao = new BillDao();
+        staffDao = new StaffDao();
         currentStaff = UserSession.getInstance().getStaff();
     }
     
@@ -42,6 +45,9 @@ public class StaffService {
         Timekeeping t = new Timekeeping(time);
         t.setStaff(currentStaff);
         timekeepingDao.save(t);
+//        currentStaff.addTimekeeping(t);
+//        staffDao.update(currentStaff);
+        
     }
     
     public void checkOut(LocalDateTime currentTime) {

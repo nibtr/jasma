@@ -58,7 +58,7 @@ public class DishDao implements DaoInterface<Dish> {
     public Dish getByName(String name) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        Dish dish = null;
+        Dish dish;
 
         try {
             tx = session.beginTransaction();
@@ -89,7 +89,7 @@ public class DishDao implements DaoInterface<Dish> {
     public Dish getByID(Long id) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        Dish dish = null;
+        Dish dish;
 
         try {
             tx = session.beginTransaction();
