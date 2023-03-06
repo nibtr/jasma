@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author namho
  */
-public class OrderHistory extends javax.swing.JPanel {
+public class OrderHistory2 extends javax.swing.JPanel {
 
     /**
      * Creates new form StaffItem
@@ -21,7 +21,7 @@ public class OrderHistory extends javax.swing.JPanel {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 
-    public OrderHistory(Bill bill, LocalDateTime time, Double total, Double receiveAmount, Double returnAmount) {
+    public OrderHistory2(Bill bill, LocalDateTime time, Double total, Double receiveAmount, Double returnAmount) {
        initComponents();
        this.bill = bill;
        if (time != null) {
