@@ -6,48 +6,55 @@ package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.StaffDao;
+import com.mycompany.cafe_management_app.service.AdminService;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
+
 import java.time.LocalDate;
 
 /**
- *
  * @author Hieu
  */
 public class Main {
 
-    public static void main(String[] args) {    
+    public static void main(String[] args) {
         String appID = "my_app_id";
         boolean alreadyRunning;
-	try {
+        try {
             JUnique.acquireLock(appID);
             alreadyRunning = false;
-	} catch (AlreadyLockedException e) {
+        } catch (AlreadyLockedException e) {
             alreadyRunning = true;
-	}
-	if (!alreadyRunning) {
+        }
+        if (!alreadyRunning) {
+//            Write app logic here
             HibernateConfig.getSessionFactory();
             ErrorUtil.getInstance();
-            
+
             initAdmin();
 
             LoginController loginController = new LoginController();
             loginController.getLoginUI().setVisible(true);
-	}
 
-    }  
-    
+//            adminService.saveDish(dish);
+            System.out.println("Hello world");
+        }
+
+    }
+
     private static void initAdmin() {
         StaffDao staffDao = new StaffDao();
         if (staffDao.getAll().isEmpty()) {
             Staff s = new Staff(
-                    "Hieu", 
-                    LocalDate.of(2002, 6, 1), 
-                    "012345679", 
+                    "Hieu",
+                    LocalDate.of(2002, 6, 1),
+                    "012345679",
                     "admin");
             Account a = new Account("admin", "admin", "admin");
             s.setAccount(a);
