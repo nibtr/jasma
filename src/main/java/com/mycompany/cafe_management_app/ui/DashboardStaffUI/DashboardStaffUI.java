@@ -4,7 +4,6 @@
  */
 package com.mycompany.cafe_management_app.ui.DashboardStaffUI;
 
-import com.mycompany.cafe_management_app.ui.DashboardAdminUI.*;
 import com.mycompany.cafe_management_app.controller.DashboardStaffController;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -28,6 +27,10 @@ public class DashboardStaffUI extends javax.swing.JFrame {
 
     public JPanel getContainerListBill() {
         return bgScrollPanelOrder;
+    }
+
+    public JButton getAddOrderBtn() {
+        return addOrder;
     }
 
     /**
@@ -77,7 +80,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         panelOrder = new javax.swing.JPanel();
         bgOrderPage = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
         headerOrderPage = new javax.swing.JPanel();
-        newOrderButton = new javax.swing.JButton();
+        addOrder = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         revenuLabel = new javax.swing.JLabel();
@@ -106,6 +109,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setEnabled(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 600));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.X_AXIS));
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
@@ -206,15 +210,16 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         headerOrderPage.setMinimumSize(new java.awt.Dimension(820, 32));
         headerOrderPage.setPreferredSize(new java.awt.Dimension(820, 32));
 
-        newOrderButton.setForeground(new java.awt.Color(51, 51, 51));
-        newOrderButton.setText("new Order +");
-        newOrderButton.setActionCommand("addStaffBtn");
-        newOrderButton.setBorder(null);
-        newOrderButton.setBorderPainted(false);
-        newOrderButton.setFocusPainted(false);
-        newOrderButton.addActionListener(new java.awt.event.ActionListener() {
+        addOrder.setBackground(new java.awt.Color(250, 250, 250));
+        addOrder.setForeground(new java.awt.Color(0, 0, 0));
+        addOrder.setText("New Order +");
+        addOrder.setActionCommand("addStaffBtn");
+        addOrder.setAutoscrolls(true);
+        addOrder.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addOrder.setFocusPainted(false);
+        addOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newOrderButtonActionPerformed(evt);
+                addOrderActionPerformed(evt);
             }
         });
 
@@ -240,8 +245,8 @@ public class DashboardStaffUI extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(revenuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
-                .addComponent(newOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addComponent(addOrder)
                 .addGap(17, 17, 17))
         );
         headerOrderPageLayout.setVerticalGroup(
@@ -251,8 +256,8 @@ public class DashboardStaffUI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(revenuLabel)
-                    .addComponent(newOrderButton))
-                .addGap(0, 10, Short.MAX_VALUE))
+                    .addComponent(addOrder))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         bgOrderPage.add(headerOrderPage);
@@ -311,7 +316,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
 
         scrollPanelStaff.setBackground(new java.awt.Color(255, 255, 255));
         scrollPanelStaff.setForeground(new java.awt.Color(255, 255, 255));
-        scrollPanelStaff.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPanelStaff.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanelStaff.setViewportView(bgScrollPanelOrder);
 
         bgScrollPanelOrder.setBackground(new java.awt.Color(255, 255, 255));
@@ -423,16 +428,16 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void newOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newOrderButtonActionPerformed
+    private void addOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_newOrderButtonActionPerformed
+    }//GEN-LAST:event_addOrderActionPerformed
 
     private void navItemOrderActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_navItemOrderActionPerformed
         // TODO add your handling code here:
@@ -480,6 +485,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
      */
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addOrder;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgMenuPage;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgOrderPage;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgPage1;
@@ -507,7 +513,6 @@ public class DashboardStaffUI extends javax.swing.JFrame {
     private javax.swing.JButton navItemCheckIn;
     private javax.swing.JButton navItemMenu;
     private javax.swing.JButton navItemOrder;
-    private javax.swing.JButton newOrderButton;
     private javax.swing.JPanel panelCheckIn;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelOrder;

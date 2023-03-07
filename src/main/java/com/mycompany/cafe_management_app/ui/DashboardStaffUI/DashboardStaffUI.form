@@ -33,7 +33,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="600" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -44,6 +44,9 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[1000, 600]"/>
+        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
@@ -277,8 +280,8 @@
                                   <Component id="jLabel3" min="-2" pref="88" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="revenuLabel" min="-2" pref="124" max="-2" attributes="0"/>
-                                  <EmptySpace pref="222" max="32767" attributes="0"/>
-                                  <Component id="newOrderButton" min="-2" pref="71" max="-2" attributes="0"/>
+                                  <EmptySpace pref="221" max="32767" attributes="0"/>
+                                  <Component id="addOrder" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -290,29 +293,34 @@
                                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="revenuLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="newOrderButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="addOrder" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JButton" name="newOrderButton">
+                        <Component class="javax.swing.JButton" name="addOrder">
                           <Properties>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="fa" green="fa" red="fa" type="rgb"/>
+                            </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="33" green="33" red="33" type="rgb"/>
+                              <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="new Order +"/>
+                            <Property name="text" type="java.lang.String" value="New Order +"/>
                             <Property name="actionCommand" type="java.lang.String" value="addStaffBtn"/>
+                            <Property name="autoscrolls" type="boolean" value="true"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="null"/>
+                              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                                <BevelBorder/>
+                              </Border>
                             </Property>
-                            <Property name="borderPainted" type="boolean" value="false"/>
                             <Property name="focusPainted" type="boolean" value="false"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newOrderButtonActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addOrderActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -464,7 +472,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="ff" red="ff" type="rgb"/>
                             </Property>
-                            <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
+                            <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                             <Property name="viewportView" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                               <ComponentRef name="bgScrollPanelOrder"/>
                             </Property>

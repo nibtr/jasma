@@ -5,6 +5,7 @@ import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DashboardStaffUI;
 import com.mycompany.cafe_management_app.service.StaffService;
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.OrderHistory;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewOrderForm;
 
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -29,6 +30,7 @@ public class DashboardStaffController {
     private DashboardStaffUI dashboardStaffUI;
     private StaffService staffService;
     private JPanel wrapListBill;
+    private NewOrderForm NewOrderForm;
 
 
     public DashboardStaffController() {
@@ -74,9 +76,7 @@ public class DashboardStaffController {
         }
     }
 
-    public DashboardStaffUI getDashboardStaffUI() {
-        return dashboardStaffUI;
-    }
+    
 
     private void renderListOrder() {
         List<Bill> listBill = staffService.getAllBill();
@@ -101,6 +101,15 @@ public class DashboardStaffController {
         // show list bill
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
+
+        // show new order form
+        NewOrderForm = new NewOrderForm();
+        dashboardStaffUI.getAddOrderBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NewOrderForm.setVisible(true);
+            }
+        });
 
         dashboardStaffUI.setVisible(true);
     }
