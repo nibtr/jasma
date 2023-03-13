@@ -11,7 +11,7 @@ import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.StaffDao;
-import com.mycompany.cafe_management_app.service.AdminService;
+import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
@@ -29,24 +29,32 @@ public class Main {
         try {
             JUnique.acquireLock(appID);
             alreadyRunning = false;
+
         } catch (AlreadyLockedException e) {
             alreadyRunning = true;
         }
+
         if (!alreadyRunning) {
-//            Write app logic here
+//            Init Hibernate and ErrorUtil
             HibernateConfig.getSessionFactory();
             ErrorUtil.getInstance();
 
+//            Create a new thread to listen for response from server
+            ClientUtil clientUtil = ClientUtil.getInstance();
+            clientUtil.listenForResponse();
+            clientUtil.sendRequest("Hello");
+            System.out.println(clientUtil.getResponse());
+
+//            Create admin account if not exist
+
             initAdmin();
 
+//            Show login UI
             LoginController loginController = new LoginController();
             loginController.getLoginUI().setVisible(true);
-
-//            adminService.saveDish(dish);
-            System.out.println("Hello world");
         }
-
-    }
+    }  
+    
 
     private static void initAdmin() {
         StaffDao staffDao = new StaffDao();
