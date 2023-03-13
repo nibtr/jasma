@@ -23,6 +23,10 @@ public class NewOrderForm extends javax.swing.JFrame {
         return bgPanelAmountOrder;
     }
 
+    public JPanel getContainerDishStaff(){
+        return bgscrollPanelDishStaff;
+    }
+
     public NewOrderForm() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -226,6 +230,8 @@ public class NewOrderForm extends javax.swing.JFrame {
         jPanel3.setMaximumSize(new java.awt.Dimension(700, 600));
         jPanel3.setPreferredSize(new java.awt.Dimension(700, 600));
 
+        scrollPanelDishStaff.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         bgscrollPanelDishStaff.setBackground(new java.awt.Color(204, 255, 204));
         bgscrollPanelDishStaff.setPreferredSize(new java.awt.Dimension(698, 600));
         bgscrollPanelDishStaff.setLayout(new javax.swing.BoxLayout(bgscrollPanelDishStaff, javax.swing.BoxLayout.Y_AXIS));
@@ -235,7 +241,7 @@ public class NewOrderForm extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelDishStaff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(scrollPanelDishStaff)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

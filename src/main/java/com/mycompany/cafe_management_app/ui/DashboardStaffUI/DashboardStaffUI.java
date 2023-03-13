@@ -4,7 +4,6 @@
  */
 package com.mycompany.cafe_management_app.ui.DashboardStaffUI;
 
-import com.mycompany.cafe_management_app.controller.DashboardStaffController;
 import java.awt.CardLayout;
 import java.awt.Color;
 
@@ -24,7 +23,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
     public javax.swing.JPanel getPanelCheckIn() {
         return panelCheckIn;
     }
-
+    
     public JPanel getContainerListBill() {
         return bgScrollPanelOrder;
     }

@@ -50,10 +50,11 @@ public class DetailsDish extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(150, 180));
         jPanel1.setMinimumSize(new java.awt.Dimension(150, 180));
+        jPanel1.setPreferredSize(new java.awt.Dimension(190, 180));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setMaximumSize(new java.awt.Dimension(150, 30));
+        jPanel2.setMaximumSize(new java.awt.Dimension(190, 30));
         jPanel2.setMinimumSize(new java.awt.Dimension(150, 30));
         jPanel2.setPreferredSize(new java.awt.Dimension(150, 30));
 
@@ -70,14 +71,14 @@ public class DetailsDish extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(106, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(42, 42, 42))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(25, 25, 25)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(92, Short.MAX_VALUE)))
+                    .addContainerGap(132, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,12 +92,12 @@ public class DetailsDish extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setMaximumSize(new java.awt.Dimension(150, 150));
+        jPanel3.setMaximumSize(new java.awt.Dimension(190, 150));
         jPanel3.setMinimumSize(new java.awt.Dimension(150, 150));
 
-        a.setMaximumSize(new java.awt.Dimension(150, 150));
+        a.setMaximumSize(new java.awt.Dimension(190, 150));
         a.setMinimumSize(new java.awt.Dimension(150, 150));
-        a.setPreferredSize(new java.awt.Dimension(150, 150));
+        a.setPreferredSize(new java.awt.Dimension(190, 150));
         a.setLayout(new javax.swing.BoxLayout(a, javax.swing.BoxLayout.LINE_AXIS));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

@@ -376,7 +376,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPanelDishStaff" alignment="0" max="-2" attributes="0"/>
+                  <Component id="scrollPanelDishStaff" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -387,6 +387,9 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="scrollPanelDishStaff">
+              <Properties>
+                <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+              </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>

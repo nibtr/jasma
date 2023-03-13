@@ -1,11 +1,20 @@
 package com.mycompany.cafe_management_app.controller;
 
-import com.mycompany.cafe_management_app.model.Timekeeping;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DashboardStaffUI;
-import com.mycompany.cafe_management_app.service.StaffService;
-import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DetailsItemStaff;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.MenuItemStaff;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.OrderHistory;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewOrderForm;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewDishForm;
+import com.mycompany.cafe_management_app.ui.MenuItem;
+import com.mycompany.cafe_management_app.ui.DetailsDish;
+
+import com.mycompany.cafe_management_app.model.Timekeeping;
+import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
+
+import com.mycompany.cafe_management_app.service.StaffService;
 
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -30,8 +39,9 @@ public class DashboardStaffController {
     private DashboardStaffUI dashboardStaffUI;
     private StaffService staffService;
     private JPanel wrapListBill;
+    private JPanel wrapListDish;
+    private JPanel wrapChooseDish;
     private NewOrderForm NewOrderForm;
-
 
     public DashboardStaffController() {
         initController();
@@ -76,8 +86,6 @@ public class DashboardStaffController {
         }
     }
 
-    
-
     private void renderListOrder() {
         List<Bill> listBill = staffService.getAllBill();
         for (int i = 0; i < listBill.size(); i++) {
@@ -91,8 +99,52 @@ public class DashboardStaffController {
         }
     }
 
+    private void renderListMenu() {
+
+        List<Dish> listDish = staffService.getAllDish();
+        for (Dish dish : listDish) {
+            MenuItemStaff menuItem = new MenuItemStaff(dish, new DetailsDishFunction());
+            wrapListDish.add(menuItem);
+        }
+    }
+
+    public class DetailsDishFunction {
+        private DetailsDishFunction() {
+        }
+
+        public void showDetails(Dish dish) {
+            DetailsDish frame = new DetailsDish();
+            JPanel container = frame.getContainer();
+            List<DishDetail> list = staffService.getDetailsOf(dish);
+            for (int i = 0; i < list.size(); i++) {
+                String size = list.get(i).getSize();
+                String price = list.get(i).getPrice().toString();
+
+                container.add(new DetailsItemStaff(dish, size, price, DetailsDishFunction()));
+            }
+
+            frame.setVisible(true);
+        }
+
+        private DetailsDishFunction DetailsDishFunction() {
+            return new DetailsDishFunction();
+        }
+
+        public void addDishes(Dish dish, String name, String size, Double price) {
+            System.out.println("Controller: " + " " + name + " " + size + " " + price);
+            
+            wrapChooseDish.add(new NewDishForm(dish, name, size, price));
+
+            // test
+            for (int i = 0; i < wrapChooseDish.getComponentCount(); i++) {
+                System.out.println(wrapChooseDish.getComponent(i).getName());
+            }
+        }
+    }
+
     private void initController() {
         staffService = new StaffService();
+        NewOrderForm = new NewOrderForm();
 
         // check in/out button
         dashboardStaffUI = new DashboardStaffUI();
@@ -102,8 +154,13 @@ public class DashboardStaffController {
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
 
+        // Menu Dish
+        wrapListDish = NewOrderForm.getContainerDishStaff();
+        // Choose Dish
+        wrapChooseDish = NewOrderForm.getContainerAmountOrder();
+        renderListMenu();
+
         // show new order form
-        NewOrderForm = new NewOrderForm();
         dashboardStaffUI.getAddOrderBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -113,4 +170,5 @@ public class DashboardStaffController {
 
         dashboardStaffUI.setVisible(true);
     }
+
 }
