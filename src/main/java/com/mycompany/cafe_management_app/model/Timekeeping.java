@@ -33,7 +33,7 @@ public class Timekeeping {
     @Column(name = "checkout_time", columnDefinition = "DATETIME")
     private LocalDateTime checkoutTime;
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_staff_id")
     private Staff staff;
     
@@ -44,8 +44,8 @@ public class Timekeeping {
     private Double payment;
 
     public Timekeeping() {
-    }
 
+    }
 
     public Timekeeping(LocalDateTime checkinTime) {
         this.checkinTime = checkinTime;
