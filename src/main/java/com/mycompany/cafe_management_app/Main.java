@@ -6,6 +6,8 @@ package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.StaffDao;
@@ -13,15 +15,15 @@ import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
+
 import java.time.LocalDate;
 
 /**
- *
  * @author Hieu
  */
 public class Main {
 
-    public static void main(String[] args) {    
+    public static void main(String[] args) {
         String appID = "my_app_id";
         boolean alreadyRunning;
         try {
@@ -44,6 +46,7 @@ public class Main {
             System.out.println(clientUtil.getResponse());
 
 //            Create admin account if not exist
+
             initAdmin();
 
 //            Show login UI
@@ -52,13 +55,14 @@ public class Main {
         }
     }  
     
+
     private static void initAdmin() {
         StaffDao staffDao = new StaffDao();
         if (staffDao.getAll().isEmpty()) {
             Staff s = new Staff(
-                    "Hieu", 
-                    LocalDate.of(2002, 6, 1), 
-                    "012345679", 
+                    "Hieu",
+                    LocalDate.of(2002, 6, 1),
+                    "012345679",
                     "admin");
             Account a = new Account("admin", "admin", "admin");
             s.setAccount(a);
