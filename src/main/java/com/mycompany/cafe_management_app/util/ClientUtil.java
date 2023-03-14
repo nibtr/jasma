@@ -11,13 +11,13 @@ public class ClientUtil {
     private static Socket socket;
     private BufferedWriter out;
     private BufferedReader in;
-    private CompletableFuture<String> completableFuture = new CompletableFuture<>();
 
     private ClientUtil() {
         try {
             this.socket = new Socket("localhost", 8080);
             this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            System.out.println("Client: Connection established!");
 
         } catch (Exception e) {
             closeEverything(socket, in, out);
@@ -32,41 +32,46 @@ public class ClientUtil {
         return instance;
     }
 
-    public void sendRequest(String request) {
+//    public void sendRequest(String request) {
+//        try {
+//            out.write(request);
+//            out.newLine();
+//            out.flush();
+//        } catch (Exception e) {
+//            closeEverything(socket, in, out);
+//        }
+//    }
+
+    public CompletableFuture<Object> sendRequestAsync(String request) {
+        CompletableFuture<Object> future = new CompletableFuture<>();
+
         try {
             out.write(request);
             out.newLine();
             out.flush();
         } catch (Exception e) {
+            e.printStackTrace();
             closeEverything(socket, in, out);
         }
-    }
 
-    public void listenForResponse() {
+//        Listen for response
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (socket.isConnected()) {
+                while (socket != null && socket.isConnected()) {
                     try {
-                        String response = in.readLine();
-                        completableFuture.complete(response);
+                        String response = in.readLine();  //blocking
+                        future.complete(response);
 
                     } catch (IOException e) {
+                        e.printStackTrace();
                         closeEverything(socket, in, out);
                     }
                 }
             }
         }).start();
-    }
 
-    public String getResponse() {
-        try {
-            return completableFuture.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return future;
     }
 
     private void closeEverything(Socket socket, BufferedReader in, BufferedWriter out) {

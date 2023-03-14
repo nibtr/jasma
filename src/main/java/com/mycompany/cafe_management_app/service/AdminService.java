@@ -78,7 +78,10 @@ public class AdminService {
 
     public void updateDishDetail(DishDetail t) { dishDetailDao.update(t); }
 
+    public void deleteDishDetail(DishDetail t) { dishDetailDao.delete(t); }
+
     public List<Bill> getAllBills() {
         return billDao.getAll();
     }
+
 }

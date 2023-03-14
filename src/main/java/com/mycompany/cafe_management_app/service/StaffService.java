@@ -14,11 +14,14 @@ import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
+import com.mycompany.cafe_management_app.util.ClientUtil;
+import com.mycompany.cafe_management_app.util.JSONObjUtil;
 import com.mycompany.cafe_management_app.util.UserSession;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  *
@@ -47,7 +50,6 @@ public class StaffService {
         timekeepingDao.save(t);
 //        currentStaff.addTimekeeping(t);
 //        staffDao.update(currentStaff);
-        
     }
     
     public void checkOut(LocalDateTime currentTime) {
@@ -67,7 +69,10 @@ public class StaffService {
 //        Calculate payment
         t.setTotalPayment(currentStaff.getHourlyRate() * formattedHours);
         
-        timekeepingDao.update(t); 
+        timekeepingDao.update(t);
+
+//        Send CMD=END to server
+        ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
     }
     
     public List<Timekeeping> getAllTimekeeping() {
@@ -95,5 +100,8 @@ public class StaffService {
         t.setReturnedAmount(receivedAmount - t.getTotalPrice());
         billDao.save(t);
     }
- 
+
+    public CompletableFuture<Object> makeTransactionAsync(Bill bill, String cardNumber) {
+        return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "TRANSACTION"));
+    }
 }
