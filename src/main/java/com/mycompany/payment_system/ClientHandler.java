@@ -4,32 +4,32 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable{
-    private Socket socket;
+    private Socket clientSocket;
     private BufferedReader in;
     private BufferedWriter out;
 
-    public ClientHandler(Socket socket) {
+    public ClientHandler(Socket clientSocket) {
         try {
-            this.socket = socket;
-            this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            this.clientSocket = clientSocket;
+            this.out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+            this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         } catch (Exception e) {
-            closeEverything(socket, in, out);
+            closeEverything(clientSocket, in, out);
         }
     }
 
     @Override
     public void run() {
-
-        while (socket.isConnected()) {
+        while (clientSocket.isConnected()) {
             try {
                 String request = in.readLine();
-                System.out.println("Request from client: " + request);
-                out.write("Hello from server");
-                out.newLine();
-                out.flush();
+                handleRequest(request);
+
+//                out.write("Server: Connection established!");
+//                out.newLine();
+//                out.flush();
             } catch (IOException e) {
-                closeEverything(socket, in, out);
+                closeEverything(clientSocket, in, out);
                 break;
             }
         }
@@ -50,4 +50,38 @@ public class ClientHandler implements Runnable{
             e.printStackTrace();
         }
     }
+
+    private void handleRequest(String request) throws IOException {
+        String cmd = request != null ? JSONObjUtil.getHeader(request) : "UNKNOWN";
+
+        switch (cmd) {
+            case "END":
+                System.out.println("Server: Client " + clientSocket.getInetAddress() + " has disconnected");
+                closeEverything(clientSocket, in, out);
+                break;
+
+            case "TRANSACTION":
+                System.out.println("Server: Transaction request received");
+
+//                delay for 3s
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+//                TODO: Implement transaction logic here
+
+                out.write("Server: Transaction made successfully!");
+                out.newLine();
+                out.flush();
+                break;
+
+            default:
+                System.out.println("Server: Unknown command!");
+                break;
+        }
+    }
+
+
 }

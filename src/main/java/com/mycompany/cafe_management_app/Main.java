@@ -6,11 +6,10 @@ package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
-import com.mycompany.cafe_management_app.model.Dish;
-import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.StaffDao;
+import com.mycompany.cafe_management_app.service.StaffService;
 import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import it.sauronsoftware.junique.AlreadyLockedException;
@@ -39,22 +38,25 @@ public class Main {
             HibernateConfig.getSessionFactory();
             ErrorUtil.getInstance();
 
-//            Create a new thread to listen for response from server
-            ClientUtil clientUtil = ClientUtil.getInstance();
-            clientUtil.listenForResponse();
-            clientUtil.sendRequest("Hello");
-            System.out.println(clientUtil.getResponse());
+//            Init ClientUtil
+            ClientUtil.getInstance();
+
+//            Test make transaction async
+            StaffService st = new StaffService();
+            st.makeTransactionAsync(null, null)
+                    .thenApply(res -> {
+                        System.out.println(res);
+                        return res;
+                    });
 
 //            Create admin account if not exist
-
             initAdmin();
 
 //            Show login UI
             LoginController loginController = new LoginController();
             loginController.getLoginUI().setVisible(true);
         }
-    }  
-    
+    }
 
     private static void initAdmin() {
         StaffDao staffDao = new StaffDao();
