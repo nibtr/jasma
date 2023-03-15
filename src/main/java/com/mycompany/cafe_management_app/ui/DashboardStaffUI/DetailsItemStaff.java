@@ -96,8 +96,7 @@ public class DetailsItemStaff extends javax.swing.JPanel {
         String name = dish.getName();
         Double price = Double.parseDouble(priceLabel.getText());
         String size = sizeLabel.getText();
-        System.out.println(name + " :" + price + " " + size);
-        detailsDishFunction.addDishes(dish, name, size, price);
+        detailsDishFunction.addDishes(dish, size, price);
 
     }// GEN-LAST:event_priceLabelActionPerformed
 

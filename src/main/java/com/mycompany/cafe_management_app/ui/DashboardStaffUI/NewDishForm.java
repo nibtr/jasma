@@ -5,6 +5,10 @@
 package com.mycompany.cafe_management_app.ui.DashboardStaffUI;
 
 import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -17,12 +21,38 @@ public class NewDishForm extends javax.swing.JPanel {
      */
     private Dish dish;
 
-    public NewDishForm(Dish dish, String name, String size, Double price) {
+    public NewDishForm(Dish dish, String size, Double price) {
         initComponents();
         this.dish = dish;
-        inventoryNameLabel.setText(name);
-        dishSizeLabel.setText(size);
-        dishPriceLabel.setText(price.toString());
+        if (dish.getName() != null && size != null && price != null) {
+            inventoryNameLabel.setText(dish.getName());
+            dishSizeLabel.setText(size);
+            dishPriceLabel.setText(price.toString());
+        }
+    }
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
+    }
+    
+    public String getInventoryNameLabel() {
+        return inventoryNameLabel.getText();
+    }
+
+    public String getDishSizeLabel() {
+        return dishSizeLabel.getText();
+    }
+
+    public String getDishPriceLabel() {
+        return dishPriceLabel.getText();
+    }
+
+    public JButton getDeleteDishButton() {
+        return deleteDishButton;
     }
 
     /**
@@ -33,26 +63,41 @@ public class NewDishForm extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         inventoryNameLabel = new javax.swing.JLabel();
         dishSizeLabel = new javax.swing.JLabel();
         dishPriceLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        deleteDishButton = new javax.swing.JButton();
 
-        setMaximumSize(new java.awt.Dimension(348, 100));
+        setMaximumSize(new java.awt.Dimension(348, 32));
+        setMinimumSize(new java.awt.Dimension(348, 32));
+        setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(348, 32));
 
+        inventoryNameLabel.setForeground(new java.awt.Color(0, 0, 0));
         inventoryNameLabel.setText("Hong tra vai xoai");
 
+        dishSizeLabel.setForeground(new java.awt.Color(0, 0, 0));
         dishSizeLabel.setText("S");
 
+        dishPriceLabel.setForeground(new java.awt.Color(0, 0, 0));
         dishPriceLabel.setText("45.000");
 
-        jButton1.setText("X");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        deleteDishButton.setBackground(new java.awt.Color(255, 0, 0));
+        deleteDishButton.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
+        deleteDishButton.setForeground(new java.awt.Color(0, 0, 0));
+        deleteDishButton.setIcon(new javax.swing.ImageIcon(
+                "C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\delete-button.png")); // NOI18N
+        deleteDishButton.setText("X");
+        deleteDishButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        deleteDishButton.setPreferredSize(new java.awt.Dimension(17, 17));
+        deleteDishButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                deleteDishButtonActionPerformed(evt);
             }
         });
 
@@ -64,14 +109,15 @@ public class NewDishForm extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(inventoryNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51,
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48,
                                         Short.MAX_VALUE)
                                 .addComponent(dishSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(dishPriceLabel)
                                 .addGap(46, 46, 46)
-                                .addComponent(jButton1)
+                                .addComponent(dishPriceLabel)
+                                .addGap(41, 41, 41)
+                                .addComponent(deleteDishButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,18 +128,21 @@ public class NewDishForm extends javax.swing.JPanel {
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(dishSizeLabel)
                                         .addComponent(dishPriceLabel)
-                                        .addComponent(jButton1))
+                                        .addComponent(deleteDishButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_jButton1ActionPerformed
+    private void deleteDishButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteDishButtonActionPerformed
+        // delete dish
+
+    }// GEN-LAST:event_deleteDishButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteDishButton;
     private javax.swing.JLabel dishPriceLabel;
     private javax.swing.JLabel dishSizeLabel;
     private javax.swing.JLabel inventoryNameLabel;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

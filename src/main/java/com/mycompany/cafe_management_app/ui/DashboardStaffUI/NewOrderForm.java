@@ -4,12 +4,15 @@
  */
 package com.mycompany.cafe_management_app.ui.DashboardStaffUI;
 
+
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.controller.DashboardStaffController;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 /**
  *
  * @author Trung
@@ -19,12 +22,28 @@ public class NewOrderForm extends javax.swing.JFrame {
     /**
      * Creates new form NewOrderForm
      */
-    public JPanel getContainerAmountOrder(){
-        return bgPanelAmountOrder;
+    public JPanel getContainerPayment(){
+        return bgPanelPayment;
     }
 
     public JPanel getContainerDishStaff(){
         return bgscrollPanelDishStaff;
+    }
+
+    public JButton getCancelOrderButton(){
+        return cancelOrderButton;
+    }
+
+    public JButton getAddOrderButton(){
+        return addOrderButton;
+    }
+
+    public JLabel getTotalPriceLabel(){
+        return totalPriceLabel;
+    }
+
+    public String getReceivedAmountField(){
+        return receivedAmountField.getText();
     }
 
     public NewOrderForm() {
@@ -45,18 +64,19 @@ public class NewOrderForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         clientNameLabel = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         scrollPanelAmountOrder = new javax.swing.JScrollPane();
-        bgPanelAmountOrder = new javax.swing.JPanel();
+        bgPanelPayment = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         totalPriceLabel = new javax.swing.JLabel();
         addOrderButton = new javax.swing.JButton();
         cancelOrderButton = new javax.swing.JButton();
+        receivedAmountField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         scrollPanelDishStaff = new javax.swing.JScrollPane();
         bgscrollPanelDishStaff = new javax.swing.JPanel();
@@ -81,15 +101,15 @@ public class NewOrderForm extends javax.swing.JFrame {
         clientNameLabel.setForeground(new java.awt.Color(0, 0, 0));
         clientNameLabel.setText("Vĩnh Trung");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Item:");
-
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setMaximumSize(new java.awt.Dimension(348, 412));
+        jPanel4.setPreferredSize(new java.awt.Dimension(348, 412));
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel5.setMaximumSize(new java.awt.Dimension(348, 32767));
-        jPanel5.setPreferredSize(new java.awt.Dimension(348, 100));
+        jPanel5.setMaximumSize(new java.awt.Dimension(348, 35));
+        jPanel5.setMinimumSize(new java.awt.Dimension(348, 35));
+        jPanel5.setPreferredSize(new java.awt.Dimension(348, 35));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -103,12 +123,6 @@ public class NewOrderForm extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Price");
 
-        scrollPanelAmountOrder.setBackground(new java.awt.Color(255, 255, 255));
-        scrollPanelAmountOrder.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        bgPanelAmountOrder.setLayout(new javax.swing.BoxLayout(bgPanelAmountOrder, javax.swing.BoxLayout.Y_AXIS));
-        scrollPanelAmountOrder.setViewportView(bgPanelAmountOrder);
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -121,7 +135,6 @@ public class NewOrderForm extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(jLabel8)
                 .addContainerGap(85, Short.MAX_VALUE))
-            .addComponent(scrollPanelAmountOrder)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,25 +144,27 @@ public class NewOrderForm extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanelAmountOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 371, Short.MAX_VALUE))
-        );
+        jPanel4.add(jPanel5);
+
+        scrollPanelAmountOrder.setBackground(new java.awt.Color(255, 255, 255));
+        scrollPanelAmountOrder.setForeground(new java.awt.Color(255, 255, 255));
+        scrollPanelAmountOrder.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        bgPanelPayment.setBackground(new java.awt.Color(255, 255, 255));
+        bgPanelPayment.setMaximumSize(new java.awt.Dimension(600, 800));
+        bgPanelPayment.setMinimumSize(new java.awt.Dimension(600, 800));
+        bgPanelPayment.setRequestFocusEnabled(false);
+        bgPanelPayment.setLayout(new javax.swing.BoxLayout(bgPanelPayment, javax.swing.BoxLayout.Y_AXIS));
+        scrollPanelAmountOrder.setViewportView(bgPanelPayment);
+
+        jPanel4.add(scrollPanelAmountOrder);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Received Amount:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -157,7 +172,7 @@ public class NewOrderForm extends javax.swing.JFrame {
 
         totalPriceLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         totalPriceLabel.setForeground(new java.awt.Color(0, 0, 0));
-        totalPriceLabel.setText("10.000.000");
+        totalPriceLabel.setText("0");
 
         addOrderButton.setBackground(new java.awt.Color(51, 51, 51));
         addOrderButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -179,6 +194,12 @@ public class NewOrderForm extends javax.swing.JFrame {
             }
         });
 
+        receivedAmountField.setBackground(new java.awt.Color(255, 255, 255));
+        receivedAmountField.setMaximumSize(new java.awt.Dimension(100, 22));
+        receivedAmountField.setMinimumSize(new java.awt.Dimension(100, 22));
+        receivedAmountField.setOpaque(true);
+        receivedAmountField.setPreferredSize(new java.awt.Dimension(100, 22));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -187,10 +208,9 @@ public class NewOrderForm extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalPriceLabel))
-                    .addComponent(jLabel3)
+                        .addComponent(receivedAmountField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -198,9 +218,16 @@ public class NewOrderForm extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(cancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(addOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(96, 96, 96)
+                                    .addComponent(cancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(addOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(totalPriceLabel)))
                             .addGap(4, 4, 4))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -211,15 +238,17 @@ public class NewOrderForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(clientNameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(totalPriceLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(receivedAmountField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,10 +259,14 @@ public class NewOrderForm extends javax.swing.JFrame {
         jPanel3.setMaximumSize(new java.awt.Dimension(700, 600));
         jPanel3.setPreferredSize(new java.awt.Dimension(700, 600));
 
+        scrollPanelDishStaff.setBackground(new java.awt.Color(255, 255, 255));
+        scrollPanelDishStaff.setForeground(new java.awt.Color(255, 255, 255));
         scrollPanelDishStaff.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         bgscrollPanelDishStaff.setBackground(new java.awt.Color(204, 255, 204));
-        bgscrollPanelDishStaff.setPreferredSize(new java.awt.Dimension(698, 600));
+        bgscrollPanelDishStaff.setMaximumSize(new java.awt.Dimension(600, 800));
+        bgscrollPanelDishStaff.setMinimumSize(new java.awt.Dimension(600, 800));
+        bgscrollPanelDishStaff.setRequestFocusEnabled(false);
         bgscrollPanelDishStaff.setLayout(new javax.swing.BoxLayout(bgscrollPanelDishStaff, javax.swing.BoxLayout.Y_AXIS));
         scrollPanelDishStaff.setViewportView(bgscrollPanelDishStaff);
 
@@ -241,11 +274,11 @@ public class NewOrderForm extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelDishStaff)
+            .addComponent(scrollPanelDishStaff, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelDishStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(scrollPanelDishStaff, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -285,7 +318,7 @@ public class NewOrderForm extends javax.swing.JFrame {
     }//GEN-LAST:event_addOrderButtonActionPerformed
 
     private void cancelOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelOrderButtonActionPerformed
-        this.dispose();
+         // TODO add your handling code here:
     }//GEN-LAST:event_cancelOrderButtonActionPerformed
 
     /**
@@ -325,7 +358,7 @@ public class NewOrderForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addOrderButton;
-    private javax.swing.JPanel bgPanelAmountOrder;
+    private javax.swing.JPanel bgPanelPayment;
     private javax.swing.JPanel bgscrollPanelDishStaff;
     private javax.swing.JButton cancelOrderButton;
     private javax.swing.JLabel clientNameLabel;
@@ -340,6 +373,7 @@ public class NewOrderForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JTextField receivedAmountField;
     private javax.swing.JScrollPane scrollPanelAmountOrder;
     private javax.swing.JScrollPane scrollPanelDishStaff;
     private javax.swing.JLabel totalPriceLabel;

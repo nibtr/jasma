@@ -12,18 +12,18 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author namho
+ * @author trung
  */
 public class DashboardStaffUI extends javax.swing.JFrame {
 
-    public javax.swing.JButton getCheckInOutButton() {
+    public JButton getCheckInOutButton() {
         return checkInOutButton;
     }
 
-    public javax.swing.JPanel getPanelCheckIn() {
+    public JPanel getPanelCheckIn() {
         return panelCheckIn;
     }
-    
+
     public JPanel getContainerListBill() {
         return bgScrollPanelOrder;
     }
@@ -65,7 +65,8 @@ public class DashboardStaffUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
@@ -236,28 +237,31 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         javax.swing.GroupLayout headerOrderPageLayout = new javax.swing.GroupLayout(headerOrderPage);
         headerOrderPage.setLayout(headerOrderPageLayout);
         headerOrderPageLayout.setHorizontalGroup(
-            headerOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerOrderPageLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(153, 153, 153)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(revenuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
-                .addComponent(addOrder)
-                .addGap(17, 17, 17))
-        );
+                headerOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(headerOrderPageLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(153, 153, 153)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(revenuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 124,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221,
+                                        Short.MAX_VALUE)
+                                .addComponent(addOrder)
+                                .addGap(17, 17, 17)));
         headerOrderPageLayout.setVerticalGroup(
-            headerOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerOrderPageLayout.createSequentialGroup()
-                .addGroup(headerOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(revenuLabel)
-                    .addComponent(addOrder))
-                .addGap(0, 9, Short.MAX_VALUE))
-        );
+                headerOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(headerOrderPageLayout.createSequentialGroup()
+                                .addGroup(headerOrderPageLayout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3)
+                                        .addComponent(revenuLabel)
+                                        .addComponent(addOrder))
+                                .addGap(0, 9, Short.MAX_VALUE)));
 
         bgOrderPage.add(headerOrderPage);
 
@@ -289,26 +293,25 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
-                .addComponent(jLabel7)
-                .addGap(86, 86, 86)
-                .addComponent(jLabel8)
-                .addGap(61, 61, 61)
-                .addComponent(jLabel9)
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 57,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(99, 99, 99)
+                                .addComponent(jLabel7)
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel8)
+                                .addGap(61, 61, 61)
+                                .addComponent(jLabel9)
+                                .addContainerGap(175, Short.MAX_VALUE)));
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addComponent(jLabel8)
-                .addComponent(jLabel9))
-        );
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9)));
 
         contentOrderPage.add(jPanel3);
         jPanel3.setBounds(0, 0, 820, 20);
@@ -347,13 +350,11 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         javax.swing.GroupLayout headerMenuPageLayout = new javax.swing.GroupLayout(headerMenuPage);
         headerMenuPage.setLayout(headerMenuPageLayout);
         headerMenuPageLayout.setHorizontalGroup(
-            headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 820, Short.MAX_VALUE)
-        );
+                headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 820, Short.MAX_VALUE));
         headerMenuPageLayout.setVerticalGroup(
-            headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 32, Short.MAX_VALUE)
-        );
+                headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 32, Short.MAX_VALUE));
 
         bgMenuPage.add(headerMenuPage);
 
@@ -372,13 +373,11 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         javax.swing.GroupLayout contentMenuPageLayout = new javax.swing.GroupLayout(contentMenuPage);
         contentMenuPage.setLayout(contentMenuPageLayout);
         contentMenuPageLayout.setHorizontalGroup(
-            contentMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelMenu)
-        );
+                contentMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(scrollPanelMenu));
         contentMenuPageLayout.setVerticalGroup(
-            contentMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-        );
+                contentMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(scrollPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE));
 
         bgMenuPage.add(contentMenuPage);
 
@@ -408,7 +407,9 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         jLabel4.setText(" Time Keeping");
         bgPage1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 340, 80));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\checkInOutBG.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(
+                "C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\checkInOutBG.png")); // NOI18N
+
         jLabel5.setText("jLabel5");
         bgPage1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -422,21 +423,21 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrderActionPerformed
+    private void addOrderActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addOrderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addOrderActionPerformed
+    }// GEN-LAST:event_addOrderActionPerformed
 
     private void navItemOrderActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_navItemOrderActionPerformed
         // TODO add your handling code here:
@@ -482,7 +483,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addOrder;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgMenuPage;
@@ -521,4 +522,3 @@ public class DashboardStaffUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 }
-
