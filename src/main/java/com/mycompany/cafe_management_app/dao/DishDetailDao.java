@@ -35,7 +35,13 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             tx = session.beginTransaction();
             Query query = session.createQuery("FROM DishDetail t where dish.id = :dishID ORDER BY price ASC" );
             query.setParameter("dishID", dishID);
-            list = query.getResultList();      
+            list = query.getResultList();
+
+//            Initialize the dish
+            for (DishDetail dishDetail : list) {
+                dishDetail.getDish().getName();
+            }
+
             tx.commit();
             
             ErrorUtil.getInstance().setErrorCode(0);
@@ -65,7 +71,12 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             tx = session.beginTransaction();
             Query query = session.createQuery("FROM DishDetail t where dish.name = :dishName ORDER BY price ASC" );
             query.setParameter("dishName", dishName);
-            list = query.getResultList();      
+            list = query.getResultList();
+
+            for (DishDetail dishDetail : list) {
+                dishDetail.getDish().getName();
+            }
+
             tx.commit();
             
             ErrorUtil.getInstance().setErrorCode(0);

@@ -1,12 +1,10 @@
 package com.mycompany.cafe_management_app.ui.DashboardStaffUI;
 
-import com.mycompany.cafe_management_app.ui.DashboardAdminUI.*;
-import com.mycompany.cafe_management_app.controller.DashboardStaffController;
 import com.mycompany.cafe_management_app.controller.DashboardStaffController.DetailsDishFunction;
 
 import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.DishDetail;
 
-import javax.swing.JLabel;
 import javax.swing.JButton;
 
 /*
@@ -21,13 +19,16 @@ import javax.swing.JButton;
 public class DetailsItemStaff extends javax.swing.JPanel {
 
     private Dish dish;
+
+    private DishDetail dishDetail;
     private DetailsDishFunction detailsDishFunction;
 
-    public DetailsItemStaff(Dish dish, String size, String price, DetailsDishFunction detailsDishFunction) {
+    public DetailsItemStaff(DishDetail dishDetail, DetailsDishFunction detailsDishFunction) {
         initComponents();
-        this.dish = dish;
-        this.sizeLabel.setText(size);
-        this.priceLabel.setText(price);
+        this.dishDetail = dishDetail;
+//        this.dish = dish;
+        this.sizeLabel.setText(dishDetail.getSize());
+        this.priceLabel.setText(dishDetail.getPrice().toString());
         this.detailsDishFunction = detailsDishFunction;
     }
 
@@ -93,10 +94,10 @@ public class DetailsItemStaff extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void priceLabelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_priceLabelActionPerformed
-        String name = dish.getName();
+//        String name = dish.getName();
         Double price = Double.parseDouble(priceLabel.getText());
         String size = sizeLabel.getText();
-        detailsDishFunction.addDishes(dish, size, price);
+        detailsDishFunction.addDishDetail(dishDetail);
 
     }// GEN-LAST:event_priceLabelActionPerformed
 

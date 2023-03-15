@@ -21,13 +21,18 @@ public class NewDishForm extends javax.swing.JPanel {
      */
     private Dish dish;
 
-    public NewDishForm(Dish dish, String size, Double price) {
+    private DishDetail dishDetail;
+
+    public NewDishForm(DishDetail dishDetail) {
         initComponents();
-        this.dish = dish;
-        if (dish.getName() != null && size != null && price != null) {
-            inventoryNameLabel.setText(dish.getName());
-            dishSizeLabel.setText(size);
-            dishPriceLabel.setText(price.toString());
+//        this.dish = dish;
+        this.dishDetail = dishDetail;
+
+        System.out.println(dishDetail.getId() + " "  + dishDetail.getSize() + " " + dishDetail.getPrice());
+        if (dishDetail.getDish() != null && dishDetail.getSize() != null && dishDetail.getPrice() != null) {
+            inventoryNameLabel.setText(dishDetail.getDish().getName());
+            dishSizeLabel.setText(dishDetail.getSize());
+            dishPriceLabel.setText(dishDetail.getPrice().toString());
         }
     }
 

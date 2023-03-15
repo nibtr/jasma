@@ -326,6 +326,9 @@ public class Main {
             // billDao.save(bill9);
             // billDao.save(bill10);
 
+//            List<DishDetail> list = new DishDetailDao().getByDishName("Cafe");
+//            System.out.println(list.get(0).getDish().getName());
+
             LoginController loginController = new LoginController();
             loginController.getLoginUI().setVisible(true);
 

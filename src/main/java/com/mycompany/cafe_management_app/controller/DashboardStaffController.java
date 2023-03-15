@@ -1,16 +1,13 @@
 package com.mycompany.cafe_management_app.controller;
 
-import com.mycompany.cafe_management_app.model.Timekeeping;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DashboardStaffUI;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DetailsItemStaff;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.MenuItemStaff;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.OrderHistory;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewOrderForm;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewDishForm;
-import com.mycompany.cafe_management_app.ui.MenuItem;
 import com.mycompany.cafe_management_app.ui.DetailsDish;
 
-import com.mycompany.cafe_management_app.model.Timekeeping;
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.BillDetail;
 
@@ -22,14 +19,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.awt.Component;
 
 import javax.swing.JOptionPane;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -49,6 +47,8 @@ public class DashboardStaffController {
     private JPanel wrapChooseDish;
     private NewOrderForm NewOrderForm;
     private NewDishForm NewDishForm;
+
+    private Map<DishDetail, Integer> dishDetailQuantities = new HashMap<>();
 
     public DashboardStaffController() {
         initController();
@@ -126,11 +126,11 @@ public class DashboardStaffController {
             DetailsDish frame = new DetailsDish();
             JPanel container = frame.getContainer();
             List<DishDetail> list = staffService.getDetailsOf(dish);
-            for (int i = 0; i < list.size(); i++) {
-                String size = list.get(i).getSize();
-                String price = list.get(i).getPrice().toString();
-
-                container.add(new DetailsItemStaff(dish, size, price, DetailsDishFunction()));
+            for (DishDetail dt : list) {
+//                System.out.println(dt.getSize());
+//                String size = list.get(i).getSize();
+//                String price = list.get(i).getPrice().toString();
+                container.add(new DetailsItemStaff(dt, DetailsDishFunction()));
             }
 
             frame.setVisible(true);
@@ -147,27 +147,44 @@ public class DashboardStaffController {
             return new DetailsDishFunction();
         }
 
-        public void addDishes(Dish dish, String size, Double price) {
+        private Double calculateTotalPrice() {
+            Double totalPrice = 0.0;
+            for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
+                totalPrice += entry.getKey().getPrice() * entry.getValue();
+            }
+            return totalPrice;
+        }
 
-            NewDishForm newDish = new NewDishForm(dish, size, price);
+        public void addDishDetail(DishDetail dishDetail) {
+            dishDetailQuantities.put(dishDetail, dishDetailQuantities.getOrDefault(dishDetail, 0) + 1);
+            NewDishForm newDish = new NewDishForm(dishDetail);
+
             wrapChooseDish.add(newDish);
             wrapChooseDish.repaint();
             wrapChooseDish.revalidate();
 
-            // Total Price
-            Double totalPrice = 0.0;
-            for (int i = 0; i < wrapChooseDish.getComponentCount(); i++) {
-                totalPrice += price;
-            }
+            // Display total price
+            Double totalPrice = calculateTotalPrice();
             NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
 
             // Delete dish
             newDish.getDeleteDishButton().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    Integer quantity = dishDetailQuantities.get(dishDetail);
+                    if (quantity == 1) {
+                        dishDetailQuantities.remove(dishDetail);
+                    } else {
+                        dishDetailQuantities.put(dishDetail, quantity - 1);
+                    }
+
                     wrapChooseDish.remove(newDish);
                     wrapChooseDish.repaint();
                     wrapChooseDish.revalidate();
+
+                    // Display total price
+                    Double totalPrice = calculateTotalPrice();
+                    NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
                 }
             });
         }
@@ -209,47 +226,31 @@ public class DashboardStaffController {
             }
         });
 
-        // Confirm Order
+        // Confirm order (save order to database)
         NewOrderForm.getAddOrderButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Create new bill
-                Bill bill = new Bill();
                 LocalDateTime currentTime = LocalDateTime.now();
+                Bill bill = new Bill(currentTime);
+
                 String tmpRA = NewOrderForm.getReceivedAmountField();
-                Double receiveAmount = Double.parseDouble(tmpRA);
-                bill.setTimeCreated(currentTime);
-
-                // Add bill detail
-                List<BillDetail> billDetails = new ArrayList<>();
-                Double totalPrice = 0.0;
-                for (int i = 0; i < wrapChooseDish.getComponentCount(); i++) {
-                    Component component = wrapChooseDish.getComponent(i);
-                    if (component instanceof NewDishForm) {
-                        NewDishForm newDishForm = (NewDishForm) component;
-                        Dish dish = newDishForm.getDish();
-                        String size = newDishForm.getDishSizeLabel();
-                        String tmp = newDishForm.getDishPriceLabel();
-                        Double price = Double.parseDouble(tmp);
-
-                        // DishDetail dishDetail = staffService.getDishDetail(dish, size, price);
-                        // BillDetail billDetail = new BillDetail(dishDetail, 1L);
-                        // billDetails.add(billDetail);
-
-                        totalPrice += price;
-
-                    }
+                Double receiveAmount = 0.0;
+                try {
+                    receiveAmount = Double.parseDouble(tmpRA);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Received amount must be a number");
+                    return;
                 }
 
-                System.out.println("Tổng tiền: " + totalPrice);
+                for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
+                    DishDetail dishDetail = entry.getKey();
+                    Integer quantity = entry.getValue();
+                    BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
+                    bill.addBillDetail(billDetail);
+                }
 
-                // Set bill
-                // bill.setBillDetails(billDetails);
-                // bill.setTotalPrice(totalPrice);
-                System.out.println("Giá: " + bill.getTotalPrice() + " Size:  " + bill.getBillDetails().size());
-
-                // Add bill
-                // staffService.createBill(bill, receiveAmount);
+                 staffService.createBill(bill, receiveAmount);
 
                 // Show message
                 JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
