@@ -28,12 +28,16 @@ public class NewDishForm extends javax.swing.JPanel {
 //        this.dish = dish;
         this.dishDetail = dishDetail;
 
-        System.out.println(dishDetail.getId() + " "  + dishDetail.getSize() + " " + dishDetail.getPrice());
+        // System.out.println(dishDetail.getId() + " "  + dishDetail.getSize() + " " + dishDetail.getPrice());
         if (dishDetail.getDish() != null && dishDetail.getSize() != null && dishDetail.getPrice() != null) {
             inventoryNameLabel.setText(dishDetail.getDish().getName());
             dishSizeLabel.setText(dishDetail.getSize());
             dishPriceLabel.setText(dishDetail.getPrice().toString());
         }
+    }
+
+    public Long getDishDetailId() {
+        return dishDetail.getId();
     }
 
     public Dish getDish() {
@@ -56,6 +60,14 @@ public class NewDishForm extends javax.swing.JPanel {
         return dishPriceLabel.getText();
     }
 
+    public String getQuantityDish() {
+        return quantityDish.getText();
+    }
+
+    public void setQuantityDish(String quantityDish) {
+        this.quantityDish.setText(quantityDish);
+    }
+
     public JButton getDeleteDishButton() {
         return deleteDishButton;
     }
@@ -70,73 +82,69 @@ public class NewDishForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         inventoryNameLabel = new javax.swing.JLabel();
         dishSizeLabel = new javax.swing.JLabel();
         dishPriceLabel = new javax.swing.JLabel();
         deleteDishButton = new javax.swing.JButton();
+        quantityDish = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(348, 32));
         setMinimumSize(new java.awt.Dimension(348, 32));
-        setOpaque(false);
-        setPreferredSize(new java.awt.Dimension(348, 32));
+        setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(305, 32));
 
-        inventoryNameLabel.setForeground(new java.awt.Color(0, 0, 0));
         inventoryNameLabel.setText("Hong tra vai xoai");
 
-        dishSizeLabel.setForeground(new java.awt.Color(0, 0, 0));
         dishSizeLabel.setText("S");
 
-        dishPriceLabel.setForeground(new java.awt.Color(0, 0, 0));
         dishPriceLabel.setText("45.000");
 
         deleteDishButton.setBackground(new java.awt.Color(255, 0, 0));
-        deleteDishButton.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
-        deleteDishButton.setForeground(new java.awt.Color(0, 0, 0));
-        deleteDishButton.setIcon(new javax.swing.ImageIcon(
-                "C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\delete-button.png")); // NOI18N
-        deleteDishButton.setText("X");
-        deleteDishButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        deleteDishButton.setPreferredSize(new java.awt.Dimension(17, 17));
+        deleteDishButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\delete-button.png")); // NOI18N
+        deleteDishButton.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        deleteDishButton.setMaximumSize(new java.awt.Dimension(19, 19));
+        deleteDishButton.setMinimumSize(new java.awt.Dimension(19, 19));
+        deleteDishButton.setPreferredSize(new java.awt.Dimension(19, 19));
         deleteDishButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteDishButtonActionPerformed(evt);
             }
         });
 
+        quantityDish.setText("1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(inventoryNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48,
-                                        Short.MAX_VALUE)
-                                .addComponent(dishSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(dishPriceLabel)
-                                .addGap(41, 41, 41)
-                                .addComponent(deleteDishButton, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(quantityDish, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inventoryNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(dishSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addComponent(dishPriceLabel)
+                .addGap(28, 28, 28)
+                .addComponent(deleteDishButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(inventoryNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(dishSizeLabel)
-                                        .addComponent(dishPriceLabel)
-                                        .addComponent(deleteDishButton, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inventoryNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dishSizeLabel)
+                    .addComponent(dishPriceLabel)
+                    .addComponent(deleteDishButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(quantityDish))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteDishButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteDishButtonActionPerformed
@@ -149,5 +157,6 @@ public class NewDishForm extends javax.swing.JPanel {
     private javax.swing.JLabel dishPriceLabel;
     private javax.swing.JLabel dishSizeLabel;
     private javax.swing.JLabel inventoryNameLabel;
+    private javax.swing.JLabel quantityDish;
     // End of variables declaration//GEN-END:variables
 }

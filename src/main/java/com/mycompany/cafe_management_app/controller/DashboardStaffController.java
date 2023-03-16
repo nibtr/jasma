@@ -34,12 +34,12 @@ import javax.swing.JPanel;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author namho
  */
 public class DashboardStaffController {
+
     private DashboardStaffUI dashboardStaffUI;
     private StaffService staffService;
     private JPanel wrapListBill;
@@ -79,6 +79,7 @@ public class DashboardStaffController {
     }
 
     private class CheckInOutButtonListener implements ActionListener {
+
         private boolean checkedIn = true;
 
         @Override
@@ -119,6 +120,7 @@ public class DashboardStaffController {
     }
 
     public class DetailsDishFunction {
+
         private DetailsDishFunction() {
         }
 
@@ -127,9 +129,9 @@ public class DashboardStaffController {
             JPanel container = frame.getContainer();
             List<DishDetail> list = staffService.getDetailsOf(dish);
             for (DishDetail dt : list) {
-//                System.out.println(dt.getSize());
-//                String size = list.get(i).getSize();
-//                String price = list.get(i).getPrice().toString();
+                // System.out.println(dt.getSize());
+                // String size = list.get(i).getSize();
+                // String price = list.get(i).getPrice().toString();
                 container.add(new DetailsItemStaff(dt, DetailsDishFunction()));
             }
 
@@ -159,6 +161,27 @@ public class DashboardStaffController {
             dishDetailQuantities.put(dishDetail, dishDetailQuantities.getOrDefault(dishDetail, 0) + 1);
             NewDishForm newDish = new NewDishForm(dishDetail);
 
+            // Nếu đã có món ăn này trong order thì chỉ cần tăng số lượng lên 1
+            for (Component component : wrapChooseDish.getComponents()) {
+                if (component instanceof NewDishForm) {
+                    NewDishForm tmp = (NewDishForm) component;
+                    // Nếu đã có món ăn này trong order thì chỉ cần tăng số lượng lên 1
+                    if (tmp.getDishDetailId().equals(dishDetail.getId())
+                            && tmp.getDishSizeLabel().equals(dishDetail.getSize())) {
+                        tmp.setQuantityDish(dishDetailQuantities.get(dishDetail).toString());
+                        // Display total price
+                        Double totalPrice = calculateTotalPrice();
+                        NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+                        return;
+
+                    }
+                }
+            }
+            // Print test
+            for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
+                System.out.println(entry.getKey().getId() + " " + entry.getValue());
+            }
+
             wrapChooseDish.add(newDish);
             wrapChooseDish.repaint();
             wrapChooseDish.revalidate();
@@ -172,13 +195,19 @@ public class DashboardStaffController {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Integer quantity = dishDetailQuantities.get(dishDetail);
+                    String tempAmount = newDish.getQuantityDish();
+                    int amount = Integer.parseInt(tempAmount);
+
                     if (quantity == 1) {
                         dishDetailQuantities.remove(dishDetail);
+                        wrapChooseDish.remove(newDish);
+
                     } else {
                         dishDetailQuantities.put(dishDetail, quantity - 1);
+                        String newAmountString = Integer.toString(amount - 1);
+                        newDish.setQuantityDish(newAmountString);
                     }
 
-                    wrapChooseDish.remove(newDish);
                     wrapChooseDish.repaint();
                     wrapChooseDish.revalidate();
 
@@ -221,8 +250,10 @@ public class DashboardStaffController {
         NewOrderForm.getCancelOrderButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                NewOrderForm.setVisible(false);
+                // Set total price to 0
+
                 wrapChooseDish.removeAll();
+                NewOrderForm.setVisible(false);
             }
         });
 
@@ -250,11 +281,14 @@ public class DashboardStaffController {
                     bill.addBillDetail(billDetail);
                 }
 
-                 staffService.createBill(bill, receiveAmount);
+                staffService.createBill(bill, receiveAmount);
 
                 // Show message
                 JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
-
+                
+                wrapListBill.repaint();
+                wrapListBill.revalidate();
+                
                 // Close form
                 NewOrderForm.setVisible(false);
                 wrapChooseDish.removeAll();
