@@ -245,6 +245,22 @@ public class DashboardStaffController {
         wrapChooseDish = NewOrderForm.getContainerPayment();
         renderListMenu();
 
+        // Choose payment method
+        NewOrderForm.getPayCashButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NewOrderForm.setOptionPaymentLabel("Received:");
+
+            }
+        });
+
+        NewOrderForm.getPayCardButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NewOrderForm.setOptionPaymentLabel("Card ID:");
+            }
+        });
+
         // Cancel Order
         NewOrderForm.getCancelOrderButton().addActionListener(new ActionListener() {
             @Override
@@ -264,48 +280,84 @@ public class DashboardStaffController {
                 LocalDateTime currentTime = LocalDateTime.now();
                 Bill bill = new Bill(currentTime);
 
-                String tmpRA = NewOrderForm.getReceivedAmountField();
-                Double receivedAmount = 0.0;
-                try {
-                    receivedAmount = Double.parseDouble(tmpRA);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Received amount must be a number");
+                if (dishDetailQuantities.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please choose dish");
                     return;
                 }
 
-                for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
-                    DishDetail dishDetail = entry.getKey();
-                    Integer quantity = entry.getValue();
-                    BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
-                    bill.addBillDetail(billDetail);
+
+                if (NewOrderForm.getOptionPaymentLabel().getText().equals("Card ID:")) {
+                    NewOrderForm.setStateProcessing("Processing . . .");
+                    String cardID = NewOrderForm.getReceivedAmountField();
+                    staffService.createBillAsync(bill, null, cardID)
+                            .thenApply(res -> {
+                                System.out.println(res);
+                                
+                                if (res.equals("SUCCESS")) {
+                                    JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
+                                    wrapListBill.removeAll();
+                                    renderListOrder();
+                                    wrapListBill.repaint();
+                                    wrapListBill.revalidate();
+
+                                    // Close form
+                                    NewOrderForm.setVisible(false);
+                                    wrapChooseDish.removeAll();
+                                } else {
+                                    System.out.println("TRANSACTION FAILED!");
+                                    JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
+                                }
+
+                                return res;
+                            })
+                            .thenAccept(res -> {
+                                NewOrderForm.setStateProcessing("");
+                                System.out.println("TRANSACTION PROCESS COMPLETED");
+                            });
+                            
+                } else {
+                    System.out.println("Payment by Cash");
+
+                    String tmpRA = NewOrderForm.getReceivedAmountField();
+                    Double receivedAmount = 0.0;
+                    try {
+                        receivedAmount = Double.parseDouble(tmpRA);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Received amount must be a number");
+                        return;
+                    }
+
+                    for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
+                        DishDetail dishDetail = entry.getKey();
+                        Integer quantity = entry.getValue();
+                        BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
+                        bill.addBillDetail(billDetail);
+                    }
+                    staffService.createBillAsync(bill, receivedAmount, null)
+                            .thenApply(res -> {
+                                System.out.println(res);
+                                if (res.equals("SUCCESS")) {
+                                    JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
+
+                                    wrapListBill.removeAll();
+                                    renderListOrder();
+                                    wrapListBill.repaint();
+                                    wrapListBill.revalidate();
+
+                                    // Close form
+                                    NewOrderForm.setVisible(false);
+                                    wrapChooseDish.removeAll();
+                                } else {
+                                    System.out.println("TRANSACTION FAILED!");
+                                    JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
+                                }
+
+                                return res;
+                            })
+                            .thenAccept(res -> {
+                                System.out.println("TRANSACTION PROCESS COMPLETED");
+                            });
                 }
-
-                staffService.createBillAsync(bill, receivedAmount, "0123456789")
-                        .thenApply(res -> {
-                            System.out.println(res);
-                            if (res.equals("SUCCESS")) {
-                                JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
-
-                                wrapListBill.removeAll();
-                                renderListOrder();
-                                wrapListBill.repaint();
-                                wrapListBill.revalidate();
-
-                                // Close form
-                                NewOrderForm.setVisible(false);
-                                wrapChooseDish.removeAll();
-                            } else {
-                                System.out.println("TRANSACTION FAILED!");
-                                JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
-                            }
-
-                            return res;
-                        })
-                        .thenAccept(res -> {
-                            System.out.println("TRANSACTION PROCESS COMPLETED");
-                        });
-
-                // Show message
 
             }
         });
