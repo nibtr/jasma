@@ -274,93 +274,60 @@ public class DashboardStaffController {
                 // Check if dish is chosen
                 if (dishDetailQuantities.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please choose dish");
+                    return;
+                }
 
-                // Create new bill
-                LocalDateTime currentTime = LocalDateTime.now();
-                Bill bill = new Bill(currentTime);
-
+                // Confirm order (YES/NO)
+                JFrame jframe = new JFrame("EXIT");
                 String tmpRA = NewOrderForm.getReceivedAmountField();
                 Double receivedAmount = 0.0;
                 try {
                     receivedAmount = Double.parseDouble(tmpRA);
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Received amount must be a number");
-
                     return;
                 }
-                // Check if RgetReceivedAmountField()IVED AMOUNT
-                double receivedAmount = Double.parseDouble(NewOrderForm.getReceivedAmountField());
-                double totalPrice = Double.parseDouble(NewOrderForm.getTotalPriceLabel().getText());
 
-                if (receivedAmount < totalPrice) {
-                    JOptionPane.showMessageDialog(null, "Not enough cash");
-                    return;
-                } else {
-                    // Confirm order (YES/NO)
-                    JFrame jframe = new JFrame("EXIT");
-                    if (JOptionPane.showConfirmDialog(jframe, "Confirm Order", "Confirm",
-                            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                if (JOptionPane.showConfirmDialog(jframe, "Confirm Order", "Confirm",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
 
-                        // Create new bill
-                        LocalDateTime currentTime = LocalDateTime.now();
-                        Bill bill = new Bill(currentTime);
+                    // Create new bill
+                    LocalDateTime currentTime = LocalDateTime.now();
+                    Bill bill = new Bill(currentTime);
 
-                        String tmpRA = NewOrderForm.getReceivedAmountField();
-                        Double receiveAmount = 0.0;
-                        try {
-                            receiveAmount = Double.parseDouble(tmpRA);
-                        } catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(null, "Received amount must be a number");
-                            return;
-                        }
-
-                        for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
-                            DishDetail dishDetail = entry.getKey();
-                            Integer quantity = entry.getValue();
-                            BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
-                            bill.addBillDetail(billDetail);
-                        }
-
-                        staffService.createBill(bill, receiveAmount);
-
-                        // Show message
-                        JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
-
-                        wrapListBill.repaint();
-                        wrapListBill.revalidate();
-
-                        // Close form
-                        NewOrderForm.setVisible(false);
-                        wrapChooseDish.removeAll();
+                    for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
+                        DishDetail dishDetail = entry.getKey();
+                        Integer quantity = entry.getValue();
+                        BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
+                        bill.addBillDetail(billDetail);
                     }
+
+                    staffService.createBillAsync(bill, receivedAmount, NewOrderForm.getCashIDField())
+                            .thenApply(res -> {
+                                System.out.println(res);
+                                if (res.equals("SUCCESS")) {
+                                    JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
+
+                                    wrapListBill.removeAll();
+                                    renderListOrder();
+                                    wrapListBill.repaint();
+                                    wrapListBill.revalidate();
+
+                                    // Close form
+                                    NewOrderForm.setVisible(false);
+                                    wrapChooseDish.removeAll();
+                                } else {
+                                    System.out.println("TRANSACTION FAILED!");
+                                    JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
+                                }
+
+                                return res;
+                            })
+                            .thenAccept(res -> {
+                                System.out.println("TRANSACTION PROCESS COMPLETED");
+                            });
+
                 }
-
-                staffService.createBillAsync(bill, receivedAmount, "0123456789")
-                        .thenApply(res -> {
-                            System.out.println(res);
-                            if (res.equals("SUCCESS")) {
-                                JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
-
-                                wrapListBill.removeAll();
-                                renderListOrder();
-                                wrapListBill.repaint();
-                                wrapListBill.revalidate();
-
-                                // Close form
-                                NewOrderForm.setVisible(false);
-                                wrapChooseDish.removeAll();
-                            } else {
-                                System.out.println("TRANSACTION FAILED!");
-                                JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
-                            }
-
-                            return res;
-                        })
-                        .thenAccept(res -> {
-                            System.out.println("TRANSACTION PROCESS COMPLETED");
-                        });
-
-                // Show message
             }
         });
 
