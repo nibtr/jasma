@@ -36,6 +36,10 @@ public class DishDao implements DaoInterface<Dish> {
             Root<Dish> root = criteria.from(Dish.class);
             criteria.select(root);
             dishes = session.createQuery(criteria).getResultList();
+//            Initialize the detail list of the dish
+            for (Dish dish : dishes) {
+                dish.getDetails().size();
+            }
             tx.commit();
             
             ErrorUtil.getInstance().setErrorCode(0);

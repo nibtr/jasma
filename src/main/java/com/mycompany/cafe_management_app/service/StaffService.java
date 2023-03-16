@@ -101,6 +101,11 @@ public class StaffService {
         billDao.save(t);
     }
 
+    public List<Bill> getAllBill() {
+        return billDao.getAll();
+    }
+ 
+
     public CompletableFuture<Object> makeTransactionAsync(Bill bill, String cardNumber) {
         return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "TRANSACTION"));
     }

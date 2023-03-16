@@ -31,10 +31,10 @@ public class HibernateConfig {
                 Configuration configuration = new Configuration();
 
 //                Configure the properties
-                configuration.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
-                configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/cafe_management");
+                configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+                configuration.setProperty("hibernate.connection.url", "jdbc:mysql://127.0.0.1:3306/cafe_management");
                 configuration.setProperty("hibernate.connection.username", "root");
-                configuration.setProperty("hibernate.connection.password", "password");
+                configuration.setProperty("hibernate.connection.password", "root");
                 configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
                 configuration.setProperty("hibernate.hbm2ddl.auto", "update");
                 configuration.setProperty("hibernate.current_session_context_class", "thread");
