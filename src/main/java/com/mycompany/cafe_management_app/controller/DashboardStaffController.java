@@ -316,9 +316,14 @@ public class DashboardStaffController {
                                     // Close form
                                     NewOrderForm.setVisible(false);
                                     wrapChooseDish.removeAll();
-                                } else {
+                                }
+                                else if (res.equals("TRANSACTION_FAILED")){
                                     System.out.println("TRANSACTION FAILED!");
                                     JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
+                                }
+                                else {
+                                    System.out.println("AMOUNT NOT SUFFICIENT!");
+                                    JOptionPane.showMessageDialog(NewOrderForm, " AMOUNT NOT SUFFICIENT!");
                                 }
 
                                 return res;
@@ -326,7 +331,6 @@ public class DashboardStaffController {
                             .thenAccept(res -> {
                                 System.out.println("TRANSACTION PROCESS COMPLETED");
                             });
-
                 }
             }
         });

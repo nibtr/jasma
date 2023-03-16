@@ -103,7 +103,7 @@ public class StaffService {
 //        no card -> pay by cash
         if (cardNumber.isEmpty()) {
             if (receivedAmount < bill.getTotalPrice()) {
-                return new CompletableFuture<String>().completeAsync(() -> "FAILED");
+                return new CompletableFuture<String>().completeAsync(() -> "CASH_FAILED");
             }
 
             return new CompletableFuture<String>().completeAsync(() -> {
@@ -118,7 +118,8 @@ public class StaffService {
 
 //        pay by card
 //        send request to server
-
+        System.out.println("Card number: " + cardNumber);
+        bill.setCardNumber(cardNumber);
         return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"))
                 .thenApply(res -> {
                     System.out.println("Response from server: " + res);
@@ -135,7 +136,7 @@ public class StaffService {
                         return "SUCCESS";
                     }
 
-                    return "FAILED";
+                    return "TRANSACTION_FAILED";
                 });
         }
 
