@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ClientUtil {
     public static ClientUtil instance;
-    private static Socket socket;
+    private Socket socket;
     private BufferedWriter out;
     private BufferedReader in;
 
@@ -42,36 +42,37 @@ public class ClientUtil {
 //        }
 //    }
 
-    public CompletableFuture<Object> sendRequestAsync(String request) {
-        CompletableFuture<Object> future = new CompletableFuture<>();
-
+    public CompletableFuture<String> sendRequestAsync(String request) {
         try {
             out.write(request);
             out.newLine();
             out.flush();
+
+            System.out.println("Client: Sent request: " + request);
         } catch (Exception e) {
             e.printStackTrace();
             closeEverything(socket, in, out);
+            return CompletableFuture.failedFuture(e);
         }
 
-//        Listen for response
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (socket != null && socket.isConnected()) {
-                    try {
-                        String response = in.readLine();  //block
-                        future.complete(response);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        closeEverything(socket, in, out);
+        return CompletableFuture.supplyAsync(() -> {
+            String response;
+            while (socket != null && socket.isConnected()) {
+                try {
+                    response = in.readLine();  //block
+                    if (response != null) {
+                        return response;
                     }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    closeEverything(socket, in, out);
+                    return null;
                 }
             }
-        }).start();
 
-        return future;
+            return null;
+        });
     }
 
     private void closeEverything(Socket socket, BufferedReader in, BufferedWriter out) {

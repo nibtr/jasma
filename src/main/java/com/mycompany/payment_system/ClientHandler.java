@@ -23,6 +23,10 @@ public class ClientHandler implements Runnable{
         while (clientSocket.isConnected()) {
             try {
                 String request = in.readLine(); //block
+                if (request == null) {
+                    continue;
+                }
+                System.out.println("Server: Request received: " + request);
                 handleRequest(request);
 
 //                out.write("Server: Connection established!");
@@ -52,34 +56,41 @@ public class ClientHandler implements Runnable{
     }
 
     private void handleRequest(String request) throws IOException {
-        String cmd = request != null ? JSONObjUtil.getHeader(request) : "UNKNOWN";
+        try {
+            String cmd = (request == null ) ? "UNKNOWN" : JSONObjUtil.getHeader(request);
+            System.out.println("Server: Command received: " + cmd);
 
-        switch (cmd) {
-            case "END":
-                System.out.println("Server: Client " + clientSocket.getInetAddress() + " has disconnected");
-                closeEverything(clientSocket, in, out);
-                break;
+            switch (cmd) {
+                case "END":
+                    System.out.println("Server: Client " + clientSocket.getInetAddress() + " has disconnected");
+                    closeEverything(clientSocket, in, out);
+                    break;
 
-            case "TRANSACTION":
-                System.out.println("Server: Transaction request received");
+                case "TRANSACTION":
+                    System.out.println("Server: Transaction request received");
 
 //                delay for 3s
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
 //                TODO: Implement transaction logic here
 
-                out.write("Server: Transaction made successfully!");
-                out.newLine();
-                out.flush();
-                break;
+                    out.write(JSONObjUtil.toJson("FAILED", "RESPONSE"));
+                    out.newLine();
+                    out.flush();
 
-            default:
-                System.out.println("Server: Unknown command!");
-                break;
+                    System.out.println("Server: Transaction response sent");
+                    break;
+
+                default:
+                    System.out.println("Server: Unknown command!");
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
