@@ -1,15 +1,21 @@
 package com.mycompany.cafe_management_app.util;
 
+import com.mycompany.cafe_management_app.model.Bill;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-public class JSONObjUtil {
-    public static String toJson(Object obj, String opt) {
-        JSONObject json = new JSONObject();
-        json.put("header", opt);
-        json.put("body", obj);
+import java.util.Map;
 
-        return json.toJSONString();
+public class JSONObjUtil {
+    public static String toJson(Bill b, String opt) {
+        JSONObject main = new JSONObject();
+        main.put("header", opt);
+        JSONObject body = new JSONObject();
+        body.put("id", b.getId());
+        body.put("total", b.getTotalPrice());
+        main.put("body", body);
+
+        return main.toJSONString();
     }
 
     public static String getHeader(String json) {

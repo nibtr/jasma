@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -271,9 +270,22 @@ public class DashboardStaffController {
         NewOrderForm.getAddOrderButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 // Check if dish is chosen
                 if (dishDetailQuantities.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please choose dish");
+
+                // Create new bill
+                LocalDateTime currentTime = LocalDateTime.now();
+                Bill bill = new Bill(currentTime);
+
+                String tmpRA = NewOrderForm.getReceivedAmountField();
+                Double receivedAmount = 0.0;
+                try {
+                    receivedAmount = Double.parseDouble(tmpRA);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Received amount must be a number");
+
                     return;
                 }
                 // Check if RgetReceivedAmountField()IVED AMOUNT
@@ -322,6 +334,33 @@ public class DashboardStaffController {
                         wrapChooseDish.removeAll();
                     }
                 }
+
+                staffService.createBillAsync(bill, receivedAmount, "0123456789")
+                        .thenApply(res -> {
+                            System.out.println(res);
+                            if (res.equals("SUCCESS")) {
+                                JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
+
+                                wrapListBill.removeAll();
+                                renderListOrder();
+                                wrapListBill.repaint();
+                                wrapListBill.revalidate();
+
+                                // Close form
+                                NewOrderForm.setVisible(false);
+                                wrapChooseDish.removeAll();
+                            } else {
+                                System.out.println("TRANSACTION FAILED!");
+                                JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
+                            }
+
+                            return res;
+                        })
+                        .thenAccept(res -> {
+                            System.out.println("TRANSACTION PROCESS COMPLETED");
+                        });
+
+                // Show message
             }
         });
 

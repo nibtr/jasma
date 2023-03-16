@@ -95,17 +95,55 @@ public class StaffService {
         return dishDetailDao.getByDishID(dish.getId());
     }
 
-    public void createBill(Bill t, Double receivedAmount) {
-        t.setReceivedAmount(receivedAmount);
-        t.setReturnedAmount(receivedAmount - t.getTotalPrice());
-        billDao.save(t);
-    }
+    public CompletableFuture<String> createBillAsync(
+            Bill bill,
+            Double receivedAmount,
+            String cardNumber) {
+
+//        no card -> pay by cash
+        if (cardNumber == null) {
+            if (receivedAmount < bill.getTotalPrice()) {
+                return new CompletableFuture<String>().completeAsync(() -> "FAILED");
+            }
+
+            return new CompletableFuture<String>().completeAsync(() -> {
+                bill.setPaymentMethod("cash");
+                bill.setReceivedAmount(receivedAmount);
+                bill.setReturnedAmount(receivedAmount - bill.getTotalPrice());
+                billDao.save(bill);
+
+                return "SUCCESS";
+            });
+        }
+
+//        pay by card
+//        send request to server
+
+        return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"))
+                .thenApply(res -> {
+                    System.out.println("Response from server: " + res);
+
+                    if (JSONObjUtil.getHeader(res).equals("RESPONSE") &&
+                            JSONObjUtil.getBody(res).equals("SUCCESS")) {
+                        bill.setPaymentMethod("card");
+                        bill.setReceivedAmount(bill.getTotalPrice());
+                        bill.setReturnedAmount(0.0);
+
+                        billDao.save(bill);
+                        System.out.println("Bill saved");
+
+                        return "SUCCESS";
+                    }
+
+                    return "FAILED";
+                });
+        }
 
     public List<Bill> getAllBill() {
         return billDao.getAll();
     }
 
-    public CompletableFuture<Object> makeTransactionAsync(Bill bill, String cardNumber) {
+    public CompletableFuture<String> makeTransactionAsync(Bill bill, String cardNumber) {
         return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "TRANSACTION"));
     }
 
