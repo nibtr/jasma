@@ -1,6 +1,10 @@
 package com.mycompany.payment_system;
 
+import com.mycompany.cafe_management_app.model.Bill;
+import org.json.simple.JSONObject;
+
 import java.io.*;
+import java.lang.reflect.Field;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable{
@@ -78,7 +82,9 @@ public class ClientHandler implements Runnable{
 
 //                TODO: Implement transaction logic here
 
-                    out.write(JSONObjUtil.toJson("FAILED", "RESPONSE"));
+                    String res = handleTransaction(JSONObjUtil.getBody(request)) ? "SUCCESS" : "FAILED";
+
+                    out.write(JSONObjUtil.toJson(res, "RESPONSE"));
                     out.newLine();
                     out.flush();
 
@@ -92,6 +98,23 @@ public class ClientHandler implements Runnable{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean handleTransaction(Object x) throws NoSuchFieldException {
+        System.out.println("Body: " + x);
+        JSONObject bill = (JSONObject) x;
+        String cardNumber = bill.get("card_number").toString();
+        Double billTotalPrice = Double.parseDouble(bill.get("total").toString());
+
+        if (
+                cardNumber.length() != 16 ||
+//                cardNumber.matches("[0-9]+") ||
+                cardNumber.charAt(0) == '0'
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
 }

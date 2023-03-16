@@ -22,9 +22,9 @@ public class JSONObjUtil {
 
     }
 
-    public static Object getBody(String json) {
-        Object obj = JSONValue.parse(json);
-        JSONObject jsonObject = (JSONObject) obj;
+    public static Object getBody(String json) throws ParseException{
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(json);
 
         return jsonObject.get("body");
     }

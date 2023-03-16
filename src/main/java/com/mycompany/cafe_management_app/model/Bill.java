@@ -40,6 +40,9 @@ public class Bill {
 
     @Column(name = "payment_method")
     private String paymentMethod;   //cash, card
+
+    @Column(name = "card_number")
+    private String cardNumber;
     
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BillDetail> billDetails = new ArrayList<>();
@@ -100,6 +103,14 @@ public class Bill {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public List<BillDetail> getBillDetails() {
