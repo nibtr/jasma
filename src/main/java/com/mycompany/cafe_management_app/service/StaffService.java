@@ -101,7 +101,7 @@ public class StaffService {
             String cardNumber) {
 
 //        no card -> pay by cash
-        if (cardNumber == null) {
+        if (cardNumber.isEmpty()) {
             if (receivedAmount < bill.getTotalPrice()) {
                 return new CompletableFuture<String>().completeAsync(() -> "FAILED");
             }
