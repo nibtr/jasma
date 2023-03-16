@@ -22,7 +22,7 @@ public class ClientHandler implements Runnable{
     public void run() {
         while (clientSocket.isConnected()) {
             try {
-                String request = in.readLine();
+                String request = in.readLine(); //block
                 handleRequest(request);
 
 //                out.write("Server: Connection established!");
@@ -82,6 +82,5 @@ public class ClientHandler implements Runnable{
                 break;
         }
     }
-
 
 }
