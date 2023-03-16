@@ -15,6 +15,7 @@ import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 
 import com.mycompany.cafe_management_app.service.StaffService;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
@@ -36,8 +37,8 @@ import java.lang.Integer;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 /**
- *
  * @author namho
  */
 public class DashboardStaffController {
@@ -226,8 +227,8 @@ public class DashboardStaffController {
 
         // Total Revenue
         // dashboardStaffUI.getRevenuLabel().setText(staffService.getTotalRevenue().toString());
-        
-        
+
+
         // show list bill
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
@@ -270,13 +271,12 @@ public class DashboardStaffController {
                 // Set total price to 0
                 Double totalPrice = 0.0;
                 NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
-                
+
                 // Clear dish detail quantities
                 dishDetailQuantities.clear();
 
                 // Clear wrapChooseDish
                 NewOrderForm.setReceivedAmountField("");
-                NewOrderForm.setCashIDField("");
                 wrapChooseDish.removeAll();
                 NewOrderForm.setVisible(false);
             }
@@ -287,11 +287,20 @@ public class DashboardStaffController {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                LocalDateTime now = LocalDateTime.now();
+                Bill bill = new Bill(now);
+
                 if (dishDetailQuantities.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please choose dish");
                     return;
                 }
 
+                for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
+                    DishDetail dishDetail = entry.getKey();
+                    Integer quantity = entry.getValue();
+                    BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
+                    bill.addBillDetail(billDetail);
+                }
 
                 if (NewOrderForm.getOptionPaymentLabel().getText().equals("Card ID:")) {
                     NewOrderForm.setStateProcessing("Processing . . .");
@@ -299,7 +308,7 @@ public class DashboardStaffController {
                     staffService.createBillAsync(bill, null, cardID)
                             .thenApply(res -> {
                                 System.out.println(res);
-                                
+
                                 if (res.equals("SUCCESS")) {
                                     JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
                                     wrapListBill.removeAll();
@@ -321,7 +330,7 @@ public class DashboardStaffController {
                                 NewOrderForm.setStateProcessing("");
                                 System.out.println("TRANSACTION PROCESS COMPLETED");
                             });
-                            
+
                 } else {
                     System.out.println("Payment by Cash");
 
@@ -340,7 +349,8 @@ public class DashboardStaffController {
                         BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
                         bill.addBillDetail(billDetail);
                     }
-                    staffService.createBillAsync(bill, receivedAmount, null)
+
+                    staffService.createBillAsync(bill, receivedAmount, "")
                             .thenApply(res -> {
                                 System.out.println(res);
                                 if (res.equals("SUCCESS")) {
@@ -365,39 +375,8 @@ public class DashboardStaffController {
                                 System.out.println("TRANSACTION PROCESS COMPLETED");
                             });
                 }
-
-
-                    staffService.createBillAsync(bill, receivedAmount, NewOrderForm.getCashIDField())
-                            .thenApply(res -> {
-                                System.out.println(res);
-                                if (res.equals("SUCCESS")) {
-                                    JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
-
-                                    wrapListBill.removeAll();
-                                    renderListOrder();
-                                    wrapListBill.repaint();
-                                    wrapListBill.revalidate();
-
-                                    // Close form
-                                    NewOrderForm.setVisible(false);
-                                    wrapChooseDish.removeAll();
-                                }
-                                else if (res.equals("TRANSACTION_FAILED")){
-                                    System.out.println("TRANSACTION FAILED!");
-                                    JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
-                                }
-                                else {
-                                    System.out.println("AMOUNT NOT SUFFICIENT!");
-                                    JOptionPane.showMessageDialog(NewOrderForm, " AMOUNT NOT SUFFICIENT!");
-                                }
-
-                                return res;
-                            })
-                            .thenAccept(res -> {
-                                System.out.println("TRANSACTION PROCESS COMPLETED");
-                            });
-                }
             }
+
         });
 
         dashboardStaffUI.setVisible(true);
