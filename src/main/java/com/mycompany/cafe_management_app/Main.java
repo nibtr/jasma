@@ -14,6 +14,10 @@ import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
+import org.hibernate.HibernateException;
+
+import java.net.ConnectException;
+import java.net.SocketException;
 import java.time.LocalDate;
 
 /**
@@ -33,34 +37,20 @@ public class Main {
         }
 
         if (!alreadyRunning) {
+            try {
 //            Init Hibernate, ErrorUtil and ClientUtil
-            HibernateConfig.getSessionFactory();
-            ErrorUtil.getInstance();
-            ClientUtil.getInstance();
+                HibernateConfig.getSessionFactory();
+                ErrorUtil.getInstance();
+                ClientUtil.getInstance();
 
-//            Test make transaction async
-//            StaffService st = new StaffService();
-//            st.makeTransactionAsync(null, null)
-//                    .thenApply(res -> {
-//                        System.out.println(res);
-//                        return res;
-//                    });
+                initAdmin();
 
+                LoginController loginController = new LoginController();
+                loginController.getLoginUI().setVisible(true);
+            } catch (Exception e){
+                e.printStackTrace();
 
-            initAdmin();
-            
-          
-//            List<DishDetail> list = new DishDetailDao().getByDishName("Cafe");
-//            System.out.println(list.get(0).getDish().getName());
-
-//            Show login UI
-            LoginController loginController = new LoginController();
-            loginController.getLoginUI().setVisible(true);
-
-            // DashboardStaffController dashboardStaffController = new
-            // DashboardStaffController();
-            // dashboardStaffController.getDashboardStaffUI().setVisible(true);
-
+            }
         }
     }
 
@@ -76,7 +66,6 @@ public class Main {
             Account a = new Account("admin", "admin", "admin");
             s.setAccount(a);
             staffDao.save(s);
-
         }
     }
 }

@@ -102,6 +102,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="addOrderButton" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -144,6 +145,7 @@
                           <Component id="receivedAmountField" alignment="3" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
+
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cancelOrderButton" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="addOrderButton" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
@@ -291,6 +293,7 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="optionPaymentLabel">
+
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="13" style="1"/>
@@ -441,6 +444,7 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="payCashButtonActionPerformed"/>
               </Events>
+
             </Component>
           </SubComponents>
         </Container>

@@ -12,35 +12,25 @@ public class ClientUtil {
     private BufferedWriter out;
     private BufferedReader in;
 
-    private ClientUtil() {
-        try {
-            this.socket = new Socket("localhost", 8080);
-            this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            System.out.println("Client: Connection established!");
-
-        } catch (Exception e) {
-            closeEverything(socket, in, out);
-        }
+    private ClientUtil() throws IOException {
+        this.socket = new Socket("localhost", 8080);
+        this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        System.out.println("Client: Connection established!");
     }
 
     public static ClientUtil getInstance() {
-        if (instance == null) {
-            instance = new ClientUtil();
+        try {
+            if (instance == null) {
+                instance = new ClientUtil();
+            }
+
+            return instance;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-
-        return instance;
     }
-
-//    public void sendRequest(String request) {
-//        try {
-//            out.write(request);
-//            out.newLine();
-//            out.flush();
-//        } catch (Exception e) {
-//            closeEverything(socket, in, out);
-//        }
-//    }
 
     public CompletableFuture<String> sendRequestAsync(String request) {
         try {

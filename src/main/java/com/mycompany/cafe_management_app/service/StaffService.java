@@ -34,7 +34,7 @@ public class StaffService {
     private final BillDao billDao;
     private final StaffDao staffDao;
     private final Staff currentStaff;
-    
+
     public StaffService() {
         timekeepingDao = new TimekeepingDao();
         dishDao = new DishDao();
@@ -43,67 +43,67 @@ public class StaffService {
         staffDao = new StaffDao();
         currentStaff = UserSession.getInstance().getStaff();
     }
-    
+
     public void checkIn(LocalDateTime time) {
         Timekeeping t = new Timekeeping(time);
         t.setStaff(currentStaff);
         timekeepingDao.save(t);
-//        currentStaff.addTimekeeping(t);
-//        staffDao.update(currentStaff);
+        // currentStaff.addTimekeeping(t);
+        // staffDao.update(currentStaff);
     }
-    
+
     public void checkOut(LocalDateTime currentTime) {
         Long currentStaffID = currentStaff.getId();
-        Timekeeping t = timekeepingDao.getLatestOf(currentStaffID);      
-        
-//        Set checkout time
+        Timekeeping t = timekeepingDao.getLatestOf(currentStaffID);
+
+        // Set checkout time
         t.setCheckoutTime(currentTime);
-        
-//        Calculate total work time
+
+        // Calculate total work time
         DecimalFormat df = new DecimalFormat("#.##");
         Duration duration = Duration.between(t.getCheckinTime(), currentTime);
         double hours = duration.toMillis() / (double) (1000 * 60 * 60);
         Double formattedHours = Double.parseDouble(df.format(hours));
         t.setTotalTime(formattedHours);
-        
-//        Calculate payment
+
+        // Calculate payment
         t.setTotalPayment(currentStaff.getHourlyRate() * formattedHours);
-        
+
         timekeepingDao.update(t);
 
-//        Send CMD=END to server
+        // Send CMD=END to server
         ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
     }
-    
+
     public List<Timekeeping> getAllTimekeeping() {
         return timekeepingDao.getListOf(currentStaff.getId());
     }
-    
+
     public List<Dish> getAllDish() {
         return dishDao.getAll();
     }
-    
+
     public Dish getDishByID(Long id) {
         return dishDao.getByID(id);
     }
-    
+
     public Dish getDishByName(String name) {
         return dishDao.getByName(name);
     }
-    
+
     public List<DishDetail> getDetailsOf(Dish dish) {
         return dishDetailDao.getByDishID(dish.getId());
     }
-    
+
     public CompletableFuture<String> createBillAsync(
             Bill bill,
             Double receivedAmount,
             String cardNumber) {
 
 //        no card -> pay by cash
-        if (cardNumber == null) {
+        if (cardNumber.isEmpty()) {
             if (receivedAmount < bill.getTotalPrice()) {
-                return new CompletableFuture<String>().completeAsync(() -> "FAILED");
+                return new CompletableFuture<String>().completeAsync(() -> "CASH_FAILED");
             }
 
             return new CompletableFuture<String>().completeAsync(() -> {
@@ -118,7 +118,8 @@ public class StaffService {
 
 //        pay by card
 //        send request to server
-
+        System.out.println("Card number: " + cardNumber);
+        bill.setCardNumber(cardNumber);
         return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"))
                 .thenApply(res -> {
                     System.out.println("Response from server: " + res);
@@ -135,16 +136,25 @@ public class StaffService {
                         return "SUCCESS";
                     }
 
-                    return "FAILED";
+                    return "TRANSACTION_FAILED";
                 });
         }
 
     public List<Bill> getAllBill() {
         return billDao.getAll();
     }
- 
 
     public CompletableFuture<String> makeTransactionAsync(Bill bill, String cardNumber) {
         return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "TRANSACTION"));
     }
+
+    public String getTotalRevenue() {
+        Double totalRevenue = 0.0;
+        List<Bill> bills = billDao.getAll();
+        for (Bill b : bills) {
+            totalRevenue += b.getTotalPrice();
+        }
+        return String.format("%.2f", totalRevenue);
+    }
+
 }

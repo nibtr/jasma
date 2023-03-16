@@ -11,8 +11,8 @@ public class JSONObjUtil {
         JSONObject main = new JSONObject();
         main.put("header", opt);
         JSONObject body = new JSONObject();
-        body.put("id", b.getId());
         body.put("total", b.getTotalPrice());
+        body.put("card_number", b.getCardNumber());
         main.put("body", body);
 
         return main.toJSONString();

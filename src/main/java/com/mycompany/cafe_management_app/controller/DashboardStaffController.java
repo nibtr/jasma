@@ -17,17 +17,20 @@ import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.service.StaffService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Component;
 
 import java.util.HashMap;
 import java.util.List;
-import java.awt.Component;
+import java.util.Map;
 
-import javax.swing.JOptionPane;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+
+import java.lang.Integer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -176,11 +179,6 @@ public class DashboardStaffController {
                     }
                 }
             }
-            // Print test
-            for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
-                System.out.println(entry.getKey().getId() + " " + entry.getValue());
-            }
-
             wrapChooseDish.add(newDish);
             wrapChooseDish.repaint();
             wrapChooseDish.revalidate();
@@ -226,6 +224,10 @@ public class DashboardStaffController {
         dashboardStaffUI = new DashboardStaffUI();
         dashboardStaffUI.getCheckInOutButton().addActionListener(new CheckInOutButtonListener());
 
+        // Total Revenue
+        // dashboardStaffUI.getRevenuLabel().setText(staffService.getTotalRevenue().toString());
+        
+        
         // show list bill
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
@@ -266,7 +268,15 @@ public class DashboardStaffController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Set total price to 0
+                Double totalPrice = 0.0;
+                NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+                
+                // Clear dish detail quantities
+                dishDetailQuantities.clear();
 
+                // Clear wrapChooseDish
+                NewOrderForm.setReceivedAmountField("");
+                NewOrderForm.setCashIDField("");
                 wrapChooseDish.removeAll();
                 NewOrderForm.setVisible(false);
             }
@@ -276,9 +286,6 @@ public class DashboardStaffController {
         NewOrderForm.getAddOrderButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Create new bill
-                LocalDateTime currentTime = LocalDateTime.now();
-                Bill bill = new Bill(currentTime);
 
                 if (dishDetailQuantities.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please choose dish");
@@ -359,6 +366,37 @@ public class DashboardStaffController {
                             });
                 }
 
+
+                    staffService.createBillAsync(bill, receivedAmount, NewOrderForm.getCashIDField())
+                            .thenApply(res -> {
+                                System.out.println(res);
+                                if (res.equals("SUCCESS")) {
+                                    JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
+
+                                    wrapListBill.removeAll();
+                                    renderListOrder();
+                                    wrapListBill.repaint();
+                                    wrapListBill.revalidate();
+
+                                    // Close form
+                                    NewOrderForm.setVisible(false);
+                                    wrapChooseDish.removeAll();
+                                }
+                                else if (res.equals("TRANSACTION_FAILED")){
+                                    System.out.println("TRANSACTION FAILED!");
+                                    JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
+                                }
+                                else {
+                                    System.out.println("AMOUNT NOT SUFFICIENT!");
+                                    JOptionPane.showMessageDialog(NewOrderForm, " AMOUNT NOT SUFFICIENT!");
+                                }
+
+                                return res;
+                            })
+                            .thenAccept(res -> {
+                                System.out.println("TRANSACTION PROCESS COMPLETED");
+                            });
+                }
             }
         });
 

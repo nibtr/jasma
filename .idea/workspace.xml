@@ -7,7 +7,6 @@
     <list default="true" id="b069f303-40ab-47c5-9b1b-172320d5fd20" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/config/HibernateConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/config/HibernateConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardStaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardStaffController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/Bill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/StaffService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/StaffService.java" afterDir="false" />

@@ -70,7 +70,7 @@ public class NewOrderForm extends javax.swing.JFrame {
         receivedAmountField.setText(text);
     }
 
-  
+
     public NewOrderForm() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -103,6 +103,7 @@ public class NewOrderForm extends javax.swing.JFrame {
         stateProcessing = new javax.swing.JLabel();
         payCardButton = new javax.swing.JButton();
         payCashButton = new javax.swing.JButton();
+
         jPanel3 = new javax.swing.JPanel();
         scrollPanelDishStaff = new javax.swing.JScrollPane();
         bgscrollPanelDishStaff = new javax.swing.JPanel();
@@ -181,9 +182,11 @@ public class NewOrderForm extends javax.swing.JFrame {
 
         jPanel4.add(scrollPanelAmountOrder);
 
+
         optionPaymentLabel.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         optionPaymentLabel.setForeground(new java.awt.Color(0, 0, 0));
         optionPaymentLabel.setText("Received:");
+
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -250,6 +253,7 @@ public class NewOrderForm extends javax.swing.JFrame {
             }
         });
 
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -283,6 +287,7 @@ public class NewOrderForm extends javax.swing.JFrame {
                         .addComponent(optionPaymentLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(receivedAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
