@@ -5,36 +5,18 @@
 package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
-import com.mycompany.cafe_management_app.controller.DashboardAdminController;
-import com.mycompany.cafe_management_app.controller.DashboardStaffController;
-import com.mycompany.cafe_management_app.dao.AccountDao;
-import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Staff;
-import com.mycompany.cafe_management_app.service.AdminService;
-import com.mycompany.cafe_management_app.service.LoginService;
-import com.mycompany.cafe_management_app.service.StaffService;
-import com.mycompany.cafe_management_app.ui.LoginUI;
 import com.mycompany.cafe_management_app.controller.LoginController;
-import com.mycompany.cafe_management_app.dao.BillDao;
-import com.mycompany.cafe_management_app.dao.BillDetailDao;
-import com.mycompany.cafe_management_app.dao.DishDao;
-import com.mycompany.cafe_management_app.dao.DishDetailDao;
 import com.mycompany.cafe_management_app.dao.StaffDao;
-import com.mycompany.cafe_management_app.model.Bill;
-import com.mycompany.cafe_management_app.model.BillDetail;
-import com.mycompany.cafe_management_app.model.Dish;
-import com.mycompany.cafe_management_app.model.DishDetail;
+import com.mycompany.cafe_management_app.service.StaffService;
+import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.List;
 
 /**
- *
  * @author Hieu
  */
 public class Main {
@@ -45,14 +27,29 @@ public class Main {
         try {
             JUnique.acquireLock(appID);
             alreadyRunning = false;
+
         } catch (AlreadyLockedException e) {
             alreadyRunning = true;
         }
+
         if (!alreadyRunning) {
+//            Init Hibernate and ErrorUtil
             HibernateConfig.getSessionFactory();
             ErrorUtil.getInstance();
 
-            // Create admin account if not exist
+//            Init ClientUtil
+            ClientUtil.getInstance();
+
+//            Test make transaction async
+            StaffService st = new StaffService();
+            st.makeTransactionAsync(null, null)
+                    .thenApply(res -> {
+                        System.out.println(res);
+                        return res;
+                    });
+
+//            Create admin account if not exist
+
             initAdmin();
             
             // Create Dish and DishDetail
@@ -329,12 +326,14 @@ public class Main {
 //            List<DishDetail> list = new DishDetailDao().getByDishName("Cafe");
 //            System.out.println(list.get(0).getDish().getName());
 
+//            Show login UI
             LoginController loginController = new LoginController();
             loginController.getLoginUI().setVisible(true);
 
             // DashboardStaffController dashboardStaffController = new
             // DashboardStaffController();
             // dashboardStaffController.getDashboardStaffUI().setVisible(true);
+
         }
     }
 

@@ -11,8 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -45,6 +48,13 @@ public class Staff {
     @JoinColumn(name = "fk_account_id")
     private Account account;
     
+    @OneToMany(mappedBy = "staff" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Salary> salaries = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "staff",  cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Timekeeping> listTimekeeping = new ArrayList<>();
+
+   
     public Staff(){
 //        required by Hibernate
         this.hourlyRate = 2.5;
@@ -120,7 +130,20 @@ public class Staff {
     public Account getAccount() {
         return account;
     }
+
+    public List<Timekeeping> getListTimekeeping() {
+        return listTimekeeping;
+    }
+
+//    public void setListTimekeeping(List<Timekeeping> listTimekeeping) {
+//        this.listTimekeeping = listTimekeeping;
+//    }
     
+    public void addTimekeeping(Timekeeping t) {
+        this.listTimekeeping.add(t);
+        t.setStaff(this);
+    }
+
     public void setAll(String name, LocalDate dob, String phoneNumber, String position) {
         this.name = name;
         this.dateOfBirth = dob;
@@ -128,4 +151,13 @@ public class Staff {
         this.position = position;
     }
 
+    public void addSalary(Salary salary){
+        salaries.add(salary);
+        salary.setSalary(this);
+    }
+
+    public void setSalaries(List<Salary> salaries) {
+        this.salaries = salaries;
+    }
+    
 }

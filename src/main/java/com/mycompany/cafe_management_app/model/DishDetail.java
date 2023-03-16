@@ -95,5 +95,4 @@ public class DishDetail {
 //        billDetails.add(b);
 //        b.setDishDetail(this);
 //    }
-
 }

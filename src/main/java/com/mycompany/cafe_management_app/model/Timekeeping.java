@@ -4,6 +4,7 @@
  */
 package com.mycompany.cafe_management_app.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,8 +44,8 @@ public class Timekeeping {
     private Double payment;
 
     public Timekeeping() {
-    }
 
+    }
 
     public Timekeeping(LocalDateTime checkinTime) {
         this.checkinTime = checkinTime;
