@@ -33,20 +33,18 @@ public class Main {
         }
 
         if (!alreadyRunning) {
-//            Init Hibernate and ErrorUtil
+//            Init Hibernate, ErrorUtil and ClientUtil
             HibernateConfig.getSessionFactory();
             ErrorUtil.getInstance();
-
-//            Init ClientUtil
             ClientUtil.getInstance();
 
 //            Test make transaction async
-            StaffService st = new StaffService();
-            st.makeTransactionAsync(null, null)
-                    .thenApply(res -> {
-                        System.out.println(res);
-                        return res;
-                    });
+//            StaffService st = new StaffService();
+//            st.makeTransactionAsync(null, null)
+//                    .thenApply(res -> {
+//                        System.out.println(res);
+//                        return res;
+//                    });
 
 //            Create admin account if not exist
 

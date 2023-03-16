@@ -18,7 +18,6 @@ import com.mycompany.cafe_management_app.service.StaffService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.awt.Component;
@@ -266,9 +265,9 @@ public class DashboardStaffController {
                 Bill bill = new Bill(currentTime);
 
                 String tmpRA = NewOrderForm.getReceivedAmountField();
-                Double receiveAmount = 0.0;
+                Double receivedAmount = 0.0;
                 try {
-                    receiveAmount = Double.parseDouble(tmpRA);
+                    receivedAmount = Double.parseDouble(tmpRA);
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Received amount must be a number");
                     return;
@@ -281,17 +280,33 @@ public class DashboardStaffController {
                     bill.addBillDetail(billDetail);
                 }
 
-                staffService.createBill(bill, receiveAmount);
+                staffService.createBillAsync(bill, receivedAmount, "0123456789")
+                        .thenApply(res -> {
+                            System.out.println(res);
+                            if (res.equals("SUCCESS")) {
+                                JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
+
+                                wrapListBill.removeAll();
+                                renderListOrder();
+                                wrapListBill.repaint();
+                                wrapListBill.revalidate();
+
+                                // Close form
+                                NewOrderForm.setVisible(false);
+                                wrapChooseDish.removeAll();
+                            } else {
+                                System.out.println("TRANSACTION FAILED!");
+                                JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
+                            }
+
+                            return res;
+                        })
+                        .thenAccept(res -> {
+                            System.out.println("TRANSACTION PROCESS COMPLETED");
+                        });
 
                 // Show message
-                JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
-                
-                wrapListBill.repaint();
-                wrapListBill.revalidate();
-                
-                // Close form
-                NewOrderForm.setVisible(false);
-                wrapChooseDish.removeAll();
+
             }
         });
 
