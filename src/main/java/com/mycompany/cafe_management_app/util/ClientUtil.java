@@ -60,7 +60,7 @@ public class ClientUtil {
             public void run() {
                 while (socket != null && socket.isConnected()) {
                     try {
-                        String response = in.readLine();  //blocking
+                        String response = in.readLine();  //block
                         future.complete(response);
 
                     } catch (IOException e) {

@@ -4,10 +4,7 @@
  */
 package com.mycompany.cafe_management_app.service;
 
-import com.mycompany.cafe_management_app.dao.BillDao;
-import com.mycompany.cafe_management_app.dao.DishDao;
-import com.mycompany.cafe_management_app.dao.DishDetailDao;
-import com.mycompany.cafe_management_app.dao.StaffDao;
+import com.mycompany.cafe_management_app.dao.*;
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
@@ -56,11 +53,7 @@ public class AdminService {
     public List<Dish> getAllDish() {
         return dishDao.getAll();
     }
-    
-    public List<DishDetail> getDetailsOf(Long id) {
-        return dishDetailDao.getByDishID(id);
-    }
-    
+
     public Dish getDishByName(String name) {
         return dishDao.getByName(name);
     }

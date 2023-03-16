@@ -18,7 +18,7 @@ public class Server {
         System.out.println("Server is running on port " + serverSocket.getLocalPort() + "...");
         while (!serverSocket.isClosed()) {
             try {
-                Socket clientSocket = serverSocket.accept();
+                Socket clientSocket = serverSocket.accept(); //block
                 System.out.println("Server: Client " + clientSocket.getInetAddress() + " has connected");
 
 //                Give the client socket to a new thread

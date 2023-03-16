@@ -301,7 +301,7 @@ public class DashboardAdminController {
              String name = dishNameInputField.getText();
              if (validateDishForm(name , listSizePriceInput)) {
                 dish.setName(name);
-                dish.setDetails(new ArrayList<DishDetail>());
+//                dish.setDetails(new ArrayList<DishDetail>());
                 for(SizePriceInputItem item: listSizePriceInput) {
                     String size = item.getSizeInput().getText();
                     Double price = Double.parseDouble(item.getPriceInput().getText());
