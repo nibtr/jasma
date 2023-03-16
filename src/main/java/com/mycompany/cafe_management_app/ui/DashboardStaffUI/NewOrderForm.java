@@ -4,15 +4,11 @@
  */
 package com.mycompany.cafe_management_app.ui.DashboardStaffUI;
 
-
-import com.mycompany.cafe_management_app.model.Bill;
-import com.mycompany.cafe_management_app.controller.DashboardStaffController;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JFrame;
 /**
  *
  * @author Trung
@@ -46,6 +42,18 @@ public class NewOrderForm extends javax.swing.JFrame {
         return receivedAmountField.getText();
     }
 
+    public void setReceivedAmountField(String text){
+        receivedAmountField.setText(text);
+    }
+
+    public String getCashIDField(){
+        return cashIDField.getText();
+    }
+
+    public void setCashIDField(String text){
+        cashIDField.setText(text);
+    }
+
     public NewOrderForm() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -62,8 +70,6 @@ public class NewOrderForm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        clientNameLabel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -77,6 +83,8 @@ public class NewOrderForm extends javax.swing.JFrame {
         addOrderButton = new javax.swing.JButton();
         cancelOrderButton = new javax.swing.JButton();
         receivedAmountField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        cashIDField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         scrollPanelDishStaff = new javax.swing.JScrollPane();
         bgscrollPanelDishStaff = new javax.swing.JPanel();
@@ -88,25 +96,17 @@ public class NewOrderForm extends javax.swing.JFrame {
         jPanel1.setMaximumSize(new java.awt.Dimension(1000, 600));
         jPanel1.setPreferredSize(new java.awt.Dimension(1080, 600));
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setMaximumSize(new java.awt.Dimension(380, 600));
         jPanel2.setPreferredSize(new java.awt.Dimension(380, 600));
         jPanel2.setRequestFocusEnabled(false);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Customer Name:");
-
-        clientNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        clientNameLabel.setForeground(new java.awt.Color(0, 0, 0));
-        clientNameLabel.setText("Vĩnh Trung");
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setMaximumSize(new java.awt.Dimension(348, 412));
         jPanel4.setPreferredSize(new java.awt.Dimension(348, 412));
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel5.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
         jPanel5.setMaximumSize(new java.awt.Dimension(348, 35));
         jPanel5.setMinimumSize(new java.awt.Dimension(348, 35));
         jPanel5.setPreferredSize(new java.awt.Dimension(348, 35));
@@ -150,12 +150,13 @@ public class NewOrderForm extends javax.swing.JFrame {
         jPanel4.add(jPanel5);
 
         scrollPanelAmountOrder.setBackground(new java.awt.Color(255, 255, 255));
-        scrollPanelAmountOrder.setForeground(new java.awt.Color(255, 255, 255));
         scrollPanelAmountOrder.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanelAmountOrder.setPreferredSize(new java.awt.Dimension(348, 369));
 
         bgPanelPayment.setBackground(new java.awt.Color(255, 255, 255));
-        bgPanelPayment.setMaximumSize(new java.awt.Dimension(600, 800));
-        bgPanelPayment.setMinimumSize(new java.awt.Dimension(600, 800));
+        bgPanelPayment.setMaximumSize(new java.awt.Dimension(348, 369));
+        bgPanelPayment.setMinimumSize(new java.awt.Dimension(348, 369));
+        bgPanelPayment.setPreferredSize(new java.awt.Dimension(348, 369));
         bgPanelPayment.setRequestFocusEnabled(false);
         bgPanelPayment.setLayout(new javax.swing.BoxLayout(bgPanelPayment, javax.swing.BoxLayout.Y_AXIS));
         scrollPanelAmountOrder.setViewportView(bgPanelPayment);
@@ -164,7 +165,7 @@ public class NewOrderForm extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Received Amount:");
+        jLabel3.setText("Received:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -200,55 +201,62 @@ public class NewOrderForm extends javax.swing.JFrame {
         receivedAmountField.setOpaque(true);
         receivedAmountField.setPreferredSize(new java.awt.Dimension(100, 22));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Cash ID:");
+
+        cashIDField.setBackground(new java.awt.Color(255, 255, 255));
+        cashIDField.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(receivedAmountField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(clientNameLabel))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel4)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(96, 96, 96)
-                                    .addComponent(cancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(addOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(totalPriceLabel)))
-                            .addGap(4, 4, 4))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(totalPriceLabel)
+                            .addGap(60, 60, 60))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(receivedAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cashIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(clientNameLabel))
-                .addGap(12, 12, 12)
+                .addGap(16, 16, 16)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(totalPriceLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(receivedAmountField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                    .addComponent(receivedAmountField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cashIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -263,7 +271,7 @@ public class NewOrderForm extends javax.swing.JFrame {
         scrollPanelDishStaff.setForeground(new java.awt.Color(255, 255, 255));
         scrollPanelDishStaff.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        bgscrollPanelDishStaff.setBackground(new java.awt.Color(204, 255, 204));
+        bgscrollPanelDishStaff.setBackground(new java.awt.Color(255, 255, 255));
         bgscrollPanelDishStaff.setMaximumSize(new java.awt.Dimension(600, 800));
         bgscrollPanelDishStaff.setMinimumSize(new java.awt.Dimension(600, 800));
         bgscrollPanelDishStaff.setRequestFocusEnabled(false);
@@ -361,7 +369,7 @@ public class NewOrderForm extends javax.swing.JFrame {
     private javax.swing.JPanel bgPanelPayment;
     private javax.swing.JPanel bgscrollPanelDishStaff;
     private javax.swing.JButton cancelOrderButton;
-    private javax.swing.JLabel clientNameLabel;
+    private javax.swing.JTextField cashIDField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

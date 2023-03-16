@@ -17,17 +17,20 @@ import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.service.StaffService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Component;
 
 import java.util.HashMap;
 import java.util.List;
-import java.awt.Component;
+import java.util.Map;
 
-import javax.swing.JOptionPane;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+
+import java.lang.Integer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -176,11 +179,6 @@ public class DashboardStaffController {
                     }
                 }
             }
-            // Print test
-            for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
-                System.out.println(entry.getKey().getId() + " " + entry.getValue());
-            }
-
             wrapChooseDish.add(newDish);
             wrapChooseDish.repaint();
             wrapChooseDish.revalidate();
@@ -226,6 +224,10 @@ public class DashboardStaffController {
         dashboardStaffUI = new DashboardStaffUI();
         dashboardStaffUI.getCheckInOutButton().addActionListener(new CheckInOutButtonListener());
 
+        // Total Revenue
+        // dashboardStaffUI.getRevenuLabel().setText(staffService.getTotalRevenue().toString());
+        
+        
         // show list bill
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
@@ -250,7 +252,15 @@ public class DashboardStaffController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Set total price to 0
+                Double totalPrice = 0.0;
+                NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+                
+                // Clear dish detail quantities
+                dishDetailQuantities.clear();
 
+                // Clear wrapChooseDish
+                NewOrderForm.setReceivedAmountField("");
+                NewOrderForm.setCashIDField("");
                 wrapChooseDish.removeAll();
                 NewOrderForm.setVisible(false);
             }
@@ -260,6 +270,11 @@ public class DashboardStaffController {
         NewOrderForm.getAddOrderButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                // Check if dish is chosen
+                if (dishDetailQuantities.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please choose dish");
+
                 // Create new bill
                 LocalDateTime currentTime = LocalDateTime.now();
                 Bill bill = new Bill(currentTime);
@@ -270,14 +285,54 @@ public class DashboardStaffController {
                     receivedAmount = Double.parseDouble(tmpRA);
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Received amount must be a number");
+
                     return;
                 }
+                // Check if RgetReceivedAmountField()IVED AMOUNT
+                double receivedAmount = Double.parseDouble(NewOrderForm.getReceivedAmountField());
+                double totalPrice = Double.parseDouble(NewOrderForm.getTotalPriceLabel().getText());
 
-                for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
-                    DishDetail dishDetail = entry.getKey();
-                    Integer quantity = entry.getValue();
-                    BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
-                    bill.addBillDetail(billDetail);
+                if (receivedAmount < totalPrice) {
+                    JOptionPane.showMessageDialog(null, "Not enough cash");
+                    return;
+                } else {
+                    // Confirm order (YES/NO)
+                    JFrame jframe = new JFrame("EXIT");
+                    if (JOptionPane.showConfirmDialog(jframe, "Confirm Order", "Confirm",
+                            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+
+                        // Create new bill
+                        LocalDateTime currentTime = LocalDateTime.now();
+                        Bill bill = new Bill(currentTime);
+
+                        String tmpRA = NewOrderForm.getReceivedAmountField();
+                        Double receiveAmount = 0.0;
+                        try {
+                            receiveAmount = Double.parseDouble(tmpRA);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Received amount must be a number");
+                            return;
+                        }
+
+                        for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
+                            DishDetail dishDetail = entry.getKey();
+                            Integer quantity = entry.getValue();
+                            BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
+                            bill.addBillDetail(billDetail);
+                        }
+
+                        staffService.createBill(bill, receiveAmount);
+
+                        // Show message
+                        JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
+
+                        wrapListBill.repaint();
+                        wrapListBill.revalidate();
+
+                        // Close form
+                        NewOrderForm.setVisible(false);
+                        wrapChooseDish.removeAll();
+                    }
                 }
 
                 staffService.createBillAsync(bill, receivedAmount, "0123456789")
@@ -306,7 +361,6 @@ public class DashboardStaffController {
                         });
 
                 // Show message
-
             }
         });
 
