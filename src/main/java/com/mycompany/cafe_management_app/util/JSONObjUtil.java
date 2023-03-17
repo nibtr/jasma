@@ -11,9 +11,13 @@ public class JSONObjUtil {
         JSONObject main = new JSONObject();
         main.put("header", opt);
         JSONObject body = new JSONObject();
-        body.put("total", b.getTotalPrice());
-        body.put("card_number", b.getCardNumber());
-        main.put("body", body);
+        if (b != null) {
+            body.put("total", b.getTotalPrice());
+            body.put("card_number", b.getCardNumber());
+            main.put("body", body);
+        } else {
+            main.put("body", null);
+        }
 
         return main.toJSONString();
     }

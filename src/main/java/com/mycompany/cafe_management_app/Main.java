@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.StaffDao;
@@ -36,6 +37,7 @@ public class Main {
             alreadyRunning = true;
         }
 
+
         if (!alreadyRunning) {
             try {
 //            Init Hibernate, ErrorUtil and ClientUtil
@@ -45,11 +47,14 @@ public class Main {
 
                 initAdmin();
 
+                Dish d = new Dish("Banh mi");
+                System.out.println(d.getId());
+
                 LoginController loginController = new LoginController();
                 loginController.getLoginUI().setVisible(true);
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-
+                System.exit(0);
             }
         }
     }

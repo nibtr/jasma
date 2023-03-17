@@ -10,6 +10,7 @@ import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -66,6 +67,29 @@ public class AdminService {
         dishDao.save(t);
     }
 
+    public void updateDish(Dish t, List<DishDetail> newList) {
+        List<DishDetail> currentList = dishDetailDao.getByDishID(t.getId());
+//        use HashMap to compare
+        HashMap<Long, DishDetail> currentMap = new HashMap<>();
+        for (DishDetail currentDetail : currentList) {
+            currentMap.put(currentDetail.getId(), currentDetail);
+        }
+        for (DishDetail newDetail : newList) {
+            if (currentMap.containsKey(newDetail.getId())) {
+                dishDetailDao.update(newDetail);
+            } else {
+                dishDetailDao.save(newDetail);
+            }
+        }
+        for (DishDetail currentDetail : currentList) {
+            if (!newList.contains(currentDetail)) {
+                dishDetailDao.delete(currentDetail);
+            }
+        }
+
+        dishDao.update(t);
+    }
+
     public void updateDish(Dish t) {
         dishDao.update(t);
     }
@@ -83,5 +107,7 @@ public class AdminService {
     public List<Bill> getAllBills() {
         return billDao.getAll();
     }
+
+
 
 }
