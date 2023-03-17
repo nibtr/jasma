@@ -88,12 +88,13 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         revenuLabel = new javax.swing.JLabel();
-        contentOrderPage = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        contentOrderPage = new javax.swing.JPanel();
         scrollPanelStaff = new javax.swing.JScrollPane();
         bgScrollPanelOrder = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
@@ -229,7 +230,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Orders Today !");
+        jLabel2.setText("Order Today");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
@@ -266,9 +267,6 @@ public class DashboardStaffUI extends javax.swing.JFrame {
 
         bgOrderPage.add(headerOrderPage);
 
-        contentOrderPage.setBackground(new java.awt.Color(255, 255, 255));
-        contentOrderPage.setLayout(null);
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -291,20 +289,27 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Return Amount");
 
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Method");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(63, 63, 63)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
+                .addGap(66, 66, 66)
                 .addComponent(jLabel7)
-                .addGap(86, 86, 86)
+                .addGap(69, 69, 69)
                 .addComponent(jLabel8)
-                .addGap(61, 61, 61)
+                .addGap(65, 65, 65)
                 .addComponent(jLabel9)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addComponent(jLabel10)
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,25 +317,36 @@ public class DashboardStaffUI extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addComponent(jLabel8)
-                .addComponent(jLabel9))
+                .addComponent(jLabel9)
+                .addComponent(jLabel10))
         );
 
-        contentOrderPage.add(jPanel3);
-        jPanel3.setBounds(0, 0, 820, 20);
+        bgOrderPage.add(jPanel3);
+
+        contentOrderPage.setBackground(new java.awt.Color(255, 255, 255));
+        contentOrderPage.setPreferredSize(new java.awt.Dimension(820, 548));
 
         scrollPanelStaff.setBackground(new java.awt.Color(255, 255, 255));
         scrollPanelStaff.setForeground(new java.awt.Color(255, 255, 255));
         scrollPanelStaff.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanelStaff.setViewportView(bgScrollPanelOrder);
 
         bgScrollPanelOrder.setBackground(new java.awt.Color(255, 255, 255));
-        bgScrollPanelOrder.setMaximumSize(new java.awt.Dimension(800, 800));
+        bgScrollPanelOrder.setMaximumSize(new java.awt.Dimension(600, 800));
+        bgScrollPanelOrder.setMinimumSize(new java.awt.Dimension(600, 800));
         bgScrollPanelOrder.setRequestFocusEnabled(false);
         bgScrollPanelOrder.setLayout(new javax.swing.BoxLayout(bgScrollPanelOrder, javax.swing.BoxLayout.Y_AXIS));
         scrollPanelStaff.setViewportView(bgScrollPanelOrder);
 
-        contentOrderPage.add(scrollPanelStaff);
-        scrollPanelStaff.setBounds(0, 17, 820, 550);
+        javax.swing.GroupLayout contentOrderPageLayout = new javax.swing.GroupLayout(contentOrderPage);
+        contentOrderPage.setLayout(contentOrderPageLayout);
+        contentOrderPageLayout.setHorizontalGroup(
+            contentOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPanelStaff, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+        );
+        contentOrderPageLayout.setVerticalGroup(
+            contentOrderPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPanelStaff, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+        );
 
         bgOrderPage.add(contentOrderPage);
 
@@ -503,6 +519,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
     private javax.swing.JPanel headerMenuPage;
     private javax.swing.JPanel headerOrderPage;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

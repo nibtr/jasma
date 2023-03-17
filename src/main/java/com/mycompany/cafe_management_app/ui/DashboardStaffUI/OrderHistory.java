@@ -21,7 +21,7 @@ public class OrderHistory extends javax.swing.JPanel {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 
-    public OrderHistory(Bill bill, LocalDateTime time, Double total, Double receiveAmount, Double returnAmount) {
+    public OrderHistory(Bill bill, LocalDateTime time, Double total, Double receiveAmount, Double returnAmount, String paymentMethod) {
        initComponents();
        this.bill = bill;
        if (time != null) {
@@ -36,6 +36,9 @@ public class OrderHistory extends javax.swing.JPanel {
        }
        if (returnAmount != null) {
            returnAmountLabel.setText(returnAmount.toString());
+       }
+       if (paymentMethod != null) {
+           paymentMethodLabel.setText(paymentMethod);
        }
     }
 
@@ -52,41 +55,70 @@ public class OrderHistory extends javax.swing.JPanel {
         totalPriceLabel = new javax.swing.JLabel();
         receiveAmountLabel = new javax.swing.JLabel();
         returnAmountLabel = new javax.swing.JLabel();
+        paymentMethodLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(800, 32));
         setMinimumSize(new java.awt.Dimension(800, 32));
-        setPreferredSize(new java.awt.Dimension(800, 32));
-        setLayout(null);
+        setName(""); // NOI18N
+        setOpaque(false);
+        setRequestFocusEnabled(false);
+        setVerifyInputWhenFocusTarget(false);
 
         timeLabel.setForeground(new java.awt.Color(51, 51, 51));
         timeLabel.setText(".");
-        add(timeLabel);
-        timeLabel.setBounds(30, 10, 170, 16);
 
         totalPriceLabel.setForeground(new java.awt.Color(51, 51, 51));
         totalPriceLabel.setText(".");
-        add(totalPriceLabel);
-        totalPriceLabel.setBounds(240, 10, 120, 16);
 
         receiveAmountLabel.setForeground(new java.awt.Color(51, 51, 51));
         receiveAmountLabel.setText(".");
-        add(receiveAmountLabel);
-        receiveAmountLabel.setBounds(400, 10, 120, 16);
 
         returnAmountLabel.setForeground(new java.awt.Color(51, 51, 51));
         returnAmountLabel.setText(".");
-        add(returnAmountLabel);
-        returnAmountLabel.setBounds(560, 10, 120, 16);
 
+        paymentMethodLabel.setForeground(new java.awt.Color(51, 51, 51));
+        paymentMethodLabel.setText(".");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(timeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalPriceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(receiveAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(returnAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(paymentMethodLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(timeLabel)
+                        .addComponent(totalPriceLabel)
+                        .addComponent(receiveAmountLabel))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(returnAmountLabel)
+                        .addComponent(paymentMethodLabel))))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel totalPriceLabel;
-    private javax.swing.JLabel timeLabel;
+    private javax.swing.JLabel paymentMethodLabel;
     private javax.swing.JLabel receiveAmountLabel;
     private javax.swing.JLabel returnAmountLabel;
+    private javax.swing.JLabel timeLabel;
+    private javax.swing.JLabel totalPriceLabel;
     // End of variables declaration//GEN-END:variables
 }

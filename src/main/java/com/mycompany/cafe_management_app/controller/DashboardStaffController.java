@@ -99,16 +99,27 @@ public class DashboardStaffController {
 
     private void renderListOrder() {
         List<Bill> listBill = staffService.getAllBill();
+        LocalDateTime currentTime = LocalDateTime.now();
         for (int i = 0; i < listBill.size(); i++) {
             Bill tmpOrder = listBill.get(i);
             LocalDateTime time = tmpOrder.getTimeCreated();
             Double totalPriceLabel = tmpOrder.getTotalPrice();
             Double receiveAmountLabel = tmpOrder.getReceivedAmount();
             Double returnAmountLabel = tmpOrder.getReturnedAmount();
-            OrderHistory tmp = new OrderHistory(tmpOrder, time, totalPriceLabel, receiveAmountLabel, returnAmountLabel);
-            wrapListBill.add(tmp);
-            wrapListBill.repaint();
-            wrapListBill.revalidate();
+            String paymentMethod = tmpOrder.getPaymentMethod();
+
+            // Chỉ hiển thị những order trong ngày hôm nay
+            if (time.getDayOfMonth() == currentTime.getDayOfMonth()
+                    && time.getMonthValue() == currentTime.getMonthValue()
+                    && time.getYear() == currentTime.getYear()) {
+                OrderHistory orderHistory = new OrderHistory(tmpOrder, time, totalPriceLabel, receiveAmountLabel,
+                        returnAmountLabel,
+                        paymentMethod);
+                wrapListBill.add(orderHistory);
+                wrapListBill.repaint();
+                wrapListBill.revalidate();
+            }
+
         }
     }
 
@@ -228,7 +239,6 @@ public class DashboardStaffController {
         // Total Revenue
         // dashboardStaffUI.getRevenuLabel().setText(staffService.getTotalRevenue().toString());
 
-
         // show list bill
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
@@ -295,6 +305,12 @@ public class DashboardStaffController {
                     return;
                 }
 
+                // Check payment method
+                boolean isPaymentByCard = NewOrderForm.getOptionPaymentLabel().getText().equals("Card ID:");
+                String paymentValue = isPaymentByCard ? NewOrderForm.getReceivedAmountField() : "";
+                Double receivedAmount = isPaymentByCard ? null
+                        : Double.parseDouble(NewOrderForm.getReceivedAmountField());
+
                 for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
                     DishDetail dishDetail = entry.getKey();
                     Integer quantity = entry.getValue();
@@ -302,79 +318,33 @@ public class DashboardStaffController {
                     bill.addBillDetail(billDetail);
                 }
 
-                if (NewOrderForm.getOptionPaymentLabel().getText().equals("Card ID:")) {
-                    NewOrderForm.setStateProcessing("Processing . . .");
-                    String cardID = NewOrderForm.getReceivedAmountField();
-                    staffService.createBillAsync(bill, null, cardID)
-                            .thenApply(res -> {
-                                System.out.println(res);
+                NewOrderForm.setStateProcessing("Processing . . .");
+                staffService.createBillAsync(bill, receivedAmount, paymentValue)
+                        .thenApply(res -> {
+                            System.out.println(res);
 
-                                if (res.equals("SUCCESS")) {
-                                    JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
-                                    wrapListBill.removeAll();
-                                    renderListOrder();
-                                    wrapListBill.repaint();
-                                    wrapListBill.revalidate();
+                            if (res.equals("SUCCESS")) {
+                                JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
+                                wrapListBill.removeAll();
+                                renderListOrder();
+                                wrapListBill.repaint();
+                                wrapListBill.revalidate();
 
-                                    // Close form
-                                    NewOrderForm.setVisible(false);
-                                    wrapChooseDish.removeAll();
-                                } else {
-                                    System.out.println("TRANSACTION FAILED!");
-                                    JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
-                                }
+                                // Close form
+                                NewOrderForm.setVisible(false);
+                                wrapChooseDish.removeAll();
+                            } else {
+                                System.out.println("TRANSACTION FAILED!");
+                                JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
+                            }
 
-                                return res;
-                            })
-                            .thenAccept(res -> {
-                                NewOrderForm.setStateProcessing("");
-                                System.out.println("TRANSACTION PROCESS COMPLETED");
-                            });
+                            return res;
+                        })
+                        .thenAccept(res -> {
+                            NewOrderForm.setStateProcessing("");
+                            System.out.println("TRANSACTION PROCESS COMPLETED");
+                        });
 
-                } else {
-                    System.out.println("Payment by Cash");
-
-                    String tmpRA = NewOrderForm.getReceivedAmountField();
-                    Double receivedAmount = 0.0;
-                    try {
-                        receivedAmount = Double.parseDouble(tmpRA);
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(null, "Received amount must be a number");
-                        return;
-                    }
-
-                    for (Map.Entry<DishDetail, Integer> entry : dishDetailQuantities.entrySet()) {
-                        DishDetail dishDetail = entry.getKey();
-                        Integer quantity = entry.getValue();
-                        BillDetail billDetail = new BillDetail(dishDetail, quantity.longValue());
-                        bill.addBillDetail(billDetail);
-                    }
-
-                    staffService.createBillAsync(bill, receivedAmount, "")
-                            .thenApply(res -> {
-                                System.out.println(res);
-                                if (res.equals("SUCCESS")) {
-                                    JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
-
-                                    wrapListBill.removeAll();
-                                    renderListOrder();
-                                    wrapListBill.repaint();
-                                    wrapListBill.revalidate();
-
-                                    // Close form
-                                    NewOrderForm.setVisible(false);
-                                    wrapChooseDish.removeAll();
-                                } else {
-                                    System.out.println("TRANSACTION FAILED!");
-                                    JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
-                                }
-
-                                return res;
-                            })
-                            .thenAccept(res -> {
-                                System.out.println("TRANSACTION PROCESS COMPLETED");
-                            });
-                }
             }
 
         });

@@ -91,10 +91,10 @@ public class NewDishForm extends javax.swing.JPanel {
         deleteDishButton = new javax.swing.JButton();
         quantityDish = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(348, 32));
-        setMinimumSize(new java.awt.Dimension(348, 32));
+        setMaximumSize(new java.awt.Dimension(380, 32));
+        setMinimumSize(new java.awt.Dimension(380, 32));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(305, 32));
+        setPreferredSize(new java.awt.Dimension(380, 32));
 
         inventoryNameLabel.setText("Hong tra vai xoai");
 
@@ -121,17 +121,17 @@ public class NewDishForm extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(quantityDish, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inventoryNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(26, 26, 26)
                 .addComponent(dishSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(dishPriceLabel)
-                .addGap(28, 28, 28)
+                .addGap(45, 45, 45)
                 .addComponent(deleteDishButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
