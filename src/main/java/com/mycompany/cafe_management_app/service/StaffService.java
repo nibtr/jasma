@@ -252,19 +252,12 @@ public class StaffService {
 
 
     public String getTotalRevenue() {
-        Double totalRevenue = 0.0;
-        List<Bill> bills = billDao.getAll();
-        LocalDateTime currentTime = LocalDateTime.now();
-
-        for (Bill b : bills) {
-            if (b.getTimeCreated().getDayOfMonth() == currentTime.getDayOfMonth()
-                    && b.getTimeCreated().getMonthValue() == currentTime.getMonthValue()
-                    && b.getTimeCreated().getYear() == currentTime.getYear()) {
-
-                        totalRevenue += b.getTotalPrice();
-                    }
+        Double total = revenueDao.getByDate(LocalDate.now()).getTotal();
+        if (total == null) {
+            return "0";
         }
-        return String.format("%,.0f", totalRevenue);
+        return String.format("%,.0f", total);
+    }
 
     private void upsertRevenueOutcome(Timekeeping t) {
         Revenue revenue = revenueDao.getByDate(t.getCheckinTime().toLocalDate());
