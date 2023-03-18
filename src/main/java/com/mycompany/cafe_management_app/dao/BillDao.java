@@ -47,7 +47,7 @@ public class BillDao implements DaoInterface<Bill>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
 
         return billList;
@@ -74,7 +74,7 @@ public class BillDao implements DaoInterface<Bill>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
 
@@ -99,7 +99,7 @@ public class BillDao implements DaoInterface<Bill>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         } 
     }
 
@@ -124,7 +124,7 @@ public class BillDao implements DaoInterface<Bill>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         } 
     }
     

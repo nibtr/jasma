@@ -50,7 +50,7 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
             e.printStackTrace();
 
         } finally {
-            session.close();
+//            session.close();
         } 
         
         return list;
@@ -81,7 +81,7 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
             e.printStackTrace();
 
         } finally {
-            session.close();
+//            session.close();
         } 
         
         return latest;
@@ -110,7 +110,7 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
            
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
 
@@ -135,7 +135,7 @@ public class TimekeepingDao implements DaoInterface<Timekeeping>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
 

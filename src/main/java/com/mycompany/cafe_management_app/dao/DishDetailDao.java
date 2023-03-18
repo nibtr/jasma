@@ -9,6 +9,8 @@ import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.transaction.Transactional;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -56,7 +58,7 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
         
         return list;
@@ -90,7 +92,7 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
         
         return list;
@@ -117,7 +119,7 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -129,20 +131,27 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
         try {
             tx = session.beginTransaction();
             session.update(t);
+//            session.merge(t);
+//            Query query = session.createQuery("UPDATE DishDetail t SET t.size = :size, t.price = :price WHERE t.id = :id");
+//            query.setParameter("id", t.getId());
+//            query.setParameter("size", t.getSize());
+//            query.setParameter("price", t.getPrice());
+//            query.executeUpdate();
+
             tx.commit();
-            
+
             ErrorUtil.getInstance().setErrorCode(0);
             ErrorUtil.getInstance().setMessage("Updated successfully");
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-            
+
             ErrorUtil.getInstance().setErrorCode(1);
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -167,7 +176,7 @@ public class DishDetailDao implements DaoInterface<DishDetail>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
     

@@ -7,6 +7,16 @@
     <list default="true" id="b069f303-40ab-47c5-9b1b-172320d5fd20" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/config/HibernateConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/config/HibernateConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/AccountDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/BillDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/BillDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/BillDetailDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/BillDetailDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/DishDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/DishDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/DishDetailDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/DishDetailDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/RevenueDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/RevenueDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/SalaryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/SalaryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/StaffDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/StaffDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/TimekeepingDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/TimekeepingDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/query/LoginQuery.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/JSONObjUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/JSONObjUtil.java" afterDir="false" />
@@ -22,6 +32,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/openjdk-19.0.2/lib/src.zip!/java.base/java/util/concurrent/CompletableFuture.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -111,5 +124,9 @@
       <updated>1678081657861</updated>
     </task>
     <servers />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
