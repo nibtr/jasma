@@ -63,7 +63,7 @@ public class StaffService {
         DecimalFormat df = new DecimalFormat("#.##");
         Duration duration = Duration.between(t.getCheckinTime(), currentTime);
         double hours = duration.toMillis() / (double) (1000 * 60 * 60);
-        Double formattedHours = Double.parseDouble(df.format(hours));
+        Double formattedHours = Double.valueOf(df.format(hours));
         t.setTotalTime(formattedHours);
 
         // Calculate payment
@@ -72,7 +72,7 @@ public class StaffService {
         timekeepingDao.update(t);
 
         // Send CMD=END to server
-        ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
+        // ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
     }
 
     public List<Timekeeping> getAllTimekeeping() {
@@ -151,10 +151,17 @@ public class StaffService {
     public String getTotalRevenue() {
         Double totalRevenue = 0.0;
         List<Bill> bills = billDao.getAll();
+        LocalDateTime currentTime = LocalDateTime.now();
+
         for (Bill b : bills) {
-            totalRevenue += b.getTotalPrice();
+            if (b.getTimeCreated().getDayOfMonth() == currentTime.getDayOfMonth()
+                    && b.getTimeCreated().getMonthValue() == currentTime.getMonthValue()
+                    && b.getTimeCreated().getYear() == currentTime.getYear()) {
+
+                        totalRevenue += b.getTotalPrice();
+                    }
         }
-        return String.format("%.2f", totalRevenue);
+        return String.format("%,.0f", totalRevenue);
     }
 
 }
