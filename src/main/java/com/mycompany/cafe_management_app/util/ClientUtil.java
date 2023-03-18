@@ -19,17 +19,12 @@ public class ClientUtil {
         System.out.println("Client: Connection established!");
     }
 
-    public static ClientUtil getInstance() {
-        try {
-            if (instance == null) {
-                instance = new ClientUtil();
-            }
-
-            return instance;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    public static ClientUtil getInstance() throws IOException {
+        if (instance == null) {
+            instance = new ClientUtil();
         }
+
+        return instance;
     }
 
     public CompletableFuture<String> sendRequestAsync(String request) {

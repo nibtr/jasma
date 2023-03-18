@@ -189,28 +189,33 @@ public class StaffService {
 //        send request to server
         System.out.println("Card number: " + cardNumber);
         bill.setCardNumber(cardNumber);
-        return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"))
-                .thenApply(res -> {
-                    System.out.println("Response from server: " + res);
+        try {
+            return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"))
+                    .thenApply(res -> {
+                        System.out.println("Response from server: " + res);
 
-                    if (JSONObjUtil.getHeader(res).equals("RESPONSE") &&
-                            JSONObjUtil.getBody(res).equals("SUCCESS")) {
-                        bill.setPaymentMethod("card");
-                        bill.setReceivedAmount(bill.getTotalPrice());
-                        bill.setReturnedAmount(0.0);
+                        if (JSONObjUtil.getHeader(res).equals("RESPONSE") &&
+                                JSONObjUtil.getBody(res).equals("SUCCESS")) {
+                            bill.setPaymentMethod("card");
+                            bill.setReceivedAmount(bill.getTotalPrice());
+                            bill.setReturnedAmount(0.0);
 
-                        billDao.save(bill);
-                        System.out.println("Bill saved");
+                            billDao.save(bill);
+                            System.out.println("Bill saved");
 
 //                        Upsert the revenue
-                        upsertRevenueIncome(bill);
+                            upsertRevenueIncome(bill);
 
-                        return "SUCCESS";
-                    }
+                            return "SUCCESS";
+                        }
 
-                    return "TRANSACTION_FAILED";
-                });
+                        return "TRANSACTION_FAILED";
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
+    }
 
     public List<Bill> getAllBill() {
         return billDao.getAll();
@@ -221,7 +226,12 @@ public class StaffService {
     }
 
     public CompletableFuture<String> makeTransactionAsync(Bill bill, String cardNumber) {
-        return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"));
+        try {
+            return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getTodayRevenue() {
