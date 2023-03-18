@@ -57,7 +57,7 @@ public class Staff {
    
     public Staff(){
 //        required by Hibernate
-        this.hourlyRate = 2.5;
+        this.hourlyRate = 25000.0;
     }
     
     public Staff(String name, LocalDate dob, String phoneNumber, String position) {
@@ -153,7 +153,7 @@ public class Staff {
 
     public void addSalary(Salary salary){
         salaries.add(salary);
-        salary.setSalary(this);
+        salary.setStaff(this);
     }
 
     public void setSalaries(List<Salary> salaries) {
