@@ -50,9 +50,6 @@ public class Main {
 
                 initAdmin();
 
-              
-
-
                 LoginController loginController = new LoginController();
                 loginController.getLoginUI().setVisible(true);
             } catch (Exception e) {
