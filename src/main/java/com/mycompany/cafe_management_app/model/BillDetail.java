@@ -40,6 +40,10 @@ public class BillDetail {
     
     @Column(name = "price")
     private Double price;
+
+    public BillDetail() {
+
+    }
     
     public BillDetail(DishDetail d, Long quantity) {
         this.dishDetail = d;

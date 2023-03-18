@@ -11,11 +11,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- *
  * @author Legion
  */
 @Entity(name = "Dish")
@@ -23,10 +24,10 @@ public class Dish {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="dish_id")
+    @Column(name = "dish_id")
     private Long id;
 
-    @Column(name="name", unique = true, nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,7 +38,7 @@ public class Dish {
     }
 
     public Dish(String name) {
-        this.name = name;    
+        this.name = name;
     }
 
     public Long getId() {
@@ -60,14 +61,12 @@ public class Dish {
         return details;
     }
 
-    public void setDetails(List<DishDetail> details) {
-        this.details = details;
-        
-    }
-    
+//    public void setDetails(List<DishDetail> details) {
+//        this.details = details;
+//    }
+
     public void addDetail(DishDetail detail) {
-        details.add(detail);
+         details.add(detail);
         detail.setDish(this);
     }
-
 }

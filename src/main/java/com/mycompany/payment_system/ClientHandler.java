@@ -7,7 +7,8 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable {
+
+public class ClientHandler implements Runnable{
     private Socket clientSocket;
     private BufferedReader in;
     private BufferedWriter out;
@@ -26,16 +27,13 @@ public class ClientHandler implements Runnable {
     public void run() {
         while (clientSocket.isConnected()) {
             try {
-                String request = in.readLine(); // block
+                String request = in.readLine(); //block
                 if (request == null) {
                     continue;
                 }
                 System.out.println("Server: Request received: " + request);
                 handleRequest(request);
 
-                // out.write("Server: Connection established!");
-                // out.newLine();
-                // out.flush();
             } catch (IOException e) {
                 closeEverything(clientSocket, in, out);
                 break;
@@ -61,7 +59,7 @@ public class ClientHandler implements Runnable {
 
     private void handleRequest(String request) throws IOException {
         try {
-            String cmd = (request == null) ? "UNKNOWN" : JSONObjUtil.getHeader(request);
+            String cmd = (request == null ) ? "UNKNOWN" : JSONObjUtil.getHeader(request);
             System.out.println("Server: Command received: " + cmd);
 
             switch (cmd) {
@@ -73,20 +71,14 @@ public class ClientHandler implements Runnable {
                 case "TRANSACTION":
                     System.out.println("Server: Transaction request received");
 
-                    // delay for 3s
+//                delay for 3s
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
-                    // TODO: Implement transaction logic here
                     String res = handleTransaction(JSONObjUtil.getBody(request)) ? "SUCCESS" : "FAILED";
-
-                    // out.write("Server: Transaction made successfully!");
-                    // out.newLine();
-                    // out.flush();
-                    // break;
 
                     out.write(JSONObjUtil.toJson(res, "RESPONSE"));
                     out.newLine();
@@ -110,9 +102,11 @@ public class ClientHandler implements Runnable {
         String cardNumber = bill.get("card_number").toString();
         Double billTotalPrice = Double.parseDouble(bill.get("total").toString());
 
-        if (cardNumber.length() != 16 ||
-        // cardNumber.matches("[0-9]+") ||
-                cardNumber.charAt(0) == '0') {
+        if (
+                cardNumber.length() != 16 ||
+//                cardNumber.matches("[0-9]+") ||
+                cardNumber.charAt(0) == '0'
+        ) {
             return false;
         }
 

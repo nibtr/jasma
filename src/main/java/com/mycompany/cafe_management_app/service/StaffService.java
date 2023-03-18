@@ -4,16 +4,14 @@
  */
 package com.mycompany.cafe_management_app.service;
 
+
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.dao.BillDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
 import com.mycompany.cafe_management_app.dao.DishDetailDao;
-<<<<<<< Updated upstream
-=======
 import com.mycompany.cafe_management_app.dao.RevenueDao;
 import com.mycompany.cafe_management_app.dao.SalaryDao;
 import com.mycompany.cafe_management_app.dao.StaffDao;
->>>>>>> Stashed changes
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.Dish;
@@ -22,6 +20,10 @@ import com.mycompany.cafe_management_app.model.Revenue;
 import com.mycompany.cafe_management_app.model.Salary;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
+import com.mycompany.cafe_management_app.dao.*;
+import com.mycompany.cafe_management_app.model.*;
+import com.mycompany.cafe_management_app.util.ClientUtil;
+import com.mycompany.cafe_management_app.util.JSONObjUtil;
 import com.mycompany.cafe_management_app.util.UserSession;
 import com.mysql.cj.xdevapi.SessionFactory;
 
@@ -33,6 +35,7 @@ import jakarta.transaction.Transaction;
 
 import java.text.DecimalFormat;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -59,41 +63,32 @@ public class StaffService {
     private final DishDao dishDao;
     private final DishDetailDao dishDetailDao;
     private final BillDao billDao;
-<<<<<<< Updated upstream
-=======
     private final StaffDao staffDao;
     private final RevenueDao revenueDao;
     private final SalaryDao salaryDao;
->>>>>>> Stashed changes
     private final Staff currentStaff;
-    
+
     public StaffService() {
         timekeepingDao = new TimekeepingDao();
         dishDao = new DishDao();
         dishDetailDao = new DishDetailDao();
         billDao = new BillDao();
-<<<<<<< Updated upstream
-=======
         staffDao = new StaffDao();
         revenueDao = new RevenueDao();
         salaryDao = new SalaryDao();
->>>>>>> Stashed changes
         currentStaff = UserSession.getInstance().getStaff();
     }
-    
+
     public void checkIn(LocalDateTime time) {
         Timekeeping t = new Timekeeping(time);
         t.setStaff(currentStaff);
         timekeepingDao.save(t);
+        // currentStaff.addTimekeeping(t);
+        // staffDao.update(currentStaff);
     }
-    
+
     public void checkOut(LocalDateTime currentTime) {
         Long currentStaffID = currentStaff.getId();
-<<<<<<< Updated upstream
-        Timekeeping t = timekeepingDao.getLatestOf(currentStaffID);      
-        
-//        Set checkout time
-=======
         Timekeeping t = timekeepingDao.getLatestOf(currentStaffID);
         Double payment = 0.0;
         Double payment1 = 0.0;
@@ -108,32 +103,21 @@ public class StaffService {
         Salary salary = new Salary();
 
         // Set checkout time
->>>>>>> Stashed changes
         t.setCheckoutTime(currentTime);
-        
-//        Calculate total work time
+
+        // Calculate total work time
         DecimalFormat df = new DecimalFormat("#.##");
         Duration duration = Duration.between(t.getCheckinTime(), currentTime);
         double hours = duration.toMillis() / (double) (1000 * 60 * 60);
         Double formattedHours = Double.parseDouble(df.format(hours));
         t.setTotalTime(formattedHours);
-        
-//        Calculate payment
-        t.setTotalPayment(currentStaff.getHourlyRate() * formattedHours);
-<<<<<<< Updated upstream
-        
-        timekeepingDao.update(t); 
-=======
 
+        // Calculate payment
+        t.setTotalPayment(currentStaff.getHourlyRate() * formattedHours);
         timekeepingDao.update(t);
 
         // Calculate the staff salary
-
-
         salary = salaryDao.getByID(currentStaffID, currentMonthYear);
-
-        System.out.println("salary : " + salary);
-
         if (salary == null) {
             payment1 += t.getTotalPayment();
             Salary sal = new Salary();
@@ -152,47 +136,39 @@ public class StaffService {
 
         }
 
+//        Upsert the revenue to DB
+        upsertRevenueOutcome(t);
 
         // Send CMD=END to server
         ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
->>>>>>> Stashed changes
     }
-    
+
     public List<Timekeeping> getAllTimekeeping() {
         return timekeepingDao.getListOf(currentStaff.getId());
     }
-    
+
     public List<Dish> getAllDish() {
         return dishDao.getAll();
     }
-    
+
     public Dish getDishByID(Long id) {
         return dishDao.getByID(id);
     }
-    
+
     public Dish getDishByName(String name) {
         return dishDao.getByName(name);
     }
-    
+
     public List<DishDetail> getDetailsOf(Dish dish) {
         return dishDetailDao.getByDishID(dish.getId());
     }
-<<<<<<< Updated upstream
-    
-    public void createBill(Bill t, Double receivedAmount) {
-        t.setReceivedAmount(receivedAmount);
-        t.setReturnedAmount(receivedAmount - t.getTotalPrice());
-        billDao.save(t);
-    }
- 
-=======
 
     public CompletableFuture<String> createBillAsync(
             Bill bill,
             Double receivedAmount,
             String cardNumber) {
 
-        // no card -> pay by cash
+//        no card -> pay by cash
         if (cardNumber.isEmpty()) {
             if (receivedAmount < bill.getTotalPrice()) {
                 return new CompletableFuture<String>().completeAsync(() -> "CASH_FAILED");
@@ -204,12 +180,15 @@ public class StaffService {
                 bill.setReturnedAmount(receivedAmount - bill.getTotalPrice());
                 billDao.save(bill);
 
+//                Upsert the revenue
+                upsertRevenueIncome(bill);
+
                 return "SUCCESS";
             });
         }
 
-        // pay by card
-        // send request to server
+//        pay by card
+//        send request to server
         System.out.println("Card number: " + cardNumber);
         bill.setCardNumber(cardNumber);
         return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"))
@@ -225,73 +204,54 @@ public class StaffService {
                         billDao.save(bill);
                         System.out.println("Bill saved");
 
+//                        Upsert the revenue
+                        upsertRevenueIncome(bill);
+
                         return "SUCCESS";
                     }
 
                     return "TRANSACTION_FAILED";
                 });
-    }
+        }
 
     public List<Bill> getAllBill() {
         return billDao.getAll();
     }
 
     public CompletableFuture<String> makeTransactionAsync(Bill bill, String cardNumber) {
-        return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "TRANSACTION"));
+        return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"));
     }
 
-    public String getTotalRevenue() {
-        Double totalRevenue = 0.0;
-        List<Bill> bills = billDao.getAll();
-        LocalDateTime currentTime = LocalDateTime.now();
-
-        for (Bill b : bills) {
-            if (b.getTimeCreated().getDayOfMonth() == currentTime.getDayOfMonth()
-                    && b.getTimeCreated().getMonthValue() == currentTime.getMonthValue()
-                    && b.getTimeCreated().getYear() == currentTime.getYear()) {
-
-                totalRevenue += b.getTotalPrice();
-            }
+    public String getTodayRevenue() {
+        Double total = revenueDao.getByDate(LocalDate.now()).getTotal();
+        if (total == null) {
+            return "0";
         }
-        return String.format("%,.0f", totalRevenue);
+        return total.toString();
     }
 
-    // generate and call API
+    private void upsertRevenueIncome(Bill bill) {
+        Revenue revenue = revenueDao.getByDate(bill.getTimeCreated().toLocalDate());
+        if (revenue == null) {
+            revenue = new Revenue(bill.getTimeCreated().toLocalDate());
+            revenue.setIncome(bill.getTotalPrice());
+            revenueDao.save(revenue);
+        } else {
+            revenue.setIncome(revenue.getIncome() + bill.getTotalPrice());
+            revenueDao.update(revenue);
+        }
+    }
 
-    // public Double getTotalToday() throws SecurityException,
-    // IllegalStateException, RollbackException,
-    // HeuristicMixedException, HeuristicRollbackException, SystemException
-    // {
-    // // final SessionFactory sessionFactory;
-    // Session session = HibernateConfig.getSessionFactory().getCurrentSession();
-    // Transaction tx = null;
-    // LocalDate today = LocalDate.now();
-    // LocalDateTime startOfDay = LocalDateTime.of(today, LocalTime.MIN);
-    // LocalDateTime endOfDay = LocalDateTime.of(today, LocalTime.MAX);
-    // List<Bill> bills = (List<Bill>) session
-    // .createQuery("From bill where createdDate BETWEEN : startofDay AND :
-    // endofDay", Bill.class)
-    // .setParameter("startOfDay", startOfDay)
-    // .setParameter("endOfDay", endOfDay)
-    // .list();
+    private void upsertRevenueOutcome(Timekeeping t) {
+        Revenue revenue = revenueDao.getByDate(t.getCheckinTime().toLocalDate());
+        if (revenue == null) {
+            revenue = new Revenue(t.getCheckinTime().toLocalDate());
+            revenue.setOutcome(t.getTotalPayment());
+            revenueDao.save(revenue);
+        } else {
+            revenue.setOutcome(revenue.getOutcome() + t.getTotalPayment());
+            revenueDao.update(revenue);
+        }
+    }
 
-    // Double todayRev = 0.0;
-
-    // try {
-    // for (Bill bill : bills) {
-    // todayRev += bill.getTotalPrice();
-    // }
-    // tx.commit();
-    // } catch (HibernateException e) {
-    // if (tx != null) {
-    // tx.rollback();
-    // }
-    // } finally {
-    // session.close();
-    // }
-
-    // return todayRev;
-    // }
-
->>>>>>> Stashed changes
 }

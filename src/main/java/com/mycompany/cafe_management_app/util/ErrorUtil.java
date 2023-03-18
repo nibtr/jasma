@@ -26,7 +26,7 @@ public  class ErrorUtil {
         return instance;
     }
 
-    public Integer getErrorCode() {
+    public Integer getErrorCode() { //0: success, 1: error
         return errorCode;
     }
 

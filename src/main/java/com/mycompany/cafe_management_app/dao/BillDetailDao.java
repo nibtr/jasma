@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -18,10 +19,40 @@ import org.hibernate.Transaction;
  */
 public class BillDetailDao implements DaoInterface<BillDetail>{
 
+
+    public List<BillDetail> getByBillID(Long id) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        List<BillDetail> list = new ArrayList<>();
+
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM BillDetail t where bill.id = :id ORDER BY price ASC" );
+            query.setParameter("id", id);
+            list = query.getResultList();
+//            init the bill
+            for (BillDetail billDetail : list) {
+                billDetail.getBill().getTotalPrice();
+            }
+//            init the dish
+            for (BillDetail billDetail : list) {
+                billDetail.getDishDetail().getDish().getName();
+            }
+            tx.commit();
+
+        } catch(HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     @Override
     public List<BillDetail> getAll() {
-//        Not necessary
-        return new ArrayList<>();
+        return null;
     }
 
     @Override
@@ -41,7 +72,7 @@ public class BillDetailDao implements DaoInterface<BillDetail>{
            
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
 
@@ -51,7 +82,7 @@ public class BillDetailDao implements DaoInterface<BillDetail>{
     }
 
     @Override
-    public void delele(BillDetail t) {
+    public void delete(BillDetail t) {
     }
     
 }

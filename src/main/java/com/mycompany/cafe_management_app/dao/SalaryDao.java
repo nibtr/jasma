@@ -67,7 +67,7 @@ public class SalaryDao implements DaoInterface<Salary> {
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -86,12 +86,12 @@ public class SalaryDao implements DaoInterface<Salary> {
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
-
+    
     @Override
-    public void delele(Salary t) {
+    public void delete(Salary t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
@@ -105,7 +105,7 @@ public class SalaryDao implements DaoInterface<Salary> {
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -133,16 +133,12 @@ public class SalaryDao implements DaoInterface<Salary> {
 
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
 
         return list;
 
     }
-
-<<<<<<< Updated upstream
-=======
-
 
     public Salary getByID(Long staffID, LocalDate date) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
@@ -179,8 +175,4 @@ public class SalaryDao implements DaoInterface<Salary> {
         return salary;
     }
     
-
-    
-
->>>>>>> Stashed changes
 }

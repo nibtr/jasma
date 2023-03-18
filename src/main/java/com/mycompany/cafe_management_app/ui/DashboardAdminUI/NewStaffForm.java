@@ -140,7 +140,6 @@ public class NewStaffForm extends javax.swing.JFrame {
         usernameInput.setBackground(new java.awt.Color(255, 255, 255));
         usernameInput.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         usernameInput.setForeground(new java.awt.Color(51, 51, 51));
-        usernameInput.setText("dsadasdadasd");
         usernameInput.setBorder(null);
         usernameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

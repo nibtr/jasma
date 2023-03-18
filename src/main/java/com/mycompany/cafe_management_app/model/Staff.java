@@ -48,13 +48,16 @@ public class Staff {
     @JoinColumn(name = "fk_account_id")
     private Account account;
     
-    @OneToMany(mappedBy = "staff" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "staff" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Salary> salaries = new ArrayList<>();
     
-    
+    @OneToMany(mappedBy = "staff",  cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Timekeeping> listTimekeeping = new ArrayList<>();
+
+   
     public Staff(){
 //        required by Hibernate
-        this.hourlyRate = 2.5;
+        this.hourlyRate = 25000.0;
     }
     
     public Staff(String name, LocalDate dob, String phoneNumber, String position) {
@@ -127,7 +130,20 @@ public class Staff {
     public Account getAccount() {
         return account;
     }
+
+    public List<Timekeeping> getListTimekeeping() {
+        return listTimekeeping;
+    }
+
+//    public void setListTimekeeping(List<Timekeeping> listTimekeeping) {
+//        this.listTimekeeping = listTimekeeping;
+//    }
     
+    public void addTimekeeping(Timekeeping t) {
+        this.listTimekeeping.add(t);
+        t.setStaff(this);
+    }
+
     public void setAll(String name, LocalDate dob, String phoneNumber, String position) {
         this.name = name;
         this.dateOfBirth = dob;

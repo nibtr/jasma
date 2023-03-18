@@ -56,9 +56,10 @@ public class TimekeepingDao implements DaoInterface<Timekeeping> {
             e.printStackTrace();
 
         } finally {
-            session.close();
-        }
 
+//            session.close();
+        } 
+        
         return list;
     }
 
@@ -87,9 +88,9 @@ public class TimekeepingDao implements DaoInterface<Timekeeping> {
             e.printStackTrace();
 
         } finally {
-            session.close();
-        }
-
+//            session.close();
+        } 
+        
         return latest;
     }
 
@@ -118,8 +119,8 @@ public class TimekeepingDao implements DaoInterface<Timekeeping> {
 
             e.printStackTrace();
         } finally {
-            session.close();
-        }
+//            session.close();
+        }  
     }
 
     @Override
@@ -143,18 +144,13 @@ public class TimekeepingDao implements DaoInterface<Timekeeping> {
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
-        }
+//            session.close();
+        }  
     }
 
     @Override
-<<<<<<< Updated upstream
-    public void delele(Timekeeping t) {
-//        Not necessary
-=======
     public void delete(Timekeeping t) {
-        // Not necessary
->>>>>>> Stashed changes
+
     }
 
 }

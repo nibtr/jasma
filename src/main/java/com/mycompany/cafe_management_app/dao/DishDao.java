@@ -36,6 +36,10 @@ public class DishDao implements DaoInterface<Dish> {
             Root<Dish> root = criteria.from(Dish.class);
             criteria.select(root);
             dishes = session.createQuery(criteria).getResultList();
+//            Initialize the detail list of the dish
+            for (Dish dish : dishes) {
+                dish.getDetails().size();
+            }
             tx.commit();
             
             ErrorUtil.getInstance().setErrorCode(0);
@@ -49,7 +53,7 @@ public class DishDao implements DaoInterface<Dish> {
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
 
         return dishes;
@@ -58,7 +62,7 @@ public class DishDao implements DaoInterface<Dish> {
     public Dish getByName(String name) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        Dish dish = null;
+        Dish dish;
 
         try {
             tx = session.beginTransaction();
@@ -81,7 +85,7 @@ public class DishDao implements DaoInterface<Dish> {
 
             return null;
         } finally {
-            session.close();
+//            session.close();
         }
         return dish;
     }
@@ -89,7 +93,7 @@ public class DishDao implements DaoInterface<Dish> {
     public Dish getByID(Long id) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
-        Dish dish = null;
+        Dish dish;
 
         try {
             tx = session.beginTransaction();
@@ -111,7 +115,7 @@ public class DishDao implements DaoInterface<Dish> {
 
             return null;
         } finally {
-            session.close();
+//            session.close();
         }
         return dish;
     }
@@ -138,7 +142,7 @@ public class DishDao implements DaoInterface<Dish> {
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -163,12 +167,12 @@ public class DishDao implements DaoInterface<Dish> {
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
     @Override
-    public void delele(Dish t) {
+    public void delete(Dish t) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
 
@@ -177,7 +181,7 @@ public class DishDao implements DaoInterface<Dish> {
             session.delete(t);
             tx.commit();
             
-            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setErrorCode(0);
             ErrorUtil.getInstance().setMessage("Deleted successfully");
         } catch (HibernateException e) {
             if (tx != null) {
@@ -188,7 +192,7 @@ public class DishDao implements DaoInterface<Dish> {
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 

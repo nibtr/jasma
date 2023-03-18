@@ -37,6 +37,12 @@ public class Bill {
     
     @Column(name = "returned_amount")
     private Double returnedAmount;
+
+    @Column(name = "payment_method")
+    private String paymentMethod;   //cash, card
+
+    @Column(name = "card_number")
+    private String cardNumber;
     
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BillDetail> billDetails = new ArrayList<>();
@@ -90,16 +96,31 @@ public class Bill {
     public void setReturnedAmount(Double returnedAmount) {
         this.returnedAmount = returnedAmount;
     }
-    
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
     public List<BillDetail> getBillDetails() {
         return billDetails;
     }
 
-    public void setBillDetails(List<BillDetail> billDetails) {
-        this.billDetails = billDetails;
-    }
+//    public void setBillDetails(List<BillDetail> billDetails) {
+//        this.billDetails = billDetails;
+//    }
 
-    
     public void addBillDetail(BillDetail b) {
         billDetails.add(b);
         b.setBill(this);

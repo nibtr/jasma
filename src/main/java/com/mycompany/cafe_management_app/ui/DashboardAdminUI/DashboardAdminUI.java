@@ -5,11 +5,8 @@
 package com.mycompany.cafe_management_app.ui.DashboardAdminUI;
 import java.awt.CardLayout;
 import java.awt.Color;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  *
@@ -46,6 +43,22 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         return bgScrollPanelStaff;
     }
     
+    public JPanel getListDishContainer() {
+        return bgScrollPanelMenu;
+    }
+    
+    public JPanel getListBillContainer() {
+        return bgScrollPanelBill;
+    }
+    
+    public JButton getAddDishBtn() {
+        return addDishBtn;
+    }
+    
+    public JPanel getBillContainer() {
+        return bgScrollPanelBill;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,11 +68,14 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel11 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         navItemStaff = new javax.swing.JButton();
         navItemMenu = new javax.swing.JButton();
+        navItemBill = new javax.swing.JButton();
+        navItemChart = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
         panelStaff = new javax.swing.JPanel();
         bgStaffPage = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
@@ -72,13 +88,37 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         contentStaffPage = new javax.swing.JPanel();
         scrollPanelStaff = new javax.swing.JScrollPane();
         bgScrollPanelStaff = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
         bgMenuPage = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
         headerMenuPage = new javax.swing.JPanel();
-        addInventoryBtn = new javax.swing.JButton();
+        addDishBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         contentMenuPage = new javax.swing.JPanel();
         scrollPanelMenu = new javax.swing.JScrollPane();
         bgScrollPanelMenu = new javax.swing.JPanel();
+        panelBill = new javax.swing.JPanel();
+        bgMenuPage1 = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
+        headerBillPage = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        contentBillPage = new javax.swing.JPanel();
+        scrollPanelBill = new javax.swing.JScrollPane();
+        bgScrollPanelBill = new javax.swing.JPanel();
+        panelChart = new javax.swing.JPanel();
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -120,11 +160,6 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                 navItemStaffMouseClicked(evt);
             }
         });
-        navItemStaff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                navItemStaffActionPerformed(evt);
-            }
-        });
         jPanel2.add(navItemStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 190, -1));
 
         navItemMenu.setBackground(new java.awt.Color(51, 51, 51));
@@ -146,7 +181,39 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                 navItemMenuActionPerformed(evt);
             }
         });
-        jPanel2.add(navItemMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 100, 190, -1));
+        jPanel2.add(navItemMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 110, 190, -1));
+
+        navItemBill.setBackground(new java.awt.Color(51, 51, 51));
+        navItemBill.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        navItemBill.setForeground(new java.awt.Color(255, 255, 255));
+        navItemBill.setText("Bill");
+        navItemBill.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        navItemBill.setBorderPainted(false);
+        navItemBill.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        navItemBill.setFocusPainted(false);
+        navItemBill.setPreferredSize(new java.awt.Dimension(49, 35));
+        navItemBill.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                navItemBillMouseClicked(evt);
+            }
+        });
+        jPanel2.add(navItemBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 160, 190, -1));
+
+        navItemChart.setBackground(new java.awt.Color(51, 51, 51));
+        navItemChart.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        navItemChart.setForeground(new java.awt.Color(255, 255, 255));
+        navItemChart.setText("Chart");
+        navItemChart.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        navItemChart.setBorderPainted(false);
+        navItemChart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        navItemChart.setFocusPainted(false);
+        navItemChart.setPreferredSize(new java.awt.Dimension(49, 35));
+        navItemChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navItemChartActionPerformed(evt);
+            }
+        });
+        jPanel2.add(navItemChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 210, 190, -1));
 
         jPanel1.add(jPanel2);
 
@@ -232,6 +299,20 @@ public class DashboardAdminUI extends javax.swing.JFrame {
 
         bgScrollPanelStaff.setBackground(new java.awt.Color(255, 255, 255));
         bgScrollPanelStaff.setLayout(new javax.swing.BoxLayout(bgScrollPanelStaff, javax.swing.BoxLayout.Y_AXIS));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 818, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 566, Short.MAX_VALUE)
+        );
+
+        bgScrollPanelStaff.add(jPanel3);
+
         scrollPanelStaff.setViewportView(bgScrollPanelStaff);
 
         javax.swing.GroupLayout contentStaffPageLayout = new javax.swing.GroupLayout(contentStaffPage);
@@ -262,30 +343,46 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         headerMenuPage.setOpaque(false);
         headerMenuPage.setPreferredSize(new java.awt.Dimension(820, 32));
 
-        addInventoryBtn.setBackground(new java.awt.Color(255, 255, 255));
-        addInventoryBtn.setForeground(new java.awt.Color(51, 51, 51));
-        addInventoryBtn.setText("new Inventory +");
-        addInventoryBtn.setActionCommand("addInventoryBtn");
-        addInventoryBtn.setBorder(null);
+        addDishBtn.setBackground(new java.awt.Color(255, 255, 255));
+        addDishBtn.setForeground(new java.awt.Color(51, 51, 51));
+        addDishBtn.setText("New dish +");
+        addDishBtn.setToolTipText("");
+        addDishBtn.setActionCommand("addInventoryBtn");
+        addDishBtn.setBorder(null);
+        addDishBtn.setBorderPainted(false);
+        addDishBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDishBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("Dish name");
 
         javax.swing.GroupLayout headerMenuPageLayout = new javax.swing.GroupLayout(headerMenuPage);
         headerMenuPage.setLayout(headerMenuPageLayout);
         headerMenuPageLayout.setHorizontalGroup(
             headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerMenuPageLayout.createSequentialGroup()
-                .addContainerGap(707, Short.MAX_VALUE)
-                .addComponent(addInventoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 598, Short.MAX_VALUE)
+                .addComponent(addDishBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
         headerMenuPageLayout.setVerticalGroup(
             headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerMenuPageLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(addInventoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                .addGroup(headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addDishBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(jLabel6))
                 .addContainerGap())
         );
 
-        addInventoryBtn.getAccessibleContext().setAccessibleName("addInventoryBtn");
+        addDishBtn.getAccessibleContext().setAccessibleName("addInventoryBtn");
 
         bgMenuPage.add(headerMenuPage);
 
@@ -309,7 +406,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         );
         contentMenuPageLayout.setVerticalGroup(
             contentMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+            .addComponent(scrollPanelMenu)
         );
 
         bgMenuPage.add(contentMenuPage);
@@ -318,6 +415,109 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         bgMenuPage.setBounds(0, 0, 820, 600);
 
         cardLayout.add(panelMenu, "cardMenu");
+
+        panelBill.setBackground(new java.awt.Color(255, 255, 255));
+        panelBill.setLayout(null);
+
+        bgMenuPage1.setLayout(new javax.swing.BoxLayout(bgMenuPage1, javax.swing.BoxLayout.Y_AXIS));
+
+        headerBillPage.setMaximumSize(new java.awt.Dimension(820, 32));
+        headerBillPage.setMinimumSize(new java.awt.Dimension(820, 32));
+        headerBillPage.setOpaque(false);
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel7.setText("Received amount");
+
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel8.setText("Time");
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel9.setText("Return amount");
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("Total price");
+
+        javax.swing.GroupLayout headerBillPageLayout = new javax.swing.GroupLayout(headerBillPage);
+        headerBillPage.setLayout(headerBillPageLayout);
+        headerBillPageLayout.setHorizontalGroup(
+            headerBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerBillPageLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(155, Short.MAX_VALUE))
+        );
+        headerBillPageLayout.setVerticalGroup(
+            headerBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerBillPageLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(headerBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        bgMenuPage1.add(headerBillPage);
+
+        contentBillPage.setAutoscrolls(true);
+        contentBillPage.setOpaque(false);
+
+        scrollPanelBill.setBackground(new java.awt.Color(255, 255, 255));
+        scrollPanelBill.setForeground(new java.awt.Color(255, 255, 255));
+        scrollPanelBill.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanelBill.setOpaque(false);
+
+        bgScrollPanelBill.setBackground(new java.awt.Color(255, 255, 255));
+        bgScrollPanelBill.setLayout(new javax.swing.BoxLayout(bgScrollPanelBill, javax.swing.BoxLayout.Y_AXIS));
+        scrollPanelBill.setViewportView(bgScrollPanelBill);
+
+        javax.swing.GroupLayout contentBillPageLayout = new javax.swing.GroupLayout(contentBillPage);
+        contentBillPage.setLayout(contentBillPageLayout);
+        contentBillPageLayout.setHorizontalGroup(
+            contentBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPanelBill)
+        );
+        contentBillPageLayout.setVerticalGroup(
+            contentBillPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPanelBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+        );
+
+        bgMenuPage1.add(contentBillPage);
+
+        panelBill.add(bgMenuPage1);
+        bgMenuPage1.setBounds(0, 0, 820, 600);
+
+        cardLayout.add(panelBill, "cardBill");
+
+        panelChart.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
+        panelChart.setLayout(panelChartLayout);
+        panelChartLayout.setHorizontalGroup(
+            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 820, Short.MAX_VALUE)
+        );
+        panelChartLayout.setVerticalGroup(
+            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        cardLayout.add(panelChart, "cardChart");
 
         jPanel1.add(cardLayout);
 
@@ -336,11 +536,6 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void navItemStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navItemStaffActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_navItemStaffActionPerformed
-
     private void navItemMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navItemMenuActionPerformed
         // TODO add your handling code here:
 
@@ -351,15 +546,41 @@ public class DashboardAdminUI extends javax.swing.JFrame {
          cards.show(cardLayout, "cardMenu");
          selectBtn(navItemMenu);
          unselectBtn(navItemStaff);
+         unselectBtn(navItemBill);
+         unselectBtn(navItemChart);
     }//GEN-LAST:event_navItemMenuMouseClicked
 
     private void navItemStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navItemStaffMouseClicked
         // TODO add your handling code here:
         cards.show(cardLayout, "cardStaff");
-        navItemStaff.setBackground(Color.red);
         selectBtn(navItemStaff);
         unselectBtn(navItemMenu );
+        unselectBtn(navItemBill);
+        unselectBtn(navItemChart);
     }//GEN-LAST:event_navItemStaffMouseClicked
+
+    private void addDishBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDishBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addDishBtnActionPerformed
+
+    private void navItemBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navItemBillMouseClicked
+        // TODO add your handling code here:
+        cards.show(cardLayout, "cardBill");
+        selectBtn(navItemBill);
+        unselectBtn(navItemMenu );
+        unselectBtn(navItemStaff);
+        unselectBtn(navItemChart);
+    }//GEN-LAST:event_navItemBillMouseClicked
+
+    private void navItemChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navItemChartActionPerformed
+        // TODO add your handling code here:
+        cards.show(cardLayout, "cardChart");
+        selectBtn(navItemChart);
+        unselectBtn(navItemMenu );
+        unselectBtn(navItemStaff);
+        unselectBtn(navItemBill);
+
+    }//GEN-LAST:event_navItemChartActionPerformed
     
     /**
      * @param args the command line arguments
@@ -397,28 +618,44 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addInventoryBtn;
+    private javax.swing.JButton addDishBtn;
     private javax.swing.JButton addStaff;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgMenuPage;
+    private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgMenuPage1;
+    private javax.swing.JPanel bgScrollPanelBill;
     private javax.swing.JPanel bgScrollPanelMenu;
     private javax.swing.JPanel bgScrollPanelStaff;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgStaffPage;
     private javax.swing.JPanel cardLayout;
+    private javax.swing.JPanel contentBillPage;
     private javax.swing.JPanel contentMenuPage;
     private javax.swing.JPanel contentStaffPage;
+    private javax.swing.JPanel headerBillPage;
     private javax.swing.JPanel headerMenuPage;
     private javax.swing.JPanel headerStaffPage;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton navItemBill;
+    private javax.swing.JButton navItemChart;
     private javax.swing.JButton navItemMenu;
     private javax.swing.JButton navItemStaff;
+    private javax.swing.JPanel panelBill;
+    private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelStaff;
+    private javax.swing.JScrollPane scrollPanelBill;
     private javax.swing.JScrollPane scrollPanelMenu;
     private javax.swing.JScrollPane scrollPanelStaff;
     // End of variables declaration//GEN-END:variables

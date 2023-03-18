@@ -45,9 +45,8 @@ public class LoginUI extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(1000, 600));
         jPanel3.setVerifyInputWhenFocusTarget(false);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Legion\\Documents\\NetBeansProjects\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\laca.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\laca.jpg")); // NOI18N
         jLabel1.setText("jLabel1");
-
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 600));
 
