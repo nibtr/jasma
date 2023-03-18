@@ -181,7 +181,7 @@ public class DishDao implements DaoInterface<Dish> {
             session.delete(t);
             tx.commit();
             
-            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setErrorCode(0);
             ErrorUtil.getInstance().setMessage("Deleted successfully");
         } catch (HibernateException e) {
             if (tx != null) {

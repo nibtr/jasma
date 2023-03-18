@@ -66,7 +66,7 @@ public class Dish {
 //    }
 
     public void addDetail(DishDetail detail) {
-        details.add(detail);
+         details.add(detail);
         detail.setDish(this);
     }
 }
