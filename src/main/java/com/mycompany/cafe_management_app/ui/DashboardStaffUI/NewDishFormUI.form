@@ -35,9 +35,9 @@
               <Component id="inventoryNameLabel" min="-2" pref="105" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="dishSizeLabel" min="-2" pref="24" max="-2" attributes="0"/>
-              <EmptySpace pref="64" max="32767" attributes="0"/>
+              <EmptySpace pref="61" max="32767" attributes="0"/>
               <Component id="dishPriceLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Component id="deleteDishButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           </Group>
@@ -47,12 +47,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="inventoryNameLabel" alignment="3" max="32767" attributes="0"/>
-                  <Component id="dishSizeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dishPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="deleteDishButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="quantityDish" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="inventoryNameLabel" alignment="3" max="32767" attributes="0"/>
+                      <Component id="dishSizeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dishPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="quantityDish" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>

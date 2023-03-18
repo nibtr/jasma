@@ -5,11 +5,9 @@
 package com.mycompany.cafe_management_app.service;
 
 import com.mycompany.cafe_management_app.dao.*;
-import com.mycompany.cafe_management_app.model.Bill;
-import com.mycompany.cafe_management_app.model.Dish;
-import com.mycompany.cafe_management_app.model.DishDetail;
-import com.mycompany.cafe_management_app.model.Staff;
+import com.mycompany.cafe_management_app.model.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +21,7 @@ public class AdminService {
     private final BillDao billDao;
     private final SalaryDao salaryDao;
     private final DishDetailDao dishDetailDao;
+    private final RevenueDao revenueDao;
 
     public AdminService() {
         staffDao = new StaffDao();
@@ -30,6 +29,7 @@ public class AdminService {
         billDao = new BillDao();
         salaryDao = new SalaryDao();
         dishDetailDao = new DishDetailDao();
+        revenueDao = new RevenueDao();
     }
 
     public List<Staff> getAllStaff() {
@@ -126,6 +126,8 @@ public class AdminService {
         return billDao.getAll();
     }
 
-
+    public Revenue getRevenueByDate(LocalDate date) {
+        return revenueDao.getByDate(date);
+    }
 
 }

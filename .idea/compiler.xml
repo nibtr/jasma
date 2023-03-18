@@ -4,6 +4,5 @@
     <bytecodeTargetLevel>
       <module name="cafe_management_app" target="16" />
     </bytecodeTargetLevel>
-
   </component>
 </project>

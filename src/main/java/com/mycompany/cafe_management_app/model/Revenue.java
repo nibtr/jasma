@@ -38,9 +38,11 @@ public class Revenue {
     public Revenue() {
     }
 
-    public Revenue(Double income, Double outcome) {
-        this.income = income;
-        this.outcome = outcome;
+    public Revenue(LocalDate time) {
+        this.time = time;
+        this.total = 0.0;
+        this.income = 0.0;
+        this.outcome = 0.0;
     }
 
     public Long getId() {
@@ -65,6 +67,7 @@ public class Revenue {
 
     public void setIncome(Double income) {
         this.income = income;
+        this.total = income - outcome;
     }
 
     public Double getOutcome() {
@@ -73,6 +76,7 @@ public class Revenue {
 
     public void setOutcome(Double outcome) {
         this.outcome = outcome;
+        this.total = income - outcome;
     }
     
     public LocalDate getCheckinTime() {
