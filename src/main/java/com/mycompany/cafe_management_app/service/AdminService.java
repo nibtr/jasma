@@ -69,6 +69,9 @@ public class AdminService {
 
     public void updateDish(Dish t, List<DishDetail> newList) {
         List<DishDetail> currentList = dishDetailDao.getByDishID(t.getId());
+        for (DishDetail dt: newList) {
+            System.out.println(dt.getId() + " " + dt.getSize() + " " + dt.getPrice() + " " + dt.getDish().getId());
+        }
 //        use HashMap to compare
         HashMap<Long, DishDetail> currentMap = new HashMap<>();
         for (DishDetail currentDetail : currentList) {
@@ -81,11 +84,11 @@ public class AdminService {
                 dishDetailDao.save(newDetail);
             }
         }
-        for (DishDetail currentDetail : currentList) {
-            if (!newList.contains(currentDetail)) {
-                dishDetailDao.delete(currentDetail);
-            }
-        }
+//        for (DishDetail currentDetail : currentList) {
+//            if (!newList.contains(currentDetail)) {
+//                dishDetailDao.delete(currentDetail);
+//            }
+//        }
 
         dishDao.update(t);
     }

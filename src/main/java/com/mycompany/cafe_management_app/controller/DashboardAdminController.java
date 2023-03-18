@@ -334,36 +334,41 @@ public class DashboardAdminController {
              listSizePriceInput = dishForm.getListSizePriceInput();
              String name = dishNameInputField.getText();
              if (validateDishForm(name , listSizePriceInput)) {
-                 List<DishDetail> listDetails = null;
-                  System.out.println("validated");
-                   System.out.println(type);
+                 List<DishDetail> newListDetails = null;
+                 List<DishDetail> currListDetails = null;
                 dish.setName(name);
                  if (type.equals("update")) {
-                    listDetails = new ArrayList<>();
-                     System.out.println("set list");
+                    newListDetails = new ArrayList<>();
+                    currListDetails = dish.getDetails();
                  }
+                 int index = 0;
                 for(SizePriceInputItem item: listSizePriceInput) {
                     String size = item.getSizeInput().getText();
                     Double price = Double.parseDouble(item.getPriceInput().getText());
                     DishDetail detail = new DishDetail(size, price);
                     
-                    if (type.compareTo("udpate") == 0) {
-                        listDetails.add(detail);
-                    } else if (type.compareTo("add") == 0) {
+                    if (type.equals("update")) {
+                        if (index < currListDetails.size()) {
+                            detail.setId(currListDetails.get(index).getId());
+                        }
+                        detail.setDish(dish);
+                        newListDetails.add(detail);
+                    } else if (type.equals("add")) {
                         dish.addDetail(detail);
                     }
+                    
+                    index++;
                 }
                 
-                if (type.compareTo("add") == 0) {
+                if (type.equals("add")) {
                     adminService.saveDish(dish);
                     if (errorUtil.getErrorCode() == 0) {
                         new NotificationController("Add dish successfully !");
                     } else {
                         new NotificationController("Add dish failed !");
                     }
-                } else if (type.compareTo("update") == 0) {
-                    System.out.println(dish.getName());
-                    adminService.updateDish(dish, listDetails);
+                } else if (type.equals("update")) {
+                    adminService.updateDish(dish, newListDetails);
                     if (errorUtil.getErrorCode() == 0) {
                         new NotificationController("Update dish successfully !");
                     } else {
@@ -396,7 +401,5 @@ public class DashboardAdminController {
                 wrapListBill.add(new BillItem(index, time, received, returned, total));
             }
        }
-
-       wrapListBill.add(new BillItem("1", "dd-MM-yyyy HH-ss-mm", "30", "40", "50"));
    }
 }
