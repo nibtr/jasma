@@ -13,7 +13,7 @@ import javax.swing.JButton;
  *
  * @author trung
  */
-public class MenuItemStaff extends javax.swing.JPanel {
+public class MenuItemStaffUI extends javax.swing.JPanel {
 
     /**
      * Creates new form MenuItem
@@ -21,7 +21,7 @@ public class MenuItemStaff extends javax.swing.JPanel {
     private DetailsDishFunction detailsDishFunction;
     private Dish dish;
 
-    public MenuItemStaff(Dish dish, DetailsDishFunction detailsDishFunction) {
+    public MenuItemStaffUI(Dish dish, DetailsDishFunction detailsDishFunction) {
         initComponents();
         this.dish = dish;
         this.nameDish.setText(dish.getName());

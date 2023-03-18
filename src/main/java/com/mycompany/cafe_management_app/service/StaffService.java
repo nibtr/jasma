@@ -7,6 +7,7 @@ package com.mycompany.cafe_management_app.service;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.dao.BillDao;
+import com.mycompany.cafe_management_app.dao.BillDetailDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
 import com.mycompany.cafe_management_app.dao.DishDetailDao;
 import com.mycompany.cafe_management_app.dao.RevenueDao;
@@ -14,6 +15,7 @@ import com.mycompany.cafe_management_app.dao.SalaryDao;
 import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Revenue;
@@ -63,6 +65,7 @@ public class StaffService {
     private final DishDao dishDao;
     private final DishDetailDao dishDetailDao;
     private final BillDao billDao;
+    private final BillDetailDao billDetailDao;
     private final StaffDao staffDao;
     private final RevenueDao revenueDao;
     private final SalaryDao salaryDao;
@@ -73,6 +76,7 @@ public class StaffService {
         dishDao = new DishDao();
         dishDetailDao = new DishDetailDao();
         billDao = new BillDao();
+        billDetailDao = new BillDetailDao();
         staffDao = new StaffDao();
         revenueDao = new RevenueDao();
         salaryDao = new SalaryDao();
@@ -109,7 +113,7 @@ public class StaffService {
         DecimalFormat df = new DecimalFormat("#.##");
         Duration duration = Duration.between(t.getCheckinTime(), currentTime);
         double hours = duration.toMillis() / (double) (1000 * 60 * 60);
-        Double formattedHours = Double.parseDouble(df.format(hours));
+        Double formattedHours = Double.valueOf(df.format(hours));
         t.setTotalTime(formattedHours);
 
         // Calculate payment
@@ -140,7 +144,7 @@ public class StaffService {
         upsertRevenueOutcome(t);
 
         // Send CMD=END to server
-        ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
+        // ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
     }
 
     public List<Timekeeping> getAllTimekeeping() {
@@ -217,6 +221,10 @@ public class StaffService {
     public List<Bill> getAllBill() {
         return billDao.getAll();
     }
+    
+    public List<BillDetail> getDetailsByBillID(Long id) {
+        return billDetailDao.getByBillID(id);
+    }
 
     public CompletableFuture<String> makeTransactionAsync(Bill bill, String cardNumber) {
         return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(bill, "TRANSACTION"));
@@ -241,6 +249,22 @@ public class StaffService {
             revenueDao.update(revenue);
         }
     }
+
+
+    public String getTotalRevenue() {
+        Double totalRevenue = 0.0;
+        List<Bill> bills = billDao.getAll();
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        for (Bill b : bills) {
+            if (b.getTimeCreated().getDayOfMonth() == currentTime.getDayOfMonth()
+                    && b.getTimeCreated().getMonthValue() == currentTime.getMonthValue()
+                    && b.getTimeCreated().getYear() == currentTime.getYear()) {
+
+                        totalRevenue += b.getTotalPrice();
+                    }
+        }
+        return String.format("%,.0f", totalRevenue);
 
     private void upsertRevenueOutcome(Timekeeping t) {
         Revenue revenue = revenueDao.getByDate(t.getCheckinTime().toLocalDate());

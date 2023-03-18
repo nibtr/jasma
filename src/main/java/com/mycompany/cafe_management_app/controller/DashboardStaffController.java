@@ -1,11 +1,12 @@
 package com.mycompany.cafe_management_app.controller;
 
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DashboardStaffUI;
-import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DetailsItemStaff;
-import com.mycompany.cafe_management_app.ui.DashboardStaffUI.MenuItemStaff;
-import com.mycompany.cafe_management_app.ui.DashboardStaffUI.OrderHistory;
-import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewOrderForm;
-import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewDishForm;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.DetailsItemStaffUI;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.MenuItemStaffUI;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.OrderHistoryUI;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewOrderFormUI;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewDishFormUI;
+import com.mycompany.cafe_management_app.ui.DashboardStaffUI.BillDetailsUI;
 import com.mycompany.cafe_management_app.ui.DetailsDish;
 
 import com.mycompany.cafe_management_app.model.Bill;
@@ -37,7 +38,6 @@ import java.lang.Integer;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  * @author namho
  */
@@ -48,8 +48,7 @@ public class DashboardStaffController {
     private JPanel wrapListBill;
     private JPanel wrapListDish;
     private JPanel wrapChooseDish;
-    private NewOrderForm NewOrderForm;
-    private NewDishForm NewDishForm;
+    private NewOrderFormUI NewOrderForm;
 
     private Map<DishDetail, Integer> dishDetailQuantities = new HashMap<>();
 
@@ -103,30 +102,25 @@ public class DashboardStaffController {
         for (int i = 0; i < listBill.size(); i++) {
             Bill tmpOrder = listBill.get(i);
             LocalDateTime time = tmpOrder.getTimeCreated();
-            Double totalPriceLabel = tmpOrder.getTotalPrice();
-            Double receiveAmountLabel = tmpOrder.getReceivedAmount();
-            Double returnAmountLabel = tmpOrder.getReturnedAmount();
-            String paymentMethod = tmpOrder.getPaymentMethod();
 
             // Chỉ hiển thị những order trong ngày hôm nay
             if (time.getDayOfMonth() == currentTime.getDayOfMonth()
                     && time.getMonthValue() == currentTime.getMonthValue()
                     && time.getYear() == currentTime.getYear()) {
-                OrderHistory orderHistory = new OrderHistory(tmpOrder, time, totalPriceLabel, receiveAmountLabel,
-                        returnAmountLabel,
-                        paymentMethod);
+                OrderHistoryUI orderHistory = new OrderHistoryUI(tmpOrder, staffService.getDetailsByBillID(tmpOrder.getId()));
                 wrapListBill.add(orderHistory);
                 wrapListBill.repaint();
                 wrapListBill.revalidate();
             }
 
         }
+
     }
 
     private void renderListMenu() {
         List<Dish> listDish = staffService.getAllDish();
         for (Dish dish : listDish) {
-            MenuItemStaff menuItem = new MenuItemStaff(dish, new DetailsDishFunction());
+            MenuItemStaffUI menuItem = new MenuItemStaffUI(dish, new DetailsDishFunction());
             wrapListDish.add(menuItem);
             wrapListDish.repaint();
             wrapListDish.revalidate();
@@ -143,10 +137,7 @@ public class DashboardStaffController {
             JPanel container = frame.getContainer();
             List<DishDetail> list = staffService.getDetailsOf(dish);
             for (DishDetail dt : list) {
-                // System.out.println(dt.getSize());
-                // String size = list.get(i).getSize();
-                // String price = list.get(i).getPrice().toString();
-                container.add(new DetailsItemStaff(dt, DetailsDishFunction()));
+                container.add(new DetailsItemStaffUI(dt, DetailsDishFunction()));
             }
 
             frame.setVisible(true);
@@ -173,19 +164,21 @@ public class DashboardStaffController {
 
         public void addDishDetail(DishDetail dishDetail) {
             dishDetailQuantities.put(dishDetail, dishDetailQuantities.getOrDefault(dishDetail, 0) + 1);
-            NewDishForm newDish = new NewDishForm(dishDetail);
+            NewDishFormUI newDish = new NewDishFormUI(dishDetail);
 
             // Nếu đã có món ăn này trong order thì chỉ cần tăng số lượng lên 1
             for (Component component : wrapChooseDish.getComponents()) {
-                if (component instanceof NewDishForm) {
-                    NewDishForm tmp = (NewDishForm) component;
+                if (component instanceof NewDishFormUI) {
+                    NewDishFormUI tmp = (NewDishFormUI) component;
                     // Nếu đã có món ăn này trong order thì chỉ cần tăng số lượng lên 1
                     if (tmp.getDishDetailId().equals(dishDetail.getId())
                             && tmp.getDishSizeLabel().equals(dishDetail.getSize())) {
                         tmp.setQuantityDish(dishDetailQuantities.get(dishDetail).toString());
                         // Display total price
                         Double totalPrice = calculateTotalPrice();
-                        NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+
+                        String tmpTotal = String.format("%,.0f", totalPrice);
+                        NewOrderForm.getTotalPriceLabel().setText(tmpTotal);
                         return;
 
                     }
@@ -197,9 +190,10 @@ public class DashboardStaffController {
 
             // Display total price
             Double totalPrice = calculateTotalPrice();
-            NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+            String tmpTotal = String.format("%,.0f", totalPrice);
+            NewOrderForm.getTotalPriceLabel().setText(tmpTotal);
 
-            // Delete dish
+            // Delete dis
             newDish.getDeleteDishButton().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -222,7 +216,8 @@ public class DashboardStaffController {
 
                     // Display total price
                     Double totalPrice = calculateTotalPrice();
-                    NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+                    String tmpTotal = String.format("%,.0f", totalPrice);
+                    NewOrderForm.getTotalPriceLabel().setText(tmpTotal);
                 }
             });
         }
@@ -230,14 +225,11 @@ public class DashboardStaffController {
 
     private void initController() {
         staffService = new StaffService();
-        NewOrderForm = new NewOrderForm();
+        NewOrderForm = new NewOrderFormUI();
 
         // check in/out button
         dashboardStaffUI = new DashboardStaffUI();
         dashboardStaffUI.getCheckInOutButton().addActionListener(new CheckInOutButtonListener());
-
-        // Total Revenue
-        // dashboardStaffUI.getRevenuLabel().setText(staffService.getTotalRevenue().toString());
 
         // show list bill
         wrapListBill = dashboardStaffUI.getContainerListBill();
@@ -342,12 +334,28 @@ public class DashboardStaffController {
                         })
                         .thenAccept(res -> {
                             NewOrderForm.setStateProcessing("");
+                            Double totalPrice = 0.0;
+                            NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+
+                            // Clear dish detail quantities
+                            dishDetailQuantities.clear();
+
+                            // Clear wrapChooseDish
+                            NewOrderForm.setReceivedAmountField("");
+                            wrapChooseDish.removeAll();
+
+                            // Calculate revenue
+                            dashboardStaffUI.setRevenuLabel(staffService.getTotalRevenue().toString());
+                            dashboardStaffUI.repaint();
+                            dashboardStaffUI.revalidate();
                             System.out.println("TRANSACTION PROCESS COMPLETED");
                         });
-
             }
 
         });
+
+        // Display revenue
+        dashboardStaffUI.setRevenuLabel(staffService.getTotalRevenue().toString());
 
         dashboardStaffUI.setVisible(true);
     }
