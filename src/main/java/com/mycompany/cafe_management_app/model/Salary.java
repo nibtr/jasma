@@ -4,7 +4,6 @@
  */
 package com.mycompany.cafe_management_app.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +17,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.util.List;
+
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -36,15 +37,16 @@ public class Salary {
 
     @Column(name = "time", columnDefinition = "DATETIME")
     private LocalDate time;
-            
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_staff_id")
     private Staff staff;
 
     public Salary() {
+        this.amount = 0.0;
     }
 
-    public Long getId() {
+    public Long getId(Long currentStaffID) {
         return id;
     }
 
@@ -67,13 +69,13 @@ public class Salary {
     public void setTime(LocalDate Time) {
         this.time = Time;
     }
-    
+
     public Staff getStaff() {
         return staff;
     }
 
-    public void setSalary(Staff staff) {
+    public void setStaff(Staff staff) {
         this.staff = staff;
     }
-    
+
 }

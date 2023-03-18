@@ -7,6 +7,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.net.Socket;
 
+
 public class ClientHandler implements Runnable{
     private Socket clientSocket;
     private BufferedReader in;
@@ -33,9 +34,6 @@ public class ClientHandler implements Runnable{
                 System.out.println("Server: Request received: " + request);
                 handleRequest(request);
 
-//                out.write("Server: Connection established!");
-//                out.newLine();
-//                out.flush();
             } catch (IOException e) {
                 closeEverything(clientSocket, in, out);
                 break;
@@ -79,8 +77,6 @@ public class ClientHandler implements Runnable{
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-//                TODO: Implement transaction logic here
 
                     String res = handleTransaction(JSONObjUtil.getBody(request)) ? "SUCCESS" : "FAILED";
 
