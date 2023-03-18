@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b069f303-40ab-47c5-9b1b-172320d5fd20" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/config/HibernateConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/config/HibernateConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/AccountDao.java" afterDir="false" />
@@ -20,6 +21,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/query/LoginQuery.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/JSONObjUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/JSONObjUtil.java" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -50,14 +50,14 @@ public class Main {
 
                 initAdmin();
 
-                List<BillDetail> list = new BillDetailDao().getByBillID(22L);
-                System.out.println("Dish name" + "\t" + "Size" + "\t" + "Quantity" + "\t" + "Total price");
-                for (BillDetail billDetail : list) {
-                    System.out.println(billDetail.getDishDetail().getDish().getName() + "\t" +
-                            billDetail.getDishDetail().getSize() + "\t" +
-                            billDetail.getQuantity() + "\t" +
-                            billDetail.getPrice());
-                }
+//                List<BillDetail> list = new BillDetailDao().getByBillID(22L);
+//                System.out.println("Dish name" + "\t" + "Size" + "\t" + "Quantity" + "\t" + "Total price");
+//                for (BillDetail billDetail : list) {
+//                    System.out.println(billDetail.getDishDetail().getDish().getName() + "\t" +
+//                            billDetail.getDishDetail().getSize() + "\t" +
+//                            billDetail.getQuantity() + "\t" +
+//                            billDetail.getPrice());
+//                }
 
 
                 LoginController loginController = new LoginController();
