@@ -43,7 +43,7 @@ public class SalaryDao implements DaoInterface<Salary> {
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -62,7 +62,7 @@ public class SalaryDao implements DaoInterface<Salary> {
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
     
@@ -81,7 +81,7 @@ public class SalaryDao implements DaoInterface<Salary> {
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -109,7 +109,7 @@ public class SalaryDao implements DaoInterface<Salary> {
 
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
 
         return list;

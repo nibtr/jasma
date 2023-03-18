@@ -4,21 +4,14 @@
  */
 package com.mycompany.cafe_management_app.service;
 
-import com.mycompany.cafe_management_app.dao.BillDao;
-import com.mycompany.cafe_management_app.dao.DishDao;
-import com.mycompany.cafe_management_app.dao.DishDetailDao;
-import com.mycompany.cafe_management_app.dao.StaffDao;
-import com.mycompany.cafe_management_app.dao.TimekeepingDao;
-import com.mycompany.cafe_management_app.model.Bill;
-import com.mycompany.cafe_management_app.model.Dish;
-import com.mycompany.cafe_management_app.model.DishDetail;
-import com.mycompany.cafe_management_app.model.Staff;
-import com.mycompany.cafe_management_app.model.Timekeeping;
+import com.mycompany.cafe_management_app.dao.*;
+import com.mycompany.cafe_management_app.model.*;
 import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.JSONObjUtil;
 import com.mycompany.cafe_management_app.util.UserSession;
 import java.text.DecimalFormat;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -33,6 +26,8 @@ public class StaffService {
     private final DishDetailDao dishDetailDao;
     private final BillDao billDao;
     private final StaffDao staffDao;
+
+    private final RevenueDao revenueDao;
     private final Staff currentStaff;
 
     public StaffService() {
@@ -41,6 +36,7 @@ public class StaffService {
         dishDetailDao = new DishDetailDao();
         billDao = new BillDao();
         staffDao = new StaffDao();
+        revenueDao = new RevenueDao();
         currentStaff = UserSession.getInstance().getStaff();
     }
 
@@ -69,7 +65,11 @@ public class StaffService {
         // Calculate payment
         t.setTotalPayment(currentStaff.getHourlyRate() * formattedHours);
 
+//        Save the timekeeping to DB
         timekeepingDao.update(t);
+
+//        Upsert the revenue to DB
+        upsertRevenueOutcome(t);
 
         // Send CMD=END to server
         ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
@@ -95,6 +95,8 @@ public class StaffService {
         return dishDetailDao.getByDishID(dish.getId());
     }
 
+
+
     public CompletableFuture<String> createBillAsync(
             Bill bill,
             Double receivedAmount,
@@ -111,6 +113,9 @@ public class StaffService {
                 bill.setReceivedAmount(receivedAmount);
                 bill.setReturnedAmount(receivedAmount - bill.getTotalPrice());
                 billDao.save(bill);
+
+//                Upsert the revenue
+                upsertRevenueIncome(bill);
 
                 return "SUCCESS";
             });
@@ -133,6 +138,9 @@ public class StaffService {
                         billDao.save(bill);
                         System.out.println("Bill saved");
 
+//                        Upsert the revenue
+                        upsertRevenueIncome(bill);
+
                         return "SUCCESS";
                     }
 
@@ -148,13 +156,36 @@ public class StaffService {
         return ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "TRANSACTION"));
     }
 
-    public String getTotalRevenue() {
-        Double totalRevenue = 0.0;
-        List<Bill> bills = billDao.getAll();
-        for (Bill b : bills) {
-            totalRevenue += b.getTotalPrice();
+    public String getTodayRevenue() {
+        Double total = revenueDao.getByDate(LocalDate.now()).getTotal();
+        if (total == null) {
+            return "0";
         }
-        return String.format("%.2f", totalRevenue);
+        return total.toString();
+    }
+
+    private void upsertRevenueIncome(Bill bill) {
+        Revenue revenue = revenueDao.getByDate(bill.getTimeCreated().toLocalDate());
+        if (revenue == null) {
+            revenue = new Revenue(bill.getTimeCreated().toLocalDate());
+            revenue.setIncome(bill.getTotalPrice());
+            revenueDao.save(revenue);
+        } else {
+            revenue.setIncome(revenue.getIncome() + bill.getTotalPrice());
+            revenueDao.update(revenue);
+        }
+    }
+
+    private void upsertRevenueOutcome(Timekeeping t) {
+        Revenue revenue = revenueDao.getByDate(t.getCheckinTime().toLocalDate());
+        if (revenue == null) {
+            revenue = new Revenue(t.getCheckinTime().toLocalDate());
+            revenue.setOutcome(t.getTotalPayment());
+            revenueDao.save(revenue);
+        } else {
+            revenue.setOutcome(revenue.getOutcome() + t.getTotalPayment());
+            revenueDao.update(revenue);
+        }
     }
 
 }

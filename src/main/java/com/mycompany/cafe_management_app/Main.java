@@ -5,7 +5,9 @@
 package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
+import com.mycompany.cafe_management_app.dao.BillDetailDao;
 import com.mycompany.cafe_management_app.model.Account;
+import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.controller.LoginController;
@@ -20,6 +22,7 @@ import org.hibernate.HibernateException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Hieu
@@ -47,8 +50,15 @@ public class Main {
 
                 initAdmin();
 
-                Dish d = new Dish("Banh mi");
-                System.out.println(d.getId());
+                List<BillDetail> list = new BillDetailDao().getByBillID(22L);
+                System.out.println("Dish name" + "\t" + "Size" + "\t" + "Quantity" + "\t" + "Total price");
+                for (BillDetail billDetail : list) {
+                    System.out.println(billDetail.getDishDetail().getDish().getName() + "\t" +
+                            billDetail.getDishDetail().getSize() + "\t" +
+                            billDetail.getQuantity() + "\t" +
+                            billDetail.getPrice());
+                }
+
 
                 LoginController loginController = new LoginController();
                 loginController.getLoginUI().setVisible(true);

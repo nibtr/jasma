@@ -9,6 +9,9 @@ import com.mycompany.cafe_management_app.model.Revenue;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -19,7 +22,7 @@ import org.hibernate.query.Query;
  *
  * @author Legion
  */
-public class RevenueDao implements DaoInterface<Revenue>{
+public class RevenueDao implements DaoInterface<Revenue> {
 
     @Override
     public List<Revenue> getAll() {
@@ -41,7 +44,28 @@ public class RevenueDao implements DaoInterface<Revenue>{
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
+        }
+
+        return revenues;
+    }
+
+    public List<Revenue> getByMonth(int month) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        List<Revenue> revenues = new ArrayList<>();
+
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM Revenue t where MONTH(t.time) = :month ORDER BY t.time ASC");
+            query.setParameter("month", month);
+            revenues = query.getResultList();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
         }
 
         return revenues;
@@ -62,7 +86,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
 
     }
@@ -82,7 +106,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -101,7 +125,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -113,7 +137,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
         try {
             tx = session.beginTransaction();
             Query query = session.createQuery("SELECT * FROM Revenue ORDER BY time DESC");
-            
+
             query.setMaxResults(1);
             latest = (Revenue) query.uniqueResult();
             tx.commit();
@@ -126,9 +150,47 @@ public class RevenueDao implements DaoInterface<Revenue>{
             e.printStackTrace();
 
         } finally {
-            session.close();
+//            session.close();
         }
 
         return latest;
     }
+
+    public Revenue getByDate(LocalDate date) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        Revenue revenue = null;
+
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM Revenue t where t.time = :date");
+            query.setParameter("date", date);
+            revenue = (Revenue) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return revenue;
+    }
+
+    private void upsert(Revenue t) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.saveOrUpdate(t);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
 }
