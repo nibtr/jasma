@@ -13,14 +13,17 @@ import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.service.StaffService;
+import com.mycompany.cafe_management_app.ui.InitErrorUI;
 import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
 import org.hibernate.HibernateException;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -52,9 +55,14 @@ public class Main {
 
                 LoginController loginController = new LoginController();
                 loginController.getLoginUI().setVisible(true);
+            } catch (IOException e) {
+                new InitErrorUI(e.getMessage(), "Error: Connection to payment server failed!");
+            } catch (HibernateException e) {
+                new InitErrorUI(e.getMessage(), "Error: Connection to database failed!");
+            } catch (NullPointerException e) {
+                new InitErrorUI(e.getMessage(), "Error: Connection to database failed!");
             } catch (Exception e) {
                 e.printStackTrace();
-                System.exit(0);
             }
         }
     }

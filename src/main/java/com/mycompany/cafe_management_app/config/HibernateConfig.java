@@ -50,7 +50,6 @@ public class HibernateConfig {
                 configuration.addAnnotatedClass(BillDetail.class);
                 configuration.addAnnotatedClass(Revenue.class);
 
-
 //                Build the service factory
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties())
