@@ -137,7 +137,7 @@ public class Staff {
 
     public void addSalary(Salary salary){
         salaries.add(salary);
-        salary.setSalary(this);
+        salary.setStaff(this);
     }
 
     public void setSalaries(List<Salary> salaries) {

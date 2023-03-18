@@ -14,6 +14,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.hibernate.query.Query;
 
@@ -25,7 +27,29 @@ public class SalaryDao implements DaoInterface<Salary> {
 
     @Override
     public List<Salary> getAll() {
-        return new ArrayList<>();
+
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        List<Salary> salaries = null;
+
+        try {
+            tx = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Salary> criteria = builder.createQuery(Salary.class);
+            Root<Salary> root = criteria.from(Salary.class);
+            criteria.select(root);
+            salaries = session.createQuery(criteria).getResultList();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return salaries;
     }
 
     @Override
@@ -116,4 +140,47 @@ public class SalaryDao implements DaoInterface<Salary> {
 
     }
 
+<<<<<<< Updated upstream
+=======
+
+
+    public Salary getByID(Long staffID, LocalDate date) {
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        Salary salary = null;
+
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM Salary t where staff.id = :staffID AND time = :date" );
+            query.setParameter("staffID", staffID);
+            query.setParameter("date", date);
+            query.setMaxResults(1);
+            salary = (Salary) query.uniqueResult();
+
+//            Initialize the dish
+
+            tx.commit();
+            
+            ErrorUtil.getInstance().setErrorCode(0);
+            
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        
+        return salary;
+    }
+    
+
+    
+
+>>>>>>> Stashed changes
 }

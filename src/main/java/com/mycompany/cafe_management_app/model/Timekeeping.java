@@ -98,4 +98,8 @@ public class Timekeeping {
         this.payment = totalPayment;
     }
 
+    public boolean isEmpty() {
+        return false;
+    }
+
 }
