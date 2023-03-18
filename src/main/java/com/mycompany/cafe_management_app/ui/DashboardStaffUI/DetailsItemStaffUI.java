@@ -95,7 +95,7 @@ public class DetailsItemStaffUI extends javax.swing.JPanel {
 
     private void priceLabelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_priceLabelActionPerformed
 //        String name = dish.getName();
-        Double price = Double.parseDouble(priceLabel.getText());
+        Double price = Double.parseDouble(priceLabel.getText().replace(",", ""));
         String size = sizeLabel.getText();
         detailsDishFunction.addDishDetail(dishDetail);
 

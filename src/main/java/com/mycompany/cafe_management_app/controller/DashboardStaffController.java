@@ -6,7 +6,6 @@ import com.mycompany.cafe_management_app.ui.DashboardStaffUI.MenuItemStaffUI;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.OrderHistoryUI;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewOrderFormUI;
 import com.mycompany.cafe_management_app.ui.DashboardStaffUI.NewDishFormUI;
-import com.mycompany.cafe_management_app.ui.DashboardStaffUI.BillDetailsUI;
 import com.mycompany.cafe_management_app.ui.DetailsDish;
 
 import com.mycompany.cafe_management_app.model.Bill;
@@ -345,7 +344,7 @@ public class DashboardStaffController {
                             wrapChooseDish.removeAll();
 
                             // Calculate revenue
-                            dashboardStaffUI.setRevenuLabel(staffService.getTotalRevenue().toString());
+                            dashboardStaffUI.setRevenueLabel(staffService.getTotalRevenue().toString());
                             dashboardStaffUI.repaint();
                             dashboardStaffUI.revalidate();
                             System.out.println("TRANSACTION PROCESS COMPLETED");
@@ -355,7 +354,7 @@ public class DashboardStaffController {
         });
 
         // Display revenue
-        dashboardStaffUI.setRevenuLabel(staffService.getTotalRevenue().toString());
+        dashboardStaffUI.setRevenueLabel(staffService.getTotalRevenue().toString());
 
         dashboardStaffUI.setVisible(true);
     }
