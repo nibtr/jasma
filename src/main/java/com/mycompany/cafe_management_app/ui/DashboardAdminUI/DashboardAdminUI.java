@@ -33,7 +33,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     public DashboardAdminUI() {
         initComponents();
         cards = (CardLayout)(cardLayout.getLayout());
-        selectBtn(navItemStaff);  
+        selectBtn(navItemStaff);   
     }
     
     public JButton getAddStaffBtn() {
@@ -59,6 +59,14 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         return bgScrollPanelBill;
     }
     
+    public JButton getNavItemChart() {
+        return navItemChart;
+    }
+        
+    public JPanel getChartContainer() {
+        return chartContainer;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +77,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel11 = new javax.swing.JPanel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -108,6 +117,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         scrollPanelBill = new javax.swing.JScrollPane();
         bgScrollPanelBill = new javax.swing.JPanel();
         panelChart = new javax.swing.JPanel();
+        chartContainer = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -505,17 +515,11 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         cardLayout.add(panelBill, "cardBill");
 
         panelChart.setBackground(new java.awt.Color(255, 255, 255));
+        panelChart.setLayout(null);
 
-        javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
-        panelChart.setLayout(panelChartLayout);
-        panelChartLayout.setHorizontalGroup(
-            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 820, Short.MAX_VALUE)
-        );
-        panelChartLayout.setVerticalGroup(
-            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
+        chartContainer.setLayout(new javax.swing.BoxLayout(chartContainer, javax.swing.BoxLayout.PAGE_AXIS));
+        panelChart.add(chartContainer);
+        chartContainer.setBounds(0, 0, 820, 600);
 
         cardLayout.add(panelChart, "cardChart");
 
@@ -579,9 +583,9 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         unselectBtn(navItemMenu );
         unselectBtn(navItemStaff);
         unselectBtn(navItemBill);
-
     }//GEN-LAST:event_navItemChartActionPerformed
     
+
     /**
      * @param args the command line arguments
      */
@@ -626,7 +630,9 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     private javax.swing.JPanel bgScrollPanelMenu;
     private javax.swing.JPanel bgScrollPanelStaff;
     private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage bgStaffPage;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel cardLayout;
+    private com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage chartContainer;
     private javax.swing.JPanel contentBillPage;
     private javax.swing.JPanel contentMenuPage;
     private javax.swing.JPanel contentStaffPage;

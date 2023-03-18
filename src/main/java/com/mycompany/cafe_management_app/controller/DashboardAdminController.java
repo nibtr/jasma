@@ -9,6 +9,7 @@ import com.mycompany.cafe_management_app.model.Account;
 import com.mycompany.cafe_management_app.model.Bill;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
+import com.mycompany.cafe_management_app.model.Revenue;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.service.AdminService;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.BillItem;
@@ -23,6 +24,7 @@ import com.mycompany.cafe_management_app.ui.DashboardAdminUI.StaffItem;
 import com.mycompany.cafe_management_app.ui.MenuItem;
 import com.mycompany.cafe_management_app.ui.DetailsDish;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -33,6 +35,13 @@ import java.util.function.Supplier;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.Plot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -50,7 +59,8 @@ public class DashboardAdminController {
     private JTextField dishNameInputField;
     private List<SizePriceInputItem> listSizePriceInput;
     private ErrorUtil errorUtil;
-
+    private JPanel chartContainer;
+    private DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     
     public DashboardAdminController() {
         initController();
@@ -81,6 +91,10 @@ public class DashboardAdminController {
         renderListBill();
         dashboardAdminUI.setVisible(true);
         re_renderListUI();
+        
+        //Chart ----------------------------------------------------------
+        dashboardAdminUI.getNavItemChart().addActionListener(new ShowChart());
+        chartContainer = dashboardAdminUI.getChartContainer();
     }
        
 //    Staff method ----------------------------------------------------------------------------------------------------------
@@ -113,9 +127,9 @@ public class DashboardAdminController {
     private boolean validation(String username,String pass, String name, String phone,
          String pos, String day, String month, String year) {
 
-     if (username.compareTo("") == 0 | pass.compareTo("") == 0 | name.compareTo("") == 0
-         | phone.compareTo("") == 0 | pos.compareTo("") == 0 | day.compareTo("") == 0
-             | month.compareTo("") == 0 | year.compareTo("") == 0) {
+     if (username.equals("")| pass.equals("")| name.equals("")
+         | phone.equals("")| pos.equals("")| day.equals("")
+             | month.equals("")| year.equals("")) {
              new NotificationController("Fill in all fields, plssss !");
              return false;
          }
@@ -292,7 +306,7 @@ public class DashboardAdminController {
    }
      
     private boolean validateDishForm(String name, List<SizePriceInputItem> list) {
-         if (name.compareTo("") == 0) {
+         if (name.equals("")) {
              new NotificationController("Dish name is invalid !");
              return false;
          }
@@ -303,7 +317,7 @@ public class DashboardAdminController {
          for (SizePriceInputItem item : list) {
              String size = item.getSizeInput().getText();
              String price = item .getPriceInput().getText();
-             if (size.compareTo("") == 0 | price.compareTo("") == 0) {
+             if (size.equals("")| price.equals("")) {
                  new NotificationController("Size or price of dish is invalid !");
                  return false;
              }
@@ -402,4 +416,44 @@ public class DashboardAdminController {
             }
        }
    }
+   //Chart method ------------------------------------------------------------------------------------
+   private class ShowChart implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            chartContainer.removeAll();
+            List<Revenue> listRevenues = adminService.getAllRevenues();
+            System.out.println(listRevenues.size());
+            if (errorUtil.getErrorCode() == 0) {
+                var dataset = new DefaultCategoryDataset();
+                for (Revenue item : listRevenues) {
+                    String time = item.getCheckinTime().format(CUSTOM_FORMATTER);
+                    double revenue = item.getTotal();
+                    dataset.setValue(revenue, "", time);
+                    System.out.println(time + " " + revenue);
+                }
+                chartContainer.add(initChart(dataset));
+            }
+        }
+   }
+   
+    private ChartPanel initChart(CategoryDataset dataset) {
+        JFreeChart chart = createChart(dataset);
+         chart.getCategoryPlot().getRenderer().setSeriesPaint(0, new Color(72, 229, 194));
+       
+        ChartPanel chartPanel = new ChartPanel(chart);
+        return chartPanel;
+    }
+
+    private JFreeChart createChart(CategoryDataset dataset) {
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "",
+                "",
+                "",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false, true, false);
+
+        return barChart;
+    }
 }

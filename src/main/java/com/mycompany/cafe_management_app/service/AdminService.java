@@ -126,8 +126,8 @@ public class AdminService {
         return billDao.getAll();
     }
 
-    public Revenue getRevenueByDate(LocalDate date) {
-        return revenueDao.getByDate(date);
+    public List<Revenue> getAllRevenues() {
+        return revenueDao.getAll();
     }
 
 }
