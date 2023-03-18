@@ -5,11 +5,13 @@
 package com.mycompany.cafe_management_app.service;
 
 import com.mycompany.cafe_management_app.dao.BillDao;
+import com.mycompany.cafe_management_app.dao.BillDetailDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
 import com.mycompany.cafe_management_app.dao.DishDetailDao;
 import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.dao.TimekeepingDao;
 import com.mycompany.cafe_management_app.model.Bill;
+import com.mycompany.cafe_management_app.model.BillDetail;
 import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 import com.mycompany.cafe_management_app.model.Staff;
@@ -32,6 +34,7 @@ public class StaffService {
     private final DishDao dishDao;
     private final DishDetailDao dishDetailDao;
     private final BillDao billDao;
+    private final BillDetailDao billDetailDao;
     private final StaffDao staffDao;
     private final Staff currentStaff;
 
@@ -40,6 +43,7 @@ public class StaffService {
         dishDao = new DishDao();
         dishDetailDao = new DishDetailDao();
         billDao = new BillDao();
+        billDetailDao = new BillDetailDao();
         staffDao = new StaffDao();
         currentStaff = UserSession.getInstance().getStaff();
     }
@@ -142,6 +146,10 @@ public class StaffService {
 
     public List<Bill> getAllBill() {
         return billDao.getAll();
+    }
+    
+    public List<BillDetail> getDetailsByBillID(Long id) {
+        return billDetailDao.getByBillID(id);
     }
 
     public CompletableFuture<String> makeTransactionAsync(Bill bill, String cardNumber) {

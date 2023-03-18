@@ -38,7 +38,6 @@ import java.lang.Integer;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  * @author namho
  */
@@ -108,7 +107,7 @@ public class DashboardStaffController {
             if (time.getDayOfMonth() == currentTime.getDayOfMonth()
                     && time.getMonthValue() == currentTime.getMonthValue()
                     && time.getYear() == currentTime.getYear()) {
-                OrderHistoryUI orderHistory = new OrderHistoryUI(tmpOrder);
+                OrderHistoryUI orderHistory = new OrderHistoryUI(tmpOrder, staffService.getDetailsByBillID(tmpOrder.getId()));
                 wrapListBill.add(orderHistory);
                 wrapListBill.repaint();
                 wrapListBill.revalidate();
@@ -117,7 +116,6 @@ public class DashboardStaffController {
         }
 
     }
-
 
     private void renderListMenu() {
         List<Dish> listDish = staffService.getAllDish();
@@ -178,7 +176,9 @@ public class DashboardStaffController {
                         tmp.setQuantityDish(dishDetailQuantities.get(dishDetail).toString());
                         // Display total price
                         Double totalPrice = calculateTotalPrice();
-                        NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+
+                        String tmpTotal = String.format("%,.0f", totalPrice);
+                        NewOrderForm.getTotalPriceLabel().setText(tmpTotal);
                         return;
 
                     }
@@ -190,9 +190,10 @@ public class DashboardStaffController {
 
             // Display total price
             Double totalPrice = calculateTotalPrice();
-            NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+            String tmpTotal = String.format("%,.0f", totalPrice);
+            NewOrderForm.getTotalPriceLabel().setText(tmpTotal);
 
-            // Delete dish
+            // Delete dis
             newDish.getDeleteDishButton().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -215,7 +216,8 @@ public class DashboardStaffController {
 
                     // Display total price
                     Double totalPrice = calculateTotalPrice();
-                    NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+                    String tmpTotal = String.format("%,.0f", totalPrice);
+                    NewOrderForm.getTotalPriceLabel().setText(tmpTotal);
                 }
             });
         }
@@ -232,7 +234,6 @@ public class DashboardStaffController {
         // show list bill
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
-
 
         // show new order form
         dashboardStaffUI.getAddOrderBtn().addActionListener(new ActionListener() {
@@ -355,7 +356,7 @@ public class DashboardStaffController {
 
         // Display revenue
         dashboardStaffUI.setRevenuLabel(staffService.getTotalRevenue().toString());
-        
+
         dashboardStaffUI.setVisible(true);
     }
 

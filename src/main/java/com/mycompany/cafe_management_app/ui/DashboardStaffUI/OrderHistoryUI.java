@@ -10,6 +10,7 @@ import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.BillDetail;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.swing.JButton;
 
@@ -23,12 +24,14 @@ public class OrderHistoryUI extends javax.swing.JPanel {
      * Creates new form StaffItem
      */
     private Bill bill;
+    private List<BillDetail> list;
   
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-    public OrderHistoryUI(Bill bill) {
+    public OrderHistoryUI(Bill bill, List<BillDetail> list) {
         initComponents();
         this.bill = bill;
+        this.list = list;
       
         String formatDateTime = bill.getTimeCreated().format(formatter);
         timeLabel.setText(formatDateTime.toString());
@@ -116,7 +119,7 @@ public class OrderHistoryUI extends javax.swing.JPanel {
                 .addComponent(receiveAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(returnAmountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(25, 25, 25)
                 .addComponent(paymentMethodLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(detailBillButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,7 +142,7 @@ public class OrderHistoryUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void detailBillButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_detailBillButtonActionPerformed
-        new BillDetailsController(bill);
+        new BillDetailsController(bill, list);
     }// GEN-LAST:event_detailBillButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

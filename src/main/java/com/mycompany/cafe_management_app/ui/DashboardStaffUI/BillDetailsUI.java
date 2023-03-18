@@ -8,7 +8,6 @@ import com.mycompany.cafe_management_app.model.DishDetail;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 /**
  *
  * @author Administrator
@@ -18,13 +17,8 @@ public class BillDetailsUI extends javax.swing.JFrame {
     /**
      * Creates new form BillDetails
      */
-
     public void settimeBillLabel(String timeLabel) {
         timeBillLabel.setText(timeLabel);
-    }
-
-    public void setstaffBillLabel(String staffLabel) {
-        staffBillLabel.setText(staffLabel);
     }
 
     public void setmethodBillLabel(String methodLabel) {
@@ -74,8 +68,6 @@ public class BillDetailsUI extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         scrollPanelPayment = new javax.swing.JScrollPane();
         bgPanelPayment = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        staffBillLabel = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         methodBillLabel = new javax.swing.JLabel();
@@ -86,11 +78,13 @@ public class BillDetailsUI extends javax.swing.JFrame {
         returnBillLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(385, 510));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Time:");
 
@@ -100,17 +94,19 @@ public class BillDetailsUI extends javax.swing.JFrame {
         jLabel2.setText("La Cà Coffee");
 
         timeBillLabel.setBackground(new java.awt.Color(255, 255, 255));
+        timeBillLabel.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         timeBillLabel.setForeground(new java.awt.Color(0, 0, 0));
         timeBillLabel.setText("18/03/2023");
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setMaximumSize(new java.awt.Dimension(348, 412));
-        jPanel8.setPreferredSize(new java.awt.Dimension(348, 412));
+        jPanel8.setMaximumSize(new java.awt.Dimension(385, 360));
+        jPanel8.setPreferredSize(new java.awt.Dimension(385, 360));
         jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel9.setBackground(new java.awt.Color(200, 200, 200));
-        jPanel9.setMaximumSize(new java.awt.Dimension(385, 35));
-        jPanel9.setMinimumSize(new java.awt.Dimension(385, 35));
+        jPanel9.setMaximumSize(new java.awt.Dimension(385, 30));
+        jPanel9.setMinimumSize(new java.awt.Dimension(385, 30));
+        jPanel9.setPreferredSize(new java.awt.Dimension(385, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
@@ -129,13 +125,13 @@ public class BillDetailsUI extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(jLabel12)
-                .addGap(58, 58, 58)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel13)
-                .addGap(62, 62, 62)
+                .addGap(74, 74, 74)
                 .addComponent(jLabel14)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGap(60, 60, 60))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,15 +158,6 @@ public class BillDetailsUI extends javax.swing.JFrame {
         scrollPanelPayment.setViewportView(bgPanelPayment);
 
         jPanel8.add(scrollPanelPayment);
-
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Staff Name:");
-
-        staffBillLabel.setBackground(new java.awt.Color(255, 255, 255));
-        staffBillLabel.setForeground(new java.awt.Color(0, 0, 0));
-        staffBillLabel.setText("Trung");
 
         jLabel15.setBackground(new java.awt.Color(255, 255, 255));
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -213,9 +200,9 @@ public class BillDetailsUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(105, 105, 105)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103))
+                .addGap(105, 105, 105))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,10 +210,6 @@ public class BillDetailsUI extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(timeBillLabel))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(staffBillLabel))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -237,21 +220,22 @@ public class BillDetailsUI extends javax.swing.JFrame {
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(receiveBillLabel)))
-                        .addGap(31, 31, 31)
+                        .addGap(61, 61, 61)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(returnBillLabel))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(totalBillLabel))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(returnBillLabel)))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                                .addComponent(totalBillLabel)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(2, 2, 2)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,28 +245,24 @@ public class BillDetailsUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(timeBillLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 369, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(staffBillLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
                     .addComponent(jLabel16)
                     .addComponent(methodBillLabel)
+                    .addComponent(jLabel15)
                     .addComponent(totalBillLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(jLabel20)
                     .addComponent(receiveBillLabel)
+                    .addComponent(jLabel20)
                     .addComponent(returnBillLabel))
-                .addGap(7, 7, 7))
+                .addGap(26, 26, 26))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(94, 94, 94)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(58, Short.MAX_VALUE)))
+                    .addGap(80, 80, 80)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addGap(90, 90, 90)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -293,9 +273,7 @@ public class BillDetailsUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -335,7 +313,6 @@ public class BillDetailsUI extends javax.swing.JFrame {
     //                 ex);
     //     }
     //     // </editor-fold>
-
     //     /* Create and display the form */
     //     java.awt.EventQueue.invokeLater(new Runnable() {
     //         public void run() {
@@ -355,7 +332,6 @@ public class BillDetailsUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -363,7 +339,6 @@ public class BillDetailsUI extends javax.swing.JFrame {
     private javax.swing.JLabel receiveBillLabel;
     private javax.swing.JLabel returnBillLabel;
     private javax.swing.JScrollPane scrollPanelPayment;
-    private javax.swing.JLabel staffBillLabel;
     private javax.swing.JLabel timeBillLabel;
     private javax.swing.JLabel totalBillLabel;
     // End of variables declaration//GEN-END:variables

@@ -31,7 +31,8 @@ public class NewDishFormUI extends javax.swing.JPanel {
         if (dishDetail.getDish() != null && dishDetail.getSize() != null && dishDetail.getPrice() != null) {
             inventoryNameLabel.setText(dishDetail.getDish().getName());
             dishSizeLabel.setText(dishDetail.getSize());
-            dishPriceLabel.setText(dishDetail.getPrice().toString());
+            String price = String.format("%,.0f", dishDetail.getPrice());
+            dishPriceLabel.setText(price);
         }
     }
 
@@ -127,9 +128,9 @@ public class NewDishFormUI extends javax.swing.JPanel {
                 .addComponent(inventoryNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(dishSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(dishPriceLabel)
-                .addGap(45, 45, 45)
+                .addGap(48, 48, 48)
                 .addComponent(deleteDishButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );

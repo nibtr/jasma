@@ -28,7 +28,10 @@ public class DetailsItemStaffUI extends javax.swing.JPanel {
         this.dishDetail = dishDetail;
 //        this.dish = dish;
         this.sizeLabel.setText(dishDetail.getSize());
-        this.priceLabel.setText(dishDetail.getPrice().toString());
+        
+        String totalPrice = String.format("%,.0f", dishDetail.getPrice());
+        
+        this.priceLabel.setText(totalPrice);
         this.detailsDishFunction = detailsDishFunction;
     }
 
