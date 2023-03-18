@@ -95,16 +95,10 @@ public class StaffService {
         Long currentStaffID = currentStaff.getId();
         Timekeeping t = timekeepingDao.getLatestOf(currentStaffID);
         Double payment = 0.0;
-        Double payment1 = 0.0;
-
         LocalDate current = LocalDate.now();
         int year = current.getYear();
         int month = current.getMonthValue();
         LocalDate currentMonthYear = LocalDate.of(year, month, 1);
-
-        List<Timekeeping> list = new ArrayList<>();
-        List<Salary> salaryList = new ArrayList<>();
-        Salary salary = new Salary();
 
         // Set checkout time
         t.setCheckoutTime(currentTime);
@@ -121,14 +115,14 @@ public class StaffService {
         timekeepingDao.update(t);
 
         // Calculate the staff salary
-        salary = salaryDao.getByID(currentStaffID, currentMonthYear);
+        Salary salary = salaryDao.getByID(currentStaffID, currentMonthYear);
         if (salary == null) {
-            payment1 += t.getTotalPayment();
+            payment += t.getTotalPayment();
             Salary sal = new Salary();
             sal.setAmount(payment);
             sal.setStaff(currentStaff);
             sal.setTime(currentMonthYear);
-            System.out.println("Payment : " + payment1);
+            System.out.println("Payment : " + payment);
             salaryDao.save(sal);
 
         } else {
@@ -250,21 +244,13 @@ public class StaffService {
         }
     }
 
-
     public String getTotalRevenue() {
-        Double totalRevenue = 0.0;
-        List<Bill> bills = billDao.getAll();
-        LocalDateTime currentTime = LocalDateTime.now();
-
-        for (Bill b : bills) {
-            if (b.getTimeCreated().getDayOfMonth() == currentTime.getDayOfMonth()
-                    && b.getTimeCreated().getMonthValue() == currentTime.getMonthValue()
-                    && b.getTimeCreated().getYear() == currentTime.getYear()) {
-
-                        totalRevenue += b.getTotalPrice();
-                    }
+        Revenue revenue = revenueDao.getByDate(LocalDate.now());
+        if (revenue == null) {
+            return "0.0";
         }
-        return String.format("%,.0f", totalRevenue);
+        return String.format("%,.0f", revenue.getTotal());
+    }
 
     private void upsertRevenueOutcome(Timekeeping t) {
         Revenue revenue = revenueDao.getByDate(t.getCheckinTime().toLocalDate());

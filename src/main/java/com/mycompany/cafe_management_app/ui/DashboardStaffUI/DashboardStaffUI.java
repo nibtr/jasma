@@ -20,7 +20,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         return revenuLabel.getText();
     }
 
-    public void setRevenuLabel(String revenuLabel) {
+    public void setRevenueLabel(String revenuLabel) {
         this.revenuLabel.setText(revenuLabel);
     }
 
