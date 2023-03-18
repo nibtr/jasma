@@ -12,6 +12,7 @@ import com.mycompany.cafe_management_app.model.Staff;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Hieu
@@ -68,23 +69,37 @@ public class AdminService {
     }
 
     public void updateDish(Dish t, List<DishDetail> newList) {
-        List<DishDetail> currentList = dishDetailDao.getByDishID(t.getId());
+        System.out.println("New list:");
         for (DishDetail dt: newList) {
             System.out.println(dt.getId() + " " + dt.getSize() + " " + dt.getPrice() + " " + dt.getDish().getId());
         }
-//        use HashMap to compare
+
+//        Get the list from database
+        List<DishDetail> dbList = dishDetailDao.getByDishID(t.getId());
+
+//        Put the list from database into a map
         HashMap<Long, DishDetail> currentMap = new HashMap<>();
-        for (DishDetail currentDetail : currentList) {
-            currentMap.put(currentDetail.getId(), currentDetail);
+        for (DishDetail dt : dbList) {
+            currentMap.put(dt.getId(), dt);
         }
+
         for (DishDetail newDetail : newList) {
-            if (currentMap.containsKey(newDetail.getId())) {
-                dishDetailDao.update(newDetail);
-            } else {
+            DishDetail currentDetail = currentMap.get(newDetail.getId());
+//            System.out.println("Updated:");
+
+            if (currentDetail != null) {
+                currentDetail.setPrice(newDetail.getPrice());
+                currentDetail.setSize(newDetail.getSize());
+                System.out.println(currentDetail.getId() + " " + currentDetail.getSize() + " " + currentDetail.getPrice() + " " + currentDetail.getDish().getId());
+
+                dishDetailDao.update(currentDetail);
+            }
+            else {
                 dishDetailDao.save(newDetail);
             }
         }
-//        for (DishDetail currentDetail : currentList) {
+
+//        for (DishDetail currentDetail : dbList) {
 //            if (!newList.contains(currentDetail)) {
 //                dishDetailDao.delete(currentDetail);
 //            }

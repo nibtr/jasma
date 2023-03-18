@@ -46,7 +46,7 @@ public class AccountDao implements DaoInterface<Account>{
 
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
         
         return account;
@@ -79,7 +79,7 @@ public class AccountDao implements DaoInterface<Account>{
             
             return null;
         } finally {
-            session.close();
+//            session.close();
         } 
     }
 
@@ -109,7 +109,7 @@ public class AccountDao implements DaoInterface<Account>{
             
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
 
         return accountList;
@@ -140,7 +140,7 @@ public class AccountDao implements DaoInterface<Account>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
 
@@ -172,7 +172,7 @@ public class AccountDao implements DaoInterface<Account>{
            
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
 }

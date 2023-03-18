@@ -41,7 +41,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
 
         return revenues;
@@ -62,7 +62,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
 
     }
@@ -82,7 +82,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -101,7 +101,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
             }
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 
@@ -126,7 +126,7 @@ public class RevenueDao implements DaoInterface<Revenue>{
             e.printStackTrace();
 
         } finally {
-            session.close();
+//            session.close();
         }
 
         return latest;

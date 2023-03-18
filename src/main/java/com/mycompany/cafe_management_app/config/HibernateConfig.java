@@ -34,7 +34,7 @@ public class HibernateConfig {
                 configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
                 configuration.setProperty("hibernate.connection.url", "jdbc:mysql://127.0.0.1:3306/cafe_management");
                 configuration.setProperty("hibernate.connection.username", "root");
-                configuration.setProperty("hibernate.connection.password", "root");
+                configuration.setProperty("hibernate.connection.password", "password");
                 configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
                 configuration.setProperty("hibernate.hbm2ddl.auto", "update");
                 configuration.setProperty("hibernate.current_session_context_class", "thread");
@@ -47,7 +47,6 @@ public class HibernateConfig {
                 configuration.addAnnotatedClass(DishDetail.class);
                 configuration.addAnnotatedClass(Bill.class);
                 configuration.addAnnotatedClass(Salary.class);
-
                 configuration.addAnnotatedClass(BillDetail.class);
                 configuration.addAnnotatedClass(Revenue.class);
 

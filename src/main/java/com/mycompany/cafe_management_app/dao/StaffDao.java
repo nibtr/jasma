@@ -48,7 +48,7 @@ public class StaffDao implements DaoInterface<Staff>{
             e.printStackTrace();
 
         } finally {
-            session.close();
+//            session.close();
         } 
         
         return staffs;
@@ -79,7 +79,7 @@ public class StaffDao implements DaoInterface<Staff>{
             e.printStackTrace();
             
         } finally {
-            session.close();
+//            session.close();
         }  
         
         return staffs;
@@ -106,7 +106,7 @@ public class StaffDao implements DaoInterface<Staff>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
         
         return staff;
@@ -143,7 +143,7 @@ public class StaffDao implements DaoInterface<Staff>{
             ErrorUtil.getInstance().setMessage("Something went wrong");
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
 
@@ -170,7 +170,7 @@ public class StaffDao implements DaoInterface<Staff>{
            
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
 
@@ -196,7 +196,7 @@ public class StaffDao implements DaoInterface<Staff>{
             
             e.printStackTrace();
         } finally {
-            session.close();
+//            session.close();
         }  
     }
     
