@@ -27,6 +27,7 @@ import com.mycompany.cafe_management_app.model.*;
 import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.JSONObjUtil;
 import com.mycompany.cafe_management_app.util.UserSession;
+import com.mycompany.payment_system.ClosePaymentConnection;
 import com.mysql.cj.xdevapi.SessionFactory;
 
 import jakarta.transaction.HeuristicMixedException;
@@ -137,11 +138,11 @@ public class StaffService {
 //        Upsert the revenue to DB
         upsertRevenueOutcome(t);
 
-        // Send CMD=END to server
+        // Close connection with payment server
         try {
-            ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
+            ClosePaymentConnection.closeConnectionWithPaymentServer();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
