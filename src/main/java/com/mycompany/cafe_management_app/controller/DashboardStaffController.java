@@ -107,7 +107,8 @@ public class DashboardStaffController {
             if (time.getDayOfMonth() == currentTime.getDayOfMonth()
                     && time.getMonthValue() == currentTime.getMonthValue()
                     && time.getYear() == currentTime.getYear()) {
-                OrderHistoryUI orderHistory = new OrderHistoryUI(tmpOrder, staffService.getDetailsByBillID(tmpOrder.getId()));
+                OrderHistoryUI orderHistory = new OrderHistoryUI(tmpOrder,
+                        staffService.getDetailsByBillID(tmpOrder.getId()));
                 wrapListBill.add(orderHistory);
                 wrapListBill.repaint();
                 wrapListBill.revalidate();
@@ -193,7 +194,7 @@ public class DashboardStaffController {
             String tmpTotal = String.format("%,.0f", totalPrice);
             NewOrderForm.getTotalPriceLabel().setText(tmpTotal);
 
-            // Delete dis
+            // Delete dish
             newDish.getDeleteDishButton().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -323,12 +324,22 @@ public class DashboardStaffController {
                                 wrapListBill.repaint();
                                 wrapListBill.revalidate();
 
+                                Double totalPrice = 0.0;
+                                NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
+
+                                // Clear dish detail quantities
+                                dishDetailQuantities.clear();
+
+                                // Clear wrapChooseDish
+                                NewOrderForm.setReceivedAmountField("");
+                                wrapChooseDish.removeAll();
+
                                 // Close form
                                 NewOrderForm.setVisible(false);
-                                wrapChooseDish.removeAll();
                             } else if (res.equals("TIMEOUT")) {
                                 System.out.println("TRANSACTION TIMEOUT!");
-                                JOptionPane.showMessageDialog(NewOrderForm, " SERVER NOT RESPONDING, PLEASE RESTART THE APPLICATION");
+                                JOptionPane.showMessageDialog(NewOrderForm,
+                                        " SERVER NOT RESPONDING, PLEASE RESTART THE APPLICATION");
                             } else {
                                 System.out.println("TRANSACTION FAILED!");
                                 JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
@@ -338,15 +349,6 @@ public class DashboardStaffController {
                         })
                         .thenAccept(res -> {
                             NewOrderForm.setStateProcessing("");
-                            Double totalPrice = 0.0;
-                            NewOrderForm.getTotalPriceLabel().setText(totalPrice.toString());
-
-                            // Clear dish detail quantities
-                            dishDetailQuantities.clear();
-
-                            // Clear wrapChooseDish
-                            NewOrderForm.setReceivedAmountField("");
-                            wrapChooseDish.removeAll();
 
                             // Calculate revenue
                             dashboardStaffUI.setRevenueLabel(staffService.getTotalRevenue().toString());

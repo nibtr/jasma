@@ -35,7 +35,6 @@ public class OrderHistoryUI extends javax.swing.JPanel {
       
         String formatDateTime = bill.getTimeCreated().format(formatter);
         timeLabel.setText(formatDateTime.toString());
-        // format bill.getTotalPrice().toString() thành %,.0f
 
         String totalPrice = String.format("%,.0f", bill.getTotalPrice());
         String receiveAmount = String.format("%,.0f", bill.getReceivedAmount());
