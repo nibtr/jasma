@@ -111,6 +111,9 @@ public class StaffService {
         Duration duration = Duration.between(t.getCheckinTime(), currentTime);
         double hours = duration.toMillis() / (double) (1000 * 60 * 60);
         Double formattedHours = Double.valueOf(df.format(hours));
+        // cắt dấu , của double
+        formattedHours = Double.parseDouble(formattedHours.toString().replace(",", "."));
+        
         t.setTotalTime(formattedHours);
 
         // Calculate payment

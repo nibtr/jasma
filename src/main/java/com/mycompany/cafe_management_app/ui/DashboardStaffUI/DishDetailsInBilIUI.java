@@ -26,10 +26,6 @@ public class DishDetailsInBilIUI extends javax.swing.JPanel {
        dishSizeLabel.setText(billDetail.getDishDetail().getSize());
        dishPriceLabel.setText(billDetail.getPrice().toString());
 
-        // quantityDish.setText("1");
-        // inventoryNameLabel.setText("Cafe");
-        // dishSizeLabel.setText("S");
-        // dishPriceLabel.setText("20.000");
     }
 
     /**

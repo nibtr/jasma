@@ -53,13 +53,8 @@ public class Main {
                 ClientUtil.getInstance();
 
                 initAdmin();
-
-                List<Staff> staffs = new AdminService().searchStaffByName("hi");
-                System.out.println(staffs.get(0).getName());
-
-                List<Dish> dishes = new AdminService().searchDishByName("caf");
-                System.out.println(dishes.get(0).getName());
-
+                
+             
                 LoginController loginController = new LoginController();
                 loginController.getLoginUI().setVisible(true);
 
