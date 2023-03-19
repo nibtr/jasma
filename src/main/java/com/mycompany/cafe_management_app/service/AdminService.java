@@ -7,10 +7,8 @@ package com.mycompany.cafe_management_app.service;
 import com.mycompany.cafe_management_app.dao.*;
 import com.mycompany.cafe_management_app.model.*;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Hieu
@@ -36,8 +34,8 @@ public class AdminService {
         return staffDao.getAll();
     }
 
-    public List<Staff> getStaffsByName(String name) {
-        return staffDao.getByName(name);
+    public List<Staff> searchStaffByName(String name) {
+        return staffDao.searchByName(name);
     }
 
     public void saveStaff(Staff t) {
@@ -56,8 +54,8 @@ public class AdminService {
         return dishDao.getAll();
     }
 
-    public Dish getDishByName(String name) {
-        return dishDao.getByName(name);
+    public List<Dish> searchDishByName(String name) {
+        return dishDao.searchByName(name);
     }
 
     public Dish getDishByID(Long id) {
@@ -68,6 +66,7 @@ public class AdminService {
         dishDao.save(t);
     }
 
+//    This function doesn't work
     public void updateDish(Dish t, List<DishDetail> newList) {
         System.out.println("New list:");
         for (DishDetail dt: newList) {

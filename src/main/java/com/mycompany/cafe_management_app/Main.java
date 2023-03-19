@@ -12,6 +12,7 @@ import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.StaffDao;
+import com.mycompany.cafe_management_app.service.AdminService;
 import com.mycompany.cafe_management_app.service.StaffService;
 import com.mycompany.cafe_management_app.ui.InitErrorUI;
 import com.mycompany.cafe_management_app.util.ClientUtil;
@@ -53,8 +54,15 @@ public class Main {
 
                 initAdmin();
 
+                List<Staff> staffs = new AdminService().searchStaffByName("hi");
+                System.out.println(staffs.get(0).getName());
+
+                List<Dish> dishes = new AdminService().searchDishByName("caf");
+                System.out.println(dishes.get(0).getName());
+
                 LoginController loginController = new LoginController();
                 loginController.getLoginUI().setVisible(true);
+
             } catch (IOException e) {
                 new InitErrorUI(e.getMessage(), "Error: Connection to payment server failed!");
             } catch (HibernateException e) {

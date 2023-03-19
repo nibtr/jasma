@@ -13,22 +13,20 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class ClientUtil {
     public static ClientUtil instance;
-    private SSLSocket socket;
+    private final SSLSocket socket;
 
-    private TrustManagerFactory tmf;
-    private KeyStore ks;
+    private final TrustManagerFactory tmf;
+    private final KeyStore ks;
     private char[] password = "password".toCharArray();
-    private FileInputStream fis;
-    private SSLContext sslContext;
+    private final FileInputStream fis;
+    private final SSLContext sslContext;
 
-
-
-
-    private BufferedWriter out;
-    private BufferedReader in;
+    private final BufferedWriter out;
+    private final BufferedReader in;
 
     private ClientUtil() throws IOException {
         try {

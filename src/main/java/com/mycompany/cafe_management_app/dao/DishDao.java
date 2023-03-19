@@ -6,6 +6,7 @@ package com.mycompany.cafe_management_app.dao;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -58,7 +59,38 @@ public class DishDao implements DaoInterface<Dish> {
 
         return dishes;
     }
-    
+
+    public List<Dish> searchByName(String name) {
+        String hql = "FROM Dish a WHERE a.name like :search";
+        Session session = HibernateConfig.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        List<Dish> dishes = new ArrayList<>();
+
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery(hql);
+            query.setParameter("search", "%" + name + "%");
+            dishes = query.list();
+            tx.commit();
+
+            ErrorUtil.getInstance().setErrorCode(0);
+
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+
+            ErrorUtil.getInstance().setErrorCode(1);
+            ErrorUtil.getInstance().setMessage("Something went wrong");
+            e.printStackTrace();
+
+        } finally {
+//            session.close();
+        }
+
+        return dishes;
+    }
+
     public Dish getByName(String name) {
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;

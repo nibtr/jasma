@@ -23,8 +23,6 @@ public class ClientHandler implements Runnable{
     private SSLContext sslContext;
     private SSLSocketFactory ssf;
 
-
-
     private BufferedReader in;
     private BufferedWriter out;
 

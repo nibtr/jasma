@@ -23,8 +23,8 @@ import org.hibernate.query.Query;
  * @author Hieu
  */
 public class StaffDao implements DaoInterface<Staff>{
-    public List<Staff> getByName(String name) {
-        String hql = "FROM Staff a WHERE a.name = :name";
+    public List<Staff> searchByName(String name) {
+        String hql = "FROM Staff a WHERE a.name like :search";
         Session session = HibernateConfig.getSessionFactory().getCurrentSession();
         Transaction tx = null;
         List<Staff> staffs = new ArrayList<>();
@@ -32,7 +32,7 @@ public class StaffDao implements DaoInterface<Staff>{
         try {
             tx = session.beginTransaction();
             Query query = session.createQuery(hql);
-            query.setParameter("name", name);
+            query.setParameter("search", "%" + name + "%");
             staffs = query.list();
             tx.commit(); 
             
