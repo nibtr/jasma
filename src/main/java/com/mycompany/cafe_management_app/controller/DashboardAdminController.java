@@ -16,6 +16,7 @@ import com.mycompany.cafe_management_app.ui.DashboardAdminUI.BillItem;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.ConfirmBeforeDelete;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.DashboardAdminUI;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.DishForm;
+import com.mycompany.cafe_management_app.ui.InitErrorUI;
 import com.mycompany.cafe_management_app.util.callback.DeleteEvent;
 import com.mycompany.cafe_management_app.util.callback.EditEvent;
 import com.mycompany.cafe_management_app.ui.DashboardAdminUI.NewStaffForm;
@@ -25,16 +26,16 @@ import com.mycompany.cafe_management_app.ui.MenuItem;
 import com.mycompany.cafe_management_app.ui.DetailsDish;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+
+import com.mycompany.payment_system.ClosePaymentConnection;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -68,6 +69,7 @@ public class DashboardAdminController {
     
     private void initController() {
         dashboardAdminUI = new DashboardAdminUI();
+        dashboardAdminUI.addWindowListener(new CloseConnection());
         adminService = new AdminService();
         errorUtil = ErrorUtil.getInstance();
        
@@ -96,7 +98,48 @@ public class DashboardAdminController {
         dashboardAdminUI.getNavItemChart().addActionListener(new ShowChart());
         chartContainer = dashboardAdminUI.getChartContainer();
     }
-       
+
+//    Add window listener
+    private class CloseConnection implements WindowListener {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            dashboardAdminUI.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            int confirmed = JOptionPane.showConfirmDialog(
+                    null,
+                    "Are you sure you want to exit?",
+                    "Confirm Exit",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirmed == JOptionPane.YES_OPTION) {
+                try {
+                    ClosePaymentConnection.closeConnectionWithPaymentServer();
+                    dashboardAdminUI.dispose();
+                    System.exit(0);
+                } catch (IOException ex) {
+                    new InitErrorUI("Error", "Cannot close connection with payment server");
+                    ex.printStackTrace();
+                }
+            }
+        }
+        @Override
+        public void windowOpened(WindowEvent e) {
+        }
+        @Override
+        public void windowClosed(WindowEvent e) {
+        }
+        @Override
+        public void windowIconified(WindowEvent e) {
+        }
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+        }
+        @Override
+        public void windowActivated(WindowEvent e) {
+        }
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+        }
+    }
+
 //    Staff method ----------------------------------------------------------------------------------------------------------
     private void renderListStaff() {
         List<Staff> listStaff = adminService.getAllStaff();
@@ -204,7 +247,7 @@ public class DashboardAdminController {
             } 
         }
         
-    private class saveStaff implements  ActionListener {
+    private class saveStaff implements ActionListener {
         private NewStaffForm form;
         public saveStaff(NewStaffForm form) {
             this.form = form;

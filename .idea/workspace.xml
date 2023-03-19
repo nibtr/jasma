@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b069f303-40ab-47c5-9b1b-172320d5fd20" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardAdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardStaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardStaffController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/DishDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/DishDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/StaffDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/dao/StaffDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/StaffService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/StaffService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/ClientUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/ClientUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/payment_system/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/payment_system/ClientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +67,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/mycompany/payment_system" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mycompany.cafe_management_app.Main" />
       <module name="cafe_management_app" />

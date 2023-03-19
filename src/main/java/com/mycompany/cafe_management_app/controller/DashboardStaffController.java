@@ -15,11 +15,17 @@ import com.mycompany.cafe_management_app.model.Dish;
 import com.mycompany.cafe_management_app.model.DishDetail;
 
 import com.mycompany.cafe_management_app.service.StaffService;
+import com.mycompany.cafe_management_app.ui.InitErrorUI;
+import com.mycompany.cafe_management_app.ui.LoginUI;
+import com.mycompany.payment_system.ClosePaymentConnection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -234,6 +240,30 @@ public class DashboardStaffController {
         // show list bill
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
+
+//        add window listener
+        dashboardStaffUI.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dashboardStaffUI.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                int confirmed = JOptionPane.showConfirmDialog(
+                        null,
+                        "Are you sure you want to exit?",
+                        "Confirm Exit",
+                        JOptionPane.YES_NO_OPTION);
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    try {
+                        ClosePaymentConnection.closeConnectionWithPaymentServer();
+                        super.windowClosing(e);
+                        dashboardStaffUI.dispose();
+                        System.exit(0);
+                    } catch (IOException ex) {
+                        new InitErrorUI("Error", "Cannot close connection with payment server");
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
 
         // show new order form
         dashboardStaffUI.getAddOrderBtn().addActionListener(new ActionListener() {
