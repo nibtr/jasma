@@ -35,6 +35,7 @@ import jakarta.transaction.RollbackException;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.Transaction;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -122,7 +123,6 @@ public class StaffService {
             sal.setAmount(payment);
             sal.setStaff(currentStaff);
             sal.setTime(currentMonthYear);
-            System.out.println("Payment : " + payment);
             salaryDao.save(sal);
 
         } else {
@@ -130,7 +130,6 @@ public class StaffService {
             payment += t.getTotalPayment();
             salary.setAmount(salary.getAmount() + payment);
             salaryDao.update(salary);
-            System.out.println("Payment : " + payment);
 
         }
 
@@ -138,7 +137,11 @@ public class StaffService {
         upsertRevenueOutcome(t);
 
         // Send CMD=END to server
-        // ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
+        try {
+            ClientUtil.getInstance().sendRequestAsync(JSONObjUtil.toJson(null, "END"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Timekeeping> getAllTimekeeping() {

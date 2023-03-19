@@ -3,18 +3,42 @@ package com.mycompany.payment_system;
 import com.mycompany.cafe_management_app.model.Bill;
 import org.json.simple.JSONObject;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.net.Socket;
+import java.security.KeyStore;
 
 
 public class ClientHandler implements Runnable{
-    private Socket clientSocket;
+    private SSLSocket clientSocket;
+
+    private TrustManagerFactory tmf;
+    private KeyStore trustStore;
+    private char[] password = "password".toCharArray();
+    private FileInputStream fis;
+    private SSLContext sslContext;
+    private SSLSocketFactory ssf;
+
+
+
     private BufferedReader in;
     private BufferedWriter out;
 
-    public ClientHandler(Socket clientSocket) {
+    public ClientHandler(SSLSocket clientSocket) {
         try {
+//            tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+//            trustStore = KeyStore.getInstance("JKS");
+//            fis = new FileInputStream("server_truststore.jks");
+//            trustStore.load(fis, password);
+//            tmf.init(trustStore);
+//            sslContext = SSLContext.getInstance("TLS");
+//            sslContext.init(null, tmf.getTrustManagers(), null);
+//            ssf = sslContext.getSocketFactory();
+
             this.clientSocket = clientSocket;
             this.out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
