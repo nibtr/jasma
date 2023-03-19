@@ -2,21 +2,57 @@ package com.mycompany.cafe_management_app.util;
 
 import com.mysql.cj.xdevapi.Client;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.TrustManagerFactory;
 import java.io.*;
 import java.net.Socket;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.util.concurrent.CompletableFuture;
 
 public class ClientUtil {
     public static ClientUtil instance;
-    private Socket socket;
+    private SSLSocket socket;
+
+    private TrustManagerFactory tmf;
+    private KeyStore ks;
+    private char[] password = "password".toCharArray();
+    private FileInputStream fis;
+    private SSLContext sslContext;
+
+
+
+
     private BufferedWriter out;
     private BufferedReader in;
 
     private ClientUtil() throws IOException {
-        this.socket = new Socket("localhost", 8080);
-        this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        System.out.println("Client: Connection established!");
+        try {
+            tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            ks = KeyStore.getInstance("JKS");
+            fis = new FileInputStream("src/main/java/com/mycompany/ssl/client_truststore.jks");
+            ks.load(fis, password);
+            tmf.init(ks);
+            sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, tmf.getTrustManagers(), null);
+            this.socket = (SSLSocket) sslContext.getSocketFactory().createSocket("localhost", 8080);
+            this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            System.out.println("Client: Connection established!");
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (KeyStoreException e) {
+            throw new RuntimeException(e);
+        } catch (CertificateException e) {
+            throw new RuntimeException(e);
+        } catch (KeyManagementException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static ClientUtil getInstance() throws IOException {
