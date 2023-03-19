@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
 import java.lang.Integer;
+import java.util.concurrent.TimeUnit;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -311,8 +312,9 @@ public class DashboardStaffController {
 
                 NewOrderForm.setStateProcessing("Processing . . .");
                 staffService.createBillAsync(bill, receivedAmount, paymentValue)
+                        .completeOnTimeout("TIMEOUT", 20, TimeUnit.SECONDS)
                         .thenApply(res -> {
-                            System.out.println(res);
+                            System.out.println("Response: " + res);
 
                             if (res.equals("SUCCESS")) {
                                 JOptionPane.showMessageDialog(NewOrderForm, " ADD ORDER SUCCESSFUL!");
@@ -324,6 +326,9 @@ public class DashboardStaffController {
                                 // Close form
                                 NewOrderForm.setVisible(false);
                                 wrapChooseDish.removeAll();
+                            } else if (res.equals("TIMEOUT")) {
+                                System.out.println("TRANSACTION TIMEOUT!");
+                                JOptionPane.showMessageDialog(NewOrderForm, " SERVER NOT RESPONDING, PLEASE RESTART THE APPLICATION");
                             } else {
                                 System.out.println("TRANSACTION FAILED!");
                                 JOptionPane.showMessageDialog(NewOrderForm, " TRANSACTION FAILED!");
@@ -349,6 +354,7 @@ public class DashboardStaffController {
                             dashboardStaffUI.revalidate();
                             System.out.println("TRANSACTION PROCESS COMPLETED");
                         });
+
             }
 
         });
