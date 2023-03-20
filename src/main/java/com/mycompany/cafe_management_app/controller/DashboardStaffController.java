@@ -83,7 +83,12 @@ public class DashboardStaffController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formatDateTime = currentTime.format(formatter);
         JOptionPane.showMessageDialog(dashboardStaffUI, "     CHECK OUT SUCCESSFUL!\n" + "        " + formatDateTime);
-        System.exit(0);
+
+        dashboardStaffUI.setVisible(false);
+
+        // GỌi lại loginUI
+        LoginController loginController = new LoginController();
+        loginController.getLoginUI().setVisible(true);
     }
 
     private class CheckInOutButtonListener implements ActionListener {
@@ -242,7 +247,7 @@ public class DashboardStaffController {
         wrapListBill = dashboardStaffUI.getContainerListBill();
         renderListOrder();
 
-//        add window listener
+        // add window listener
         dashboardStaffUI.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
