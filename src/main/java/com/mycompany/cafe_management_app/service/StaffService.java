@@ -118,11 +118,11 @@ public class StaffService {
         upsertRevenueOutcome(t);
 
         // Close connection with payment server
-        try {
-            ClosePaymentConnection.closeConnectionWithPaymentServer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            ClosePaymentConnection.closeConnectionWithPaymentServer();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public List<Timekeeping> getAllTimekeeping() {
