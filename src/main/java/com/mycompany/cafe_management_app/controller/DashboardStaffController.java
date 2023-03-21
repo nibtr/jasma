@@ -16,8 +16,7 @@ import com.mycompany.cafe_management_app.model.DishDetail;
 
 import com.mycompany.cafe_management_app.service.StaffService;
 import com.mycompany.cafe_management_app.ui.InitErrorUI;
-import com.mycompany.cafe_management_app.ui.LoginUI;
-import com.mycompany.payment_system.ClosePaymentConnection;
+import com.mycompany.cafe_management_app.util.ClosePaymentConnection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -249,7 +248,7 @@ public class DashboardStaffController {
                 dashboardStaffUI.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 int confirmed = JOptionPane.showConfirmDialog(
                         null,
-                        "Are you sure you want to exit?",
+                        "Are you sure you want to exit? (Remember to check out before exit)",
                         "Confirm Exit",
                         JOptionPane.YES_NO_OPTION);
                 if (confirmed == JOptionPane.YES_OPTION) {

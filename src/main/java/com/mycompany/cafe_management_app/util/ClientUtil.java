@@ -27,6 +27,8 @@ public class ClientUtil {
 
     private final BufferedWriter out;
     private final BufferedReader in;
+    private final String HOST = "127.0.0.1";
+    private final int PORT = 8080;
 
     private ClientUtil() throws IOException {
         try {
@@ -37,7 +39,8 @@ public class ClientUtil {
             tmf.init(ks);
             sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, tmf.getTrustManagers(), null);
-            this.socket = (SSLSocket) sslContext.getSocketFactory().createSocket("localhost", 8080);
+
+            this.socket = (SSLSocket) sslContext.getSocketFactory().createSocket(HOST, PORT);
             this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.println("Client: Connection established!");

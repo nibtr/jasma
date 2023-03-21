@@ -58,6 +58,7 @@ public class Dish {
     }
 
     public List<DishDetail> getDetails() {
+//        init details
         return details;
     }
 
@@ -66,7 +67,7 @@ public class Dish {
 //    }
 
     public void addDetail(DishDetail detail) {
-         details.add(detail);
+        details.add(detail);
         detail.setDish(this);
     }
 }

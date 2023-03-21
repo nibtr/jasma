@@ -12,6 +12,7 @@ import com.mycompany.cafe_management_app.util.JSONObjUtil;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Hieu
@@ -69,45 +70,21 @@ public class AdminService {
         dishDao.save(t);
     }
 
-//    This function doesn't work
+    private void typeOf(Long s) {
+        System.out.println("Is Long");
+    }
+
     public void updateDish(Dish t, List<DishDetail> newList) {
-        System.out.println("New list:");
-        for (DishDetail dt: newList) {
-            System.out.println(dt.getId() + " " + dt.getSize() + " " + dt.getPrice() + " " + dt.getDish().getId());
-        }
-
-//        Get the list from database
-        List<DishDetail> dbList = dishDetailDao.getByDishID(t.getId());
-
-//        Put the list from database into a map
-        HashMap<Long, DishDetail> currentMap = new HashMap<>();
-        for (DishDetail dt : dbList) {
-            currentMap.put(dt.getId(), dt);
-        }
-
-        for (DishDetail newDetail : newList) {
-            DishDetail currentDetail = currentMap.get(newDetail.getId());
-//            System.out.println("Updated:");
-
-            if (currentDetail != null) {
-                currentDetail.setPrice(newDetail.getPrice());
-                currentDetail.setSize(newDetail.getSize());
-                System.out.println(currentDetail.getId() + " " + currentDetail.getSize() + " " + currentDetail.getPrice() + " " + currentDetail.getDish().getId());
-
-                dishDetailDao.update(currentDetail);
-            }
-            else {
-                dishDetailDao.save(newDetail);
-            }
-        }
-
-//        for (DishDetail currentDetail : dbList) {
-//            if (!newList.contains(currentDetail)) {
-//                dishDetailDao.delete(currentDetail);
-//            }
-//        }
-
         dishDao.update(t);
+
+        for (DishDetail d : newList) {
+            if (d.getId() == null) {
+                d.setDish(t);
+                dishDetailDao.save(d);
+            } else {
+                dishDetailDao.update(d);
+            }
+        }
     }
 
     public void updateDish(Dish t) {

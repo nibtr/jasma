@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -23,14 +24,12 @@ public class BillDetail {
     @Column(name = "bill_detail_id")
     private Long id;
     
-    @ManyToOne   
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToOne
     @JoinColumn(name = "fk_bill_id")
     private Bill bill;
     
     @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JoinColumn(name = "fk_dish_detail_id")
+    @JoinColumn(name = "fk_dish_detail_id", nullable = true)
     private DishDetail dishDetail;
     
     @Column(name = "quantity", nullable = false)
@@ -47,6 +46,14 @@ public class BillDetail {
         this.dishDetail = d;
         this.quantity = quantity;
         this.price = d.getPrice() * quantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Bill getBill() {

@@ -35,11 +35,10 @@ import java.util.List;
 import java.util.function.Supplier;
 import javax.swing.*;
 
-import com.mycompany.payment_system.ClosePaymentConnection;
+import com.mycompany.cafe_management_app.util.ClosePaymentConnection;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -393,29 +392,30 @@ public class DashboardAdminController {
              if (validateDishForm(name , listSizePriceInput)) {
                  List<DishDetail> newListDetails = null;
                  List<DishDetail> currListDetails = null;
-                dish.setName(name);
+                 dish.setName(name);
                  if (type.equals("update")) {
                     newListDetails = new ArrayList<>();
-                    currListDetails = dish.getDetails();
+                    currListDetails = adminService.getDetailsOf(dish.getId());
                  }
                  int index = 0;
-                for(SizePriceInputItem item: listSizePriceInput) {
-                    String size = item.getSizeInput().getText();
-                    Double price = Double.parseDouble(item.getPriceInput().getText());
-                    DishDetail detail = new DishDetail(size, price);
-                    
-                    if (type.equals("update")) {
-                        if (index < currListDetails.size()) {
-                            detail.setId(currListDetails.get(index).getId());
-                        }
-                        detail.setDish(dish);
-                        newListDetails.add(detail);
-                    } else if (type.equals("add")) {
-                        dish.addDetail(detail);
-                    }
-                    
-                    index++;
+                 for(SizePriceInputItem item: listSizePriceInput) {
+                     String size = item.getSizeInput().getText();
+                     Double price = Double.parseDouble(item.getPriceInput().getText());
+                     DishDetail detail = new DishDetail(size, price);
+
+                     if (type.equals("update")) {
+                         if (index < currListDetails.size()) {
+                             detail.setId(currListDetails.get(index).getId());
+                         }
+                         detail.setDish(dish);
+                         newListDetails.add(detail);
+                     } else if (type.equals("add")) {
+                         dish.addDetail(detail);
+                     }
+
+                     index++;
                 }
+
                 
                 if (type.equals("add")) {
                     adminService.saveDish(dish);

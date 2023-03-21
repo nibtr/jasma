@@ -6,11 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="b069f303-40ab-47c5-9b1b-172320d5fd20" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/config/HibernateConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/config/HibernateConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardAdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardStaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/DashboardStaffController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/Bill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/BillDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/BillDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/Dish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/DishDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/model/DishDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/StaffService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/service/StaffService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/ClientUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/ClientUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/payment_system/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/payment_system/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/payment_system/ClosePaymentConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/cafe_management_app/util/ClosePaymentConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/payment_system/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/payment_system/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +83,7 @@
       <module name="cafe_management_app" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.mycompany.cafe_management_app.*" />
+          <option name="PATTERN" value="com.mycompany.cafe_management_app.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -86,7 +96,7 @@
       <module name="cafe_management_app" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.mycompany.payment_system.*" />
+          <option name="PATTERN" value="com.mycompany.cafe_management_app.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
