@@ -61,6 +61,9 @@ public class DashboardAdminController {
     private ErrorUtil errorUtil;
     private JPanel chartContainer;
     private DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private JTextField searchStaffFieldl;
+    private JTextField searchMenuFieldl;
+
     
     public DashboardAdminController() {
         initController();
@@ -76,22 +79,27 @@ public class DashboardAdminController {
 
         //show list staff 
         wrapListStaff = dashboardAdminUI.getContainerListStaff();
-        renderListStaff();
         // click new staff btn
         addStaffBtn = dashboardAdminUI.getAddStaffBtn();
         addStaffBtn.addActionListener(new addStaffEvent());
         
+        //search staff
+        searchStaffFieldl = dashboardAdminUI.getSearchStaffField();
+        searchStaffFieldl.addKeyListener(new ClickToSearchStaff());
+        
         // Menu -----------------------------------------------------------
         wrapListDish = dashboardAdminUI.getListDishContainer();
-        renderListMenu();
         addDishBtn = dashboardAdminUI.getAddDishBtn();
-        addDishBtn.addActionListener(new addDishListener());   
+        addDishBtn.addActionListener(new addDishListener());  
+        searchMenuFieldl = dashboardAdminUI.getSearchMenuField();
+        searchMenuFieldl.addKeyListener(new ClickToSearchMenu());
         
         //Bill -----------------------------------------------------------
         wrapListBill = dashboardAdminUI.getBillContainer();
         renderListBill();
-        dashboardAdminUI.setVisible(true);
         re_renderListUI();
+        dashboardAdminUI.setVisible(true);
+        
         
         //Chart ----------------------------------------------------------
         dashboardAdminUI.getNavItemChart().addActionListener(new ShowChart());
@@ -140,8 +148,7 @@ public class DashboardAdminController {
     }
 
 //    Staff method ----------------------------------------------------------------------------------------------------------
-    private void renderListStaff() {
-        List<Staff> listStaff = adminService.getAllStaff();
+    private void renderListStaff(List<Staff> listStaff) {
         int statusCode = errorUtil.getErrorCode();
         if (statusCode == 0) {
             for (int i = 0; i < listStaff.size(); i++) {
@@ -161,8 +168,8 @@ public class DashboardAdminController {
     private void re_renderListUI() {
             wrapListStaff.removeAll();
             wrapListDish.removeAll();
-            renderListStaff();
-            renderListMenu();
+            renderListStaff(adminService.getAllStaff());
+            renderListMenu(adminService.getAllDish());
             dashboardAdminUI.revalidate();
     }
   
@@ -277,7 +284,8 @@ public class DashboardAdminController {
                     } else {
                         new NotificationController("Delete staff failed !");
                     }
-                    re_renderListUI();
+                    dashboardAdminUI.dispose();
+                    dashboardAdminUI.setVisible(true);
                     return null;
                 }
             });
@@ -293,11 +301,37 @@ public class DashboardAdminController {
             form.getSaveButton().addActionListener(new saveStaff(form));
         }
     }
+    
+    private class ClickToSearchStaff implements KeyListener {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            String nameStaff = searchStaffFieldl.getText();
+            wrapListStaff.removeAll();
+            if (nameStaff.equals("")) {
+                renderListStaff(adminService.getAllStaff()); 
+            } else {
+                renderListStaff(adminService.searchStaffByName(nameStaff));
+            }
+            dashboardAdminUI.dispose();
+            dashboardAdminUI.setVisible(true);
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+        
+    }
    
     
     //    Menu method ----------------------------------------------------------------------------------------------------------
-    private void renderListMenu() {
-        List<Dish> listDish = adminService.getAllDish();
+    private void renderListMenu(List<Dish> listDish) {
         if (errorUtil.getErrorCode() == 0) {
             for (Dish dish : listDish) {
                 wrapListDish.add(new MenuItem(dish, new DetailsDishFunction(), new EditDishFunction(), new DeleteDishFunction(), Boolean.FALSE));
@@ -331,7 +365,8 @@ public class DashboardAdminController {
                     } else {
                         new NotificationController("Delete dish failed !");
                     }
-                    re_renderListUI();
+                    dashboardAdminUI.dispose();
+                    dashboardAdminUI.setVisible(true);
                     return null;
                 }
            });
@@ -438,6 +473,33 @@ public class DashboardAdminController {
              } else {
                  dishForm.dispose();
              }
+        }
+       
+   }
+   
+   private class ClickToSearchMenu implements KeyListener {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                wrapListDish.removeAll();
+                String dishName = searchMenuFieldl.getText();
+                if (dishName.equals("")) {
+                    renderListMenu(adminService.getAllDish());
+                } else {
+                    renderListMenu(adminService.searchDishByName(dishName));
+                }
+                dashboardAdminUI.dispose();
+                dashboardAdminUI.setVisible(true);
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
         }
        
    }
