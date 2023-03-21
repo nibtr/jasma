@@ -4,13 +4,15 @@
  */
 package com.mycompany.cafe_management_app.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +46,9 @@ public class Bill {
     @Column(name = "card_number")
     private String cardNumber;
     
-    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "bill", orphanRemoval = true)
+    @Cascade(CascadeType.SAVE_UPDATE)
     private List<BillDetail> billDetails = new ArrayList<>();
-    
   
     public Bill() {
 //        required by Hibernate

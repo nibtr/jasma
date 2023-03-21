@@ -3,7 +3,7 @@ package com.mycompany.cafe_management_app.controller;
 import com.mycompany.cafe_management_app.service.LoginService;
 import com.mycompany.cafe_management_app.ui.InitErrorUI;
 import com.mycompany.cafe_management_app.ui.LoginUI;
-import com.mycompany.payment_system.ClosePaymentConnection;
+import com.mycompany.cafe_management_app.util.ClosePaymentConnection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

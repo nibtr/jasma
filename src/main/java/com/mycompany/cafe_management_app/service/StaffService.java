@@ -5,7 +5,6 @@
 package com.mycompany.cafe_management_app.service;
 
 
-import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.dao.BillDao;
 import com.mycompany.cafe_management_app.dao.BillDetailDao;
 import com.mycompany.cafe_management_app.dao.DishDao;
@@ -22,42 +21,19 @@ import com.mycompany.cafe_management_app.model.Revenue;
 import com.mycompany.cafe_management_app.model.Salary;
 import com.mycompany.cafe_management_app.model.Staff;
 import com.mycompany.cafe_management_app.model.Timekeeping;
-import com.mycompany.cafe_management_app.dao.*;
-import com.mycompany.cafe_management_app.model.*;
 import com.mycompany.cafe_management_app.util.ClientUtil;
 import com.mycompany.cafe_management_app.util.JSONObjUtil;
 import com.mycompany.cafe_management_app.util.UserSession;
-import com.mycompany.payment_system.ClosePaymentConnection;
-import com.mysql.cj.xdevapi.SessionFactory;
-
-import jakarta.transaction.HeuristicMixedException;
-import jakarta.transaction.HeuristicRollbackException;
-import jakarta.transaction.RollbackException;
-import jakarta.transaction.SystemException;
-import jakarta.transaction.Transaction;
+import com.mycompany.cafe_management_app.util.ClosePaymentConnection;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.concurrent.TimeUnit;
 
 /**
  *

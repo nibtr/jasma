@@ -4,10 +4,12 @@ package com.mycompany.payment_system;
 import javax.net.ssl.*;
 import java.io.*;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.*;
 import java.security.cert.CertificateException;
+import java.util.Enumeration;
 
 public class Server {
 //    private ServerSocket serverSocket;
@@ -23,7 +25,7 @@ public class Server {
     private SSLServerSocketFactory ssf;
     private SSLServerSocket serverSocket;
 
-    public Server() throws
+    public Server(InetAddress ip, int port ) throws
             KeyStoreException,
             IOException,
             NoSuchAlgorithmException,
@@ -51,15 +53,19 @@ public class Server {
 
         // Create SSL server socket
         ssf = sslContext.getServerSocketFactory();
-        this.serverSocket = (SSLServerSocket) ssf.createServerSocket(8080);
+        this.serverSocket = (SSLServerSocket) ssf.createServerSocket(port, 50, ip);
+//        this.serverSocket.setNeedClientAuth(true);
     }
 
+
     public void start() {
-        System.out.println("Server is running on port " + serverSocket.getLocalPort() + "...");
+        System.out.println("Server is running on " + serverSocket.getInetAddress() +
+                " at port " +
+                serverSocket.getLocalPort() + "...");
         while (!serverSocket.isClosed()) {
             try {
                 SSLSocket clientSocket = (SSLSocket) serverSocket.accept(); //block
-                System.out.println("Server: Client " + clientSocket.getInetAddress() + " has connected");
+                System.out.println("Server: A new client " + clientSocket.getInetAddress() + " has connected");
 
 //                Give the client socket to a new thread
                 ClientHandler clientHandler = new ClientHandler(clientSocket);
@@ -82,8 +88,23 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         try {
+//            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+//            while (interfaces.hasMoreElements()) {
+//                NetworkInterface iface = interfaces.nextElement();
+//                Enumeration<InetAddress> addresses = iface.getInetAddresses();
+//                while (addresses.hasMoreElements()) {
+//                    InetAddress addr = addresses.nextElement();
+//                    if (!addr.isLinkLocalAddress() && !addr.isLoopbackAddress() && addr.getHostAddress().contains(".")) {
+//                        InetAddress ip = InetAddress.getByName(addr.getHostAddress());
+//                        int port = 8080;
+//                        Server server = new Server(ip, port);
+//                        server.start();
+//                    }
+//                }
+//            }
             InetAddress ip = InetAddress.getByName("127.0.0.1");
-            Server server = new Server();
+            int port = 8080;
+            Server server = new Server(ip, port);
             server.start();
 
         } catch (Exception e) {

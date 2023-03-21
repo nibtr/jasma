@@ -6,10 +6,9 @@ package com.mycompany.cafe_management_app;
 
 import com.mycompany.cafe_management_app.config.HibernateConfig;
 import com.mycompany.cafe_management_app.dao.BillDetailDao;
-import com.mycompany.cafe_management_app.model.Account;
-import com.mycompany.cafe_management_app.model.BillDetail;
-import com.mycompany.cafe_management_app.model.Dish;
-import com.mycompany.cafe_management_app.model.Staff;
+import com.mycompany.cafe_management_app.dao.DishDao;
+import com.mycompany.cafe_management_app.dao.DishDetailDao;
+import com.mycompany.cafe_management_app.model.*;
 import com.mycompany.cafe_management_app.controller.LoginController;
 import com.mycompany.cafe_management_app.dao.StaffDao;
 import com.mycompany.cafe_management_app.service.AdminService;
@@ -26,6 +25,7 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,8 +53,7 @@ public class Main {
                 ClientUtil.getInstance();
 
                 initAdmin();
-                
-             
+
                 LoginController loginController = new LoginController();
                 loginController.getLoginUI().setVisible(true);
 

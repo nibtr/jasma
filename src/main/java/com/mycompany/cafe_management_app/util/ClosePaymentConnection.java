@@ -1,6 +1,6 @@
-package com.mycompany.payment_system;
+package com.mycompany.cafe_management_app.util;
 
-import com.mycompany.cafe_management_app.util.ClientUtil;
+import com.mycompany.payment_system.JSONObjUtil;
 
 import java.io.IOException;
 

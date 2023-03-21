@@ -16,27 +16,11 @@ import java.security.KeyStore;
 public class ClientHandler implements Runnable{
     private SSLSocket clientSocket;
 
-    private TrustManagerFactory tmf;
-    private KeyStore trustStore;
-    private char[] password = "password".toCharArray();
-    private FileInputStream fis;
-    private SSLContext sslContext;
-    private SSLSocketFactory ssf;
-
     private BufferedReader in;
     private BufferedWriter out;
 
     public ClientHandler(SSLSocket clientSocket) {
         try {
-//            tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-//            trustStore = KeyStore.getInstance("JKS");
-//            fis = new FileInputStream("server_truststore.jks");
-//            trustStore.load(fis, password);
-//            tmf.init(trustStore);
-//            sslContext = SSLContext.getInstance("TLS");
-//            sslContext.init(null, tmf.getTrustManagers(), null);
-//            ssf = sslContext.getSocketFactory();
-
             this.clientSocket = clientSocket;
             this.out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -53,7 +37,7 @@ public class ClientHandler implements Runnable{
                 if (request == null) {
                     continue;
                 }
-                System.out.println("Server: Request received: " + request);
+//                System.out.println("Server: Request received: " + request);
                 handleRequest(request);
 
             } catch (IOException e) {
@@ -82,7 +66,7 @@ public class ClientHandler implements Runnable{
     private void handleRequest(String request) throws IOException {
         try {
             String cmd = (request == null ) ? "UNKNOWN" : JSONObjUtil.getHeader(request);
-            System.out.println("Server: Command received: " + cmd);
+//            System.out.println("Server: Command received: " + cmd + " from " + clientSocket.getInetAddress());
 
             switch (cmd) {
                 case "END":
@@ -91,7 +75,7 @@ public class ClientHandler implements Runnable{
                     break;
 
                 case "TRANSACTION":
-                    System.out.println("Server: Transaction request received");
+                    System.out.println("Server: Transaction request received from " + clientSocket.getInetAddress());
 
 //                delay for 3s
                     try {
@@ -101,16 +85,15 @@ public class ClientHandler implements Runnable{
                     }
 
                     String res = handleTransaction(JSONObjUtil.getBody(request)) ? "SUCCESS" : "FAILED";
-
                     out.write(JSONObjUtil.toJson(res, "RESPONSE"));
                     out.newLine();
                     out.flush();
 
-                    System.out.println("Server: Transaction response sent");
+                    System.out.println("Server: Transaction response sent to " + clientSocket.getInetAddress());
                     break;
 
                 default:
-                    System.out.println("Server: Unknown command!");
+                    System.out.println("Server: Unknown command from " + clientSocket.getInetAddress());
                     break;
             }
         } catch (Exception e) {
@@ -124,11 +107,7 @@ public class ClientHandler implements Runnable{
         String cardNumber = bill.get("card_number").toString();
         Double billTotalPrice = Double.parseDouble(bill.get("total").toString());
 
-        if (
-                cardNumber.length() != 16 ||
-//                cardNumber.matches("[0-9]+") ||
-                cardNumber.charAt(0) == '0'
-        ) {
+        if (!cardNumber.matches("^[1-9]\\d{15}$")) {
             return false;
         }
 
