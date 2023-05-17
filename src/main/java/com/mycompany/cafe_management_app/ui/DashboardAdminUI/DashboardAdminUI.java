@@ -559,9 +559,10 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         panelChart.setBackground(new java.awt.Color(255, 255, 255));
         panelChart.setLayout(null);
 
+        chartContainer.setPreferredSize(new java.awt.Dimension(820, 600));
         chartContainer.setLayout(new javax.swing.BoxLayout(chartContainer, javax.swing.BoxLayout.PAGE_AXIS));
         panelChart.add(chartContainer);
-        chartContainer.setBounds(0, 0, 0, 0);
+        chartContainer.setBounds(0, 0, 820, 600);
 
         cardLayout.add(panelChart, "cardChart");
 

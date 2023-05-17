@@ -102,8 +102,9 @@ public class DashboardAdminController {
         
         
         //Chart ----------------------------------------------------------
-        dashboardAdminUI.getNavItemChart().addActionListener(new ShowChart());
         chartContainer = dashboardAdminUI.getChartContainer();
+        chartContainer.setBackground(Color.red);
+        dashboardAdminUI.getNavItemChart().addActionListener(new ShowChart());
     }
 
 //    Add window listener
@@ -284,6 +285,7 @@ public class DashboardAdminController {
                     } else {
                         new NotificationController("Delete staff failed !");
                     }
+                    re_renderListUI();
                     dashboardAdminUI.dispose();
                     dashboardAdminUI.setVisible(true);
                     return null;
@@ -365,6 +367,7 @@ public class DashboardAdminController {
                     } else {
                         new NotificationController("Delete dish failed !");
                     }
+                    re_renderListUI();
                     dashboardAdminUI.dispose();
                     dashboardAdminUI.setVisible(true);
                     return null;
