@@ -157,7 +157,7 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         navItemCheckIn.setBackground(new java.awt.Color(51, 51, 51));
         navItemCheckIn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         navItemCheckIn.setForeground(new java.awt.Color(255, 255, 255));
-        navItemCheckIn.setText("Check In");
+        navItemCheckIn.setText("Check In / Out");
         navItemCheckIn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         navItemCheckIn.setBorderPainted(false);
         navItemCheckIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -347,11 +347,11 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         bgPage1.add(checkInOutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 160, 50));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 0));
         jLabel4.setText(" Time Keeping");
         bgPage1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 340, 80));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\checkInOutBG.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\CheckInOut.png")); // NOI18N
         jLabel5.setText("jLabel5");
         bgPage1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
