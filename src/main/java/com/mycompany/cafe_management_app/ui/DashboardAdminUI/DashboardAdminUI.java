@@ -76,6 +76,10 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         return searchMenuField;
     }
     
+    public JButton getLogOutBtn() {
+        return logOutBtn;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,6 +98,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         navItemMenu = new javax.swing.JButton();
         navItemBill = new javax.swing.JButton();
         navItemChart = new javax.swing.JButton();
+        logOutBtn = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
         panelStaff = new javax.swing.JPanel();
         bgStaffPage = new com.mycompany.cafe_management_app.ui.DashboardAdminUI.BgPage();
@@ -235,6 +240,22 @@ public class DashboardAdminUI extends javax.swing.JFrame {
             }
         });
         jPanel2.add(navItemChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 210, 190, -1));
+
+        logOutBtn.setBackground(new java.awt.Color(51, 51, 51));
+        logOutBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        logOutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        logOutBtn.setText("Log Out");
+        logOutBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        logOutBtn.setBorderPainted(false);
+        logOutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logOutBtn.setFocusPainted(false);
+        logOutBtn.setPreferredSize(new java.awt.Dimension(49, 35));
+        logOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutBtnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(logOutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 140, -1));
 
         jPanel1.add(jPanel2);
 
@@ -559,7 +580,6 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         panelChart.setBackground(new java.awt.Color(255, 255, 255));
         panelChart.setLayout(null);
 
-        chartContainer.setPreferredSize(new java.awt.Dimension(820, 600));
         chartContainer.setLayout(new javax.swing.BoxLayout(chartContainer, javax.swing.BoxLayout.PAGE_AXIS));
         panelChart.add(chartContainer);
         chartContainer.setBounds(0, 0, 820, 600);
@@ -639,6 +659,10 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         searchMenuField.setText("");
         searchMenuField.setForeground(new Color(51,51,51));
     }//GEN-LAST:event_searchMenuFieldMouseClicked
+
+    private void logOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logOutBtnActionPerformed
     
 
     /**
@@ -708,6 +732,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton logOutBtn;
     private javax.swing.JButton navItemBill;
     private javax.swing.JButton navItemChart;
     private javax.swing.JButton navItemMenu;

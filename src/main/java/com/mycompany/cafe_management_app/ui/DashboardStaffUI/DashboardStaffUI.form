@@ -173,7 +173,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="-10" y="110" width="190" height="-1"/>
+                  <AbsoluteConstraints x="-10" y="100" width="190" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -555,9 +555,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel5">
                       <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="2" name="C:\Users\Administrator\Desktop\CafeManagementApp\src\main\java\com\mycompany\cafe_management_app\asset\image\checkInOutBG.png"/>
-                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel5"/>
                       </Properties>
                       <Constraints>
