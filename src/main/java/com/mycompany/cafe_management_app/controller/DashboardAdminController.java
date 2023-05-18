@@ -105,6 +105,16 @@ public class DashboardAdminController {
         chartContainer = dashboardAdminUI.getChartContainer();
         chartContainer.setBackground(Color.red);
         dashboardAdminUI.getNavItemChart().addActionListener(new ShowChart());
+        
+        //Log Out--------------------------------------------------------
+        dashboardAdminUI.getLogOutBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dashboardAdminUI.dispose();
+                LoginController loginController = new LoginController();
+                loginController.getLoginUI().setVisible(true);
+            }
+        });
     }
 
 //    Add window listener
