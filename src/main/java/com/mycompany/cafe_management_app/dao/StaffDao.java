@@ -66,6 +66,9 @@ public class StaffDao implements DaoInterface<Staff>{
             CriteriaQuery<Staff> criteria = builder.createQuery(Staff.class);
             criteria.select(criteria.from(Staff.class));
             staffs = session.createQuery(criteria).getResultList();
+            for (Staff staff : staffs) {
+                staff.getSalaries().size();
+            }
             tx.commit();
             
             ErrorUtil.getInstance().setErrorCode(0);

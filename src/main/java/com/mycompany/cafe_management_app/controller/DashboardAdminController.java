@@ -25,6 +25,12 @@ import com.mycompany.cafe_management_app.ui.DashboardAdminUI.StaffItem;
 import com.mycompany.cafe_management_app.ui.MenuItem;
 import com.mycompany.cafe_management_app.ui.DetailsDish;
 import com.mycompany.cafe_management_app.util.ErrorUtil;
+import com.mycompany.cafe_management_app.util.StaffUtil;
+import com.mycompany.cafe_management_app.util.callback.DeleteDishInterface;
+import com.mycompany.cafe_management_app.util.callback.DeleteStaffInterface;
+import com.mycompany.cafe_management_app.util.callback.DetailDishInterface;
+import com.mycompany.cafe_management_app.util.callback.EditDishInterface;
+import com.mycompany.cafe_management_app.util.callback.EditStaffInterface;
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.IOException;
@@ -55,21 +61,23 @@ public class DashboardAdminController {
     private JPanel wrapListStaff;    
     private JPanel wrapListDish;
     private JPanel wrapListBill;
-    private DishForm dishForm;
-    private JTextField dishNameInputField;
-    private List<SizePriceInputItem> listSizePriceInput;
     private ErrorUtil errorUtil;
     private JPanel chartContainer;
     private DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+<<<<<<< Updated upstream
     private JTextField searchStaffFieldl;
     private JTextField searchMenuFieldl;
 
+=======
+    private StaffUtil staffUtil;
+>>>>>>> Stashed changes
     
     public DashboardAdminController() {
         initController();
     }
     
     private void initController() {
+        staffUtil = new StaffUtil();
         dashboardAdminUI = new DashboardAdminUI();
         dashboardAdminUI.addWindowListener(new CloseConnection());
         adminService = new AdminService();
@@ -82,6 +90,7 @@ public class DashboardAdminController {
         // click new staff btn
         addStaffBtn = dashboardAdminUI.getAddStaffBtn();
         addStaffBtn.addActionListener(new addStaffEvent());
+        dashboardAdminUI.getSearchBtn().addActionListener(new SearchStaffAction());
         
         //search staff
         searchStaffFieldl = dashboardAdminUI.getSearchStaffField();
@@ -167,7 +176,7 @@ public class DashboardAdminController {
                 String name = tmpStaff.getName();
                 String dob = tmpStaff.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd.MM yyyy"));
                 String phone = tmpStaff.getPhoneNumber();
-                String pos = tmpStaff.getPosition();
+                String pos = tmpStaff.getSalaryOfCurrentMonth().toString() + " VND";
                 EditEvent editEvent = new EditEvent(new EditFunction());
                 DeleteEvent deleteEvent = new DeleteEvent(new DeleteFunc());
                 StaffItem tmp = new StaffItem(tmpStaff, name, dob, phone, pos, editEvent, deleteEvent);
@@ -183,40 +192,6 @@ public class DashboardAdminController {
             renderListMenu(adminService.getAllDish());
             dashboardAdminUI.revalidate();
     }
-  
-    private boolean validation(String username,String pass, String name, String phone,
-         String pos, String day, String month, String year) {
-
-     if (username.equals("")| pass.equals("")| name.equals("")
-         | phone.equals("")| pos.equals("")| day.equals("")
-             | month.equals("")| year.equals("")) {
-             new NotificationController("Fill in all fields, plssss !");
-             return false;
-         }
-     try {
-         int tmp_day = Integer.parseInt(day);
-          int tmp_month = Integer.parseInt(month);
-         int tmp_year = Integer.parseInt(year);
-
-         if (tmp_day < 0 | tmp_day > 31) {
-              new NotificationController("Day is invalid !");
-              return false;
-         }
-         if (tmp_month < 0 | tmp_month > 12) {
-             new NotificationController("Month is invalid !");
-             return false;
-         }
-           if (tmp_year < 0) {
-             new NotificationController("Year is invalid !");
-             return false;
-         }
-     } catch (Exception e) {
-         new NotificationController("Input is invalid !");
-          e.printStackTrace();
-          return false;
-     }
-     return true;
- }
 
     void addStaff(NewStaffForm form) {
         String username =  form.getUserNameField().getText();
@@ -227,7 +202,7 @@ public class DashboardAdminController {
         String day =  form.getDayField().getText();
         String month =  form.getMonthField().getText();
         String year =  form.getYearField().getText();
-            if (validation(username, pass, name, phone, pos, day, month, year)) {
+            if (staffUtil.validation(username, pass, name, phone, pos, day, month, year)) {
                 LocalDate dob = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month ), Integer.parseInt(day));
                 Staff staff = new Staff( name, dob, phone, pos);
                 staff.setAccount(new Account(username, pass, "staff"));
@@ -240,29 +215,7 @@ public class DashboardAdminController {
                 form.dispose();
             } 
      }
-        
-    void updateStaff(NewStaffForm form, Staff editedStaff) {
-        String username =  form.getUserNameField().getText();
-        String pass =  form.getPasswordField().getText();
-        String name =  form.getNameField().getText();
-        String phone =  form.getPhoneField().getText();
-        String pos =  form.getPosField().getText();
-        String day =  form.getDayField().getText();
-        String month =  form.getMonthField().getText();
-        String year =  form.getYearField().getText();
-            if (validation(username, pass, name, phone, pos, day, month, year)) {
-                LocalDate dob = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month ), Integer.parseInt(day));
-                editedStaff.setAll(name, dob, phone, pos);
-                adminService.updateStaff(editedStaff);
-                if (errorUtil.getErrorCode() == 0) {
-                    new NotificationController("Update staff successfully !");
-                } else {
-                    new NotificationController("Update staff failed !");
-                }
-                
-                form.dispose();
-            } 
-        }
+       
         
     private class saveStaff implements ActionListener {
         private NewStaffForm form;
@@ -277,14 +230,16 @@ public class DashboardAdminController {
         
     }
     
-    public class EditFunction {
+    public class EditFunction implements EditStaffInterface{
+        @Override
         public void execute(NewStaffForm form, Staff editedStaff) {
-            updateStaff(form, editedStaff);
+            staffUtil.updateStaff(form, editedStaff, adminService, errorUtil);
             re_renderListUI();
         }
     }
     
-    public class DeleteFunc {
+    public class DeleteFunc implements DeleteStaffInterface {
+        @Override
         public void execute(Staff staff) {
             ConfirmBeforeDelete res = new ConfirmBeforeDelete(new Supplier<Void>() {
                 @Override
@@ -341,6 +296,21 @@ public class DashboardAdminController {
         
     }
    
+    private class SearchStaffAction implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new SearchStaffController(adminService, errorUtil,new Supplier<Void>() {
+                @Override
+                public Void get() {
+                    re_renderListUI();
+                    return  null;
+                }
+            });
+            
+        }
+        
+    }
     
     //    Menu method ----------------------------------------------------------------------------------------------------------
     private void renderListMenu(List<Dish> listDish) {
@@ -351,7 +321,8 @@ public class DashboardAdminController {
         }
     }
     
-   public class DetailsDishFunction {
+   public class DetailsDishFunction implements DetailDishInterface {
+       @Override
        public void showDetails(Long id) {
            DetailsDish frame = new DetailsDish();
            JPanel container = frame.getContainer();
@@ -367,7 +338,7 @@ public class DashboardAdminController {
        }
    }
    
-   public class DeleteDishFunction {
+   public class DeleteDishFunction implements DeleteDishInterface {
        public void delete(Dish dish) {
            ConfirmBeforeDelete res = new ConfirmBeforeDelete(new Supplier<Void>() {
                public Void get() {
@@ -387,10 +358,10 @@ public class DashboardAdminController {
        }
    }
    
-    public class EditDishFunction {
+    public class EditDishFunction implements EditDishInterface {
        public void execute(Dish dish, Long id) {
-           dishForm = new DishForm(dish.getName(), adminService.getDetailsOf(id));
-           dishForm.getSaveBtn().addActionListener(new SaveDishForm("update", dish));
+           DishForm dishForm = new DishForm(dish.getName(), adminService.getDetailsOf(id));
+           dishForm.getSaveBtn().addActionListener(new SaveDishForm("update", dish, dishForm));
            dishForm.setVisible(true);
        }
    }
@@ -418,8 +389,8 @@ public class DashboardAdminController {
    private class addDishListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-             dishForm = new DishForm();
-             dishForm.getSaveBtn().addActionListener(new SaveDishForm("add", new Dish()));
+            DishForm dishForm = new DishForm();
+             dishForm.getSaveBtn().addActionListener(new SaveDishForm("add", new Dish(), dishForm));
              dishForm.setVisible(true);
         }
    }
@@ -427,15 +398,17 @@ public class DashboardAdminController {
    private class SaveDishForm implements ActionListener {
        private String type;
        private Dish dish;
-       public SaveDishForm(String type, Dish dish){
+       private DishForm dishForm;
+       public SaveDishForm(String type, Dish dish,  DishForm dishForm){
            this.type = type;
            this.dish = dish;
+           this.dishForm = dishForm;
        }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-             dishNameInputField = dishForm.getNameInput();
-             listSizePriceInput = dishForm.getListSizePriceInput();
+             JTextField dishNameInputField = dishForm.getNameInput();
+             List<SizePriceInputItem> listSizePriceInput = dishForm.getListSizePriceInput();
              String name = dishNameInputField.getText();
              if (validateDishForm(name , listSizePriceInput)) {
                  List<DishDetail> newListDetails = null;

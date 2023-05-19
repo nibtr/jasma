@@ -13,8 +13,8 @@ import com.mycompany.cafe_management_app.service.AdminService;
  * @author namho
  */
 public class DeleteEvent {
-    private DeleteFunc func;
-    public DeleteEvent(DeleteFunc func) {
+    private DeleteStaffInterface func;
+    public DeleteEvent(DeleteStaffInterface func) {
         this.func = func;
     }
     

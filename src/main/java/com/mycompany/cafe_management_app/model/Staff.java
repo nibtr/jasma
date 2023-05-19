@@ -160,4 +160,15 @@ public class Staff {
         this.salaries = salaries;
     }
     
+    public Double getSalaryOfCurrentMonth() {
+        List<Salary> filtered = salaries.stream()
+                .filter(salary ->salary.getTime() != null && salary.getTime().getMonth() == LocalDate.now().getMonth() && salary.getTime().getYear() == LocalDate.now().getYear())
+                .toList();
+        if(filtered.isEmpty()) return 0.0;
+        return filtered.get(0).getAmount();
+    }
+    
+    public List<Salary> getSalaries() {
+        return salaries;
+    }
 }

@@ -4,9 +4,13 @@
  */
 package com.mycompany.cafe_management_app.ui.DashboardAdminUI;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -25,7 +29,9 @@ public class NewStaffForm extends javax.swing.JFrame {
     public NewStaffForm(String name, String phone, String pos, String day, String month, String year) {
         initComponents();
         usernameInput.setText("can not change this field !");
+        usernameInput.setEnabled(false);
         passInput.setText("can not change this field !");
+        passInput.setEnabled(false);
         nameInput.setText(name);
         phoneInput.setText(phone);
         posInput.setText(pos);

@@ -7,6 +7,9 @@ import com.mycompany.cafe_management_app.controller.DashboardAdminController.Del
 import com.mycompany.cafe_management_app.controller.DashboardAdminController.DetailsDishFunction;
 import com.mycompany.cafe_management_app.controller.DashboardAdminController.EditDishFunction;
 import com.mycompany.cafe_management_app.model.Dish;
+import com.mycompany.cafe_management_app.util.callback.DeleteDishInterface;
+import com.mycompany.cafe_management_app.util.callback.DetailDishInterface;
+import com.mycompany.cafe_management_app.util.callback.EditDishInterface;
 import javax.swing.JButton;
 /**
  *
@@ -17,12 +20,12 @@ public class MenuItem extends javax.swing.JPanel {
     /**
      * Creates new form MenuItem
      */
-    private DetailsDishFunction detailsDishFunction;
-    private EditDishFunction editDishFunction;
-    private DeleteDishFunction deleteDishFunction;
+    private DetailDishInterface detailsDishFunction;
+    private EditDishInterface editDishFunction;
+    private DeleteDishInterface deleteDishFunction;
     private Dish dish;
-    public MenuItem(Dish dish, DetailsDishFunction detailsDishFunction ,
-            EditDishFunction editDishFunction , DeleteDishFunction deleteDishFunction,boolean viewOnly) {
+    public MenuItem(Dish dish, DetailDishInterface detailsDishFunction ,
+            EditDishInterface editDishFunction , DeleteDishInterface deleteDishFunction,boolean viewOnly) {
         initComponents();
         this.dish = dish;
         this.nameDish.setText(dish.getName());
