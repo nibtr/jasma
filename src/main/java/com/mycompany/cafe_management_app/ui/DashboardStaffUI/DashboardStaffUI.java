@@ -351,8 +351,10 @@ public class DashboardStaffUI extends javax.swing.JFrame {
         jLabel4.setText(" Time Keeping");
         bgPage1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 340, 80));
 
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\namho\\Documents\\GitHub\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\checkin.png")); // NOI18N
         jLabel5.setText("jLabel5");
-        bgPage1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        bgPage1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, -1));
 
         panelCheckIn.add(bgPage1);
         bgPage1.setBounds(0, 0, 820, 600);

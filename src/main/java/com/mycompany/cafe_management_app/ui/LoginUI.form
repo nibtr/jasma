@@ -75,7 +75,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Administrator\Desktop\CafeManagementApp\src\main\java\com\mycompany\cafe_management_app\asset\image\laca.jpg"/>
+              <Image iconType="2" name="C:\Users\namho\Documents\GitHub\CafeManagementApp\src\main\java\com\mycompany\cafe_management_app\asset\image\laca.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
@@ -128,7 +128,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                       <Component id="signinButton" min="-2" pref="34" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

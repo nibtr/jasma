@@ -68,6 +68,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         return chartContainer;
     }
     
+<<<<<<< Updated upstream
     public JTextField getSearchStaffField() {
         return searchStaffField;
     }
@@ -78,6 +79,14 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     
     public JButton getLogOutBtn() {
         return logOutBtn;
+=======
+    public JButton getSearchBtn() {
+        return searchBtn;
+    }
+    
+     public JButton getSearchMenuBtn() {
+        return searchMenuBtn;
+>>>>>>> Stashed changes
     }
     
     /**
@@ -108,7 +117,11 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         addStaff = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+<<<<<<< Updated upstream
         searchStaffField = new javax.swing.JTextField();
+=======
+        searchBtn = new javax.swing.JButton();
+>>>>>>> Stashed changes
         contentStaffPage = new javax.swing.JPanel();
         scrollPanelStaff = new javax.swing.JScrollPane();
         bgScrollPanelStaff = new javax.swing.JPanel();
@@ -118,7 +131,11 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         headerMenuPage = new javax.swing.JPanel();
         addDishBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+<<<<<<< Updated upstream
         searchMenuField = new javax.swing.JTextField();
+=======
+        searchMenuBtn = new javax.swing.JButton();
+>>>>>>> Stashed changes
         contentMenuPage = new javax.swing.JPanel();
         scrollPanelMenu = new javax.swing.JScrollPane();
         bgScrollPanelMenu = new javax.swing.JPanel();
@@ -184,6 +201,11 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         navItemStaff.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 navItemStaffMouseClicked(evt);
+            }
+        });
+        navItemStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navItemStaffActionPerformed(evt);
             }
         });
         jPanel2.add(navItemStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 190, -1));
@@ -271,7 +293,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         headerStaffPage.setBackground(new java.awt.Color(255, 255, 255));
         headerStaffPage.setMaximumSize(new java.awt.Dimension(820, 32));
         headerStaffPage.setMinimumSize(new java.awt.Dimension(820, 32));
-        headerStaffPage.setPreferredSize(new java.awt.Dimension(820, 32));
+        headerStaffPage.setPreferredSize(new java.awt.Dimension(820, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
@@ -296,7 +318,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("Position");
+        jLabel5.setText("Salary");
 
         searchStaffField.setBackground(new java.awt.Color(255, 255, 255));
         searchStaffField.setForeground(new java.awt.Color(153, 153, 153));
@@ -305,6 +327,17 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         searchStaffField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 searchStaffFieldMouseClicked(evt);
+            }
+        });
+
+        searchBtn.setBackground(new java.awt.Color(255, 255, 255));
+        searchBtn.setForeground(new java.awt.Color(51, 51, 51));
+        searchBtn.setText("search");
+        searchBtn.setToolTipText("");
+        searchBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
             }
         });
 
@@ -321,9 +354,15 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(searchStaffField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
+=======
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+>>>>>>> Stashed changes
                 .addComponent(addStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -334,7 +373,11 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                 .addGroup(headerStaffPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(headerStaffPageLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
+<<<<<<< Updated upstream
                         .addComponent(searchStaffField))
+=======
+                        .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> Stashed changes
                     .addGroup(headerStaffPageLayout.createSequentialGroup()
                         .addGroup(headerStaffPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -421,6 +464,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("Dish name");
 
+<<<<<<< Updated upstream
         searchMenuField.setBackground(new java.awt.Color(255, 255, 255));
         searchMenuField.setForeground(new java.awt.Color(153, 153, 153));
         searchMenuField.setText("search dish name");
@@ -430,6 +474,12 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                 searchMenuFieldMouseClicked(evt);
             }
         });
+=======
+        searchMenuBtn.setBackground(new java.awt.Color(255, 255, 255));
+        searchMenuBtn.setForeground(new java.awt.Color(51, 51, 51));
+        searchMenuBtn.setText("search");
+        searchMenuBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+>>>>>>> Stashed changes
 
         javax.swing.GroupLayout headerMenuPageLayout = new javax.swing.GroupLayout(headerMenuPage);
         headerMenuPage.setLayout(headerMenuPageLayout);
@@ -438,10 +488,17 @@ public class DashboardAdminUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerMenuPageLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 455, Short.MAX_VALUE)
                 .addComponent(searchMenuField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(addDishBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+=======
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 538, Short.MAX_VALUE)
+                .addComponent(searchMenuBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addDishBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> Stashed changes
                 .addGap(16, 16, 16))
         );
         headerMenuPageLayout.setVerticalGroup(
@@ -451,7 +508,11 @@ public class DashboardAdminUI extends javax.swing.JFrame {
                 .addGroup(headerMenuPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addDishBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+<<<<<<< Updated upstream
                     .addComponent(searchMenuField, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
+=======
+                    .addComponent(searchMenuBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
+>>>>>>> Stashed changes
                 .addContainerGap())
         );
 
@@ -582,7 +643,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
 
         chartContainer.setLayout(new javax.swing.BoxLayout(chartContainer, javax.swing.BoxLayout.PAGE_AXIS));
         panelChart.add(chartContainer);
-        chartContainer.setBounds(0, 0, 820, 600);
+        chartContainer.setBounds(0, 0, 0, 0);
 
         cardLayout.add(panelChart, "cardChart");
 
@@ -648,6 +709,7 @@ public class DashboardAdminUI extends javax.swing.JFrame {
         unselectBtn(navItemBill);
     }//GEN-LAST:event_navItemChartActionPerformed
 
+<<<<<<< Updated upstream
     private void searchStaffFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchStaffFieldMouseClicked
         // TODO add your handling code here:
         searchStaffField.setText("");
@@ -663,6 +725,16 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     private void logOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_logOutBtnActionPerformed
+
+    private void navItemStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navItemStaffActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_navItemStaffActionPerformed
+=======
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_searchBtnActionPerformed
+>>>>>>> Stashed changes
     
 
     /**
@@ -744,8 +816,13 @@ public class DashboardAdminUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPanelBill;
     private javax.swing.JScrollPane scrollPanelMenu;
     private javax.swing.JScrollPane scrollPanelStaff;
+<<<<<<< Updated upstream
     private javax.swing.JTextField searchMenuField;
     private javax.swing.JTextField searchStaffField;
+=======
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JButton searchMenuBtn;
+>>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 
 }

@@ -45,7 +45,7 @@ public class LoginUI extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(1000, 600));
         jPanel3.setVerifyInputWhenFocusTarget(false);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Desktop\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\laca.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\namho\\Documents\\GitHub\\CafeManagementApp\\src\\main\\java\\com\\mycompany\\cafe_management_app\\asset\\image\\laca.jpg")); // NOI18N
         jLabel1.setText("jLabel1");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -100,7 +100,7 @@ public class LoginUI extends javax.swing.JFrame {
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69)
                 .addComponent(signinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

@@ -20,11 +20,11 @@ import javax.swing.JFrame;
  */
 public class EditEvent {
     
-    private EditFunction func;
+    private EditStaffInterface func;
     private NewStaffForm form;
     private Staff editedStaff;
     
-   public EditEvent(EditFunction func) {
+   public EditEvent(EditStaffInterface func) {
        this.func = func;
    }
     

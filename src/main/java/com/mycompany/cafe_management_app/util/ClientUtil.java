@@ -39,8 +39,12 @@ public class ClientUtil {
             tmf.init(ks);
             sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, tmf.getTrustManagers(), null);
+<<<<<<< Updated upstream
 
             this.socket = (SSLSocket) sslContext.getSocketFactory().createSocket(HOST, PORT);
+=======
+            this.socket = (SSLSocket) sslContext.getSocketFactory().createSocket("192.168.1.4", 8080);
+>>>>>>> Stashed changes
             this.out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.println("Client: Connection established!");
