@@ -23,3 +23,11 @@ An Java application developed to help the cafe manager manage employees, product
 - Java Swing for UI
 - MySQL
 - HibernateORM
+
+## Contributions
+
+Special thanks to these amazing people for their contributions to the project:
+
+- [Nam Vu Hoai](https://github.com/namhoai1109)
+- [Trung Thieu Vinh](https://github.com/tvtrungg)
+- [Man Huynh Nguyen](https://github.com/nhman2002)
