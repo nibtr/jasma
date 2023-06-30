@@ -1,4 +1,4 @@
-# CafeManagementApp
+# cafe-management-app
 
 An Java application developed to help the cafe manager manage employees, products, orders and revenue more effectively. This project was done as the final project for the module CSC13102 - Java Programming at HCMUS.
 
